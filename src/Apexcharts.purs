@@ -13,6 +13,9 @@ foreign import data Chart :: Type
 chart :: Option Chartoptions String
 chart = opt "chart"
 
+test :: Option Chartoptions String
+test = opt "test"
+
 
 createChart :: String -> Options Chartoptions -> Chart
 createChart name opts = _createChart name (options opts)
