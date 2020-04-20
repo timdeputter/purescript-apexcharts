@@ -1,9 +1,17 @@
 module Test.Main where
 
 import Prelude
+
 import Effect (Effect)
-import Effect.Console (log)
+import Test.Spec (describe, it)
+import Test.Spec.Assertions (fail)
+import Test.Spec.Reporter (specReporter)
+import Test.Spec.Runner (run)
 
 main :: Effect Unit
-main = do
-  log "You should add some tests."
+main = run [specReporter] do
+  describe "Chartoptions" do
+    describe "chart" do
+      it "type" do
+        fail "lala"
+

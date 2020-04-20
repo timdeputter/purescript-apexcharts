@@ -23,10 +23,12 @@
     "purescript-stringutils": "^0.0.10",
     "purescript-uuid": "^5.0.0",
     "purescript-foreign": "^5.0.0",
+    "purescript-foreign-object": "^2.0.3",
     "purescript-web-uievents": "^1.1.0",
     "purescript-debug": "^4.0.0",
     "purescript-numbers": "^7.0.0",
-    "purescript-decimals": "^5.0.0"
+    "purescript-decimals": "^5.0.0",
+    "purescript-options": "^5.0.0"
   },
   "devDependencies": {
     "purescript-psci-support": "^4.0.0",
