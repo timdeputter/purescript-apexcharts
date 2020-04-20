@@ -1,0 +1,36 @@
+{
+  "name": "purescript-apexcharts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timdeputter/purescript-apexcharts.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^4.1.0",
+    "purescript-console": "^4.1.0",
+    "purescript-effect": "^2.0.0",
+    "purescript-aff": "^5.0.1",
+    "purescript-maybe": "^4.0.0",
+    "purescript-foldable-traversable": "^4.0.0",
+    "purescript-formatters": "^4.0.0",
+    "purescript-hedwig": "^0.1.1",
+    "purescript-stringutils": "^0.0.10",
+    "purescript-uuid": "^5.0.0",
+    "purescript-foreign": "^5.0.0",
+    "purescript-web-uievents": "^1.1.0",
+    "purescript-debug": "^4.0.0",
+    "purescript-numbers": "^7.0.0",
+    "purescript-decimals": "^5.0.0"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^4.0.0",
+    "purescript-spec": "^3.0.0",
+    "purescript-quickcheck": "^6.1.0"
+  }
+}

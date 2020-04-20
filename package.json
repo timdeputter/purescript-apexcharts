@@ -1,0 +1,27 @@
+{
+  "name": "purescript-apexcharts",
+  "version": "1.0.0",
+  "description": "Purescript bindings to apexcharts.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timdeputter/purescript-apexcharts.git"
+  },
+  "keywords": [
+    "apexcharts",
+    "charts",
+    "canvas"
+  ],
+  "author": "Tim de Putter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timdeputter/purescript-apexcharts/issues"
+  },
+  "homepage": "https://github.com/timdeputter/purescript-apexcharts#readme",
+  "dependencies": {
+    "apexcharts": "^3.18.1"
+  }
+}

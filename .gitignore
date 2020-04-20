@@ -1,0 +1,13 @@
+/bower_components/
+/node_modules/
+/.pulp-cache/
+/output/
+/generated-docs/
+/.psc-package/
+/.firebase/
+/.psc*
+/.purs*
+/.psa*
+/.vagrant/
+firebase-debug.log
+/build/
