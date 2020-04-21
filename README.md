@@ -5,7 +5,7 @@ Purescript bindings for apexcharts.js - "A modern JavaScript charting library to
 ## State
 
 Not all options have been wrapped til now (there are plenty of them). Basic charts do work.
-</br>
+</br></br>
 
 ## Download and Installation
 
