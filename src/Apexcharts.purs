@@ -10,6 +10,7 @@ import Foreign (Foreign)
 
 data Apexoptions
 data Chart
+data Axis
 data Animations
 data AnimateGradually
 data DynamicAnimation
@@ -21,12 +22,13 @@ data Toolbar
 data Selection
 data Fill
 data Stroke
-data Axis
+data SelectionAxis
 data Sparkline
 data ChartToolbar
 data Tools
 data Zoom
-
+data Series
+data Paired
 
 foreign import data Apexchart :: Type
 
@@ -74,6 +76,14 @@ orientationTypeToString = case _ of
     X -> "x"
     Y -> "y"
     XY -> "xy"
+
+data AxisType = Category | Datetime | Numeric
+
+axisTypeToString :: AxisType -> String
+axisTypeToString = case _ of
+    Category -> "category"
+    Datetime -> "datetime"
+    Numeric -> "numeric"
 
 data Easing = Linear
     | Easein
@@ -186,6 +196,8 @@ instance typeSelection :: Type Selection OrientationType  where
 instance typeZoom :: Type Zoom OrientationType where
     type' = cmap orientationTypeToString (opt "type")
 
+instance typeAxis :: Type Axis AxisType where
+    type' = cmap axisTypeToString (opt "type")
 
 
 class ToolbarClass a b where
@@ -299,9 +311,93 @@ instance zoomFill :: FillClass Zoom where
     fill = cmap Opt.options (opt "fill")
 
 
+class Name a where
+    name :: Option a String
+
+instance localname :: Name Locale where
+  name = opt "name"
+
+instance seriesname :: Name Series where
+  name = opt "name"
+
+
+class SeriesData a where
+    data' :: Option Series (Array a)
+
+instance singleNumValuesSeries :: SeriesData Number where
+    data' = opt "data"
+
+instance singleIntValuesSeries :: SeriesData Int where
+    data' = opt "data"
+
+instance pairedNumValuesSeries :: SeriesData (Array Number) where
+    data' = opt "data"
+
+instance pairedIntValuesSeries :: SeriesData (Array Int) where
+    data' = opt "data"
+
+
+instance pairedValuesXYSeries :: SeriesData (Options Paired) where
+    data' = cmap (\arr -> arr <#> Opt.options) (opt "data")
+
+class PairedX a where
+  x :: Option Paired a
+
+instance pairedXString :: PairedX String where
+  x = opt "x"
+
+instance pairedXNum :: PairedX Number where
+  x = opt "x"
+
+instance pairedXInt :: PairedX Int where
+  x = opt "x"
+
+
+class PairedY a where
+  y :: Option Paired a
+
+instance pairedYString :: PairedY String where
+  y = opt "y"
+
+instance pairedYNum :: PairedY Number where
+  y = opt "y"
+
+instance pairedYInt :: PairedY Int where
+  y = opt "y"
+
+
+class Categories a where
+  categories :: Option Axis (Array a)
+
+instance intcats :: Categories Int where
+    categories = opt "categories"
+
+instance strcats :: Categories String where
+    categories = opt "categories"
+  
+instance numcats :: Categories Number where
+    categories = opt "categories"
+
+
 
 chart :: Option Apexoptions (Options Chart)
 chart = cmap Opt.options (opt "chart")
+
+series :: Option Apexoptions (Array (Options Series))
+series = cmap (\arr -> arr <#> Opt.options) (opt "series")
+
+xAxis :: Option Selection (Options SelectionAxis)
+xAxis = cmap Opt.options (opt "xaxis")
+
+xaxis :: Option Apexoptions (Options Axis)
+xaxis = cmap Opt.options (opt "xaxis")
+
+    
+colors :: Option Apexchart (Array String)
+colors = opt "colors"
+
+labels :: Option Apexchart (Array String)
+labels = opt "labels"
 
 background :: Option Chart String
 background = opt "background"
@@ -345,9 +441,6 @@ id = opt "id"
 locales :: Option Chart (Array (Options Locale))
 locales =  cmap (\arr -> arr <#> Opt.options) (opt "locales")
 
-name :: Option Locale String
-name = opt "name"
-
 options :: Option Locale (Options LocaleOptions)
 options = cmap Opt.options (opt "options")
 
@@ -381,16 +474,13 @@ redrawOnParentResize = opt "redrawOnParentResize"
 dashArray :: Option Stroke Number
 dashArray = opt "dashArray"
 
-xaxis :: Option Selection (Options Axis)
-xaxis = cmap Opt.options (opt "xaxis")
-
-yaxis :: Option Selection (Options Axis)
+yaxis :: Option Selection (Options SelectionAxis)
 yaxis = cmap Opt.options (opt "yaxis")
 
-min :: Option Axis Number
+min :: Option SelectionAxis Number
 min = opt "min"
 
-max :: Option Axis Number
+max :: Option SelectionAxis Number
 max = opt "max"
 
 sparkline :: Option Chart (Options Sparkline)
@@ -434,7 +524,7 @@ dynamicAnimation = cmap Opt.options (opt "dynamicAnimation")
 
 
 createChart :: String -> Options Apexoptions -> Apexchart
-createChart n opts = _createChart n (Opt.options opts)
+createChart selector opts = _createChart selector (Opt.options opts)
 
 foreign import _createChart :: String -> Foreign -> Apexchart
 

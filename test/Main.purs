@@ -2,7 +2,7 @@ module Test.Main where
 
 
 
-import Apexcharts (ChartType(..), Easing(..), OrientationType(..), StackType(..), animateGradually, animations, autoScaleYaxis, background, blur, brush, chart, color, dashArray, days, defaultLocale, download, dropShadow, dynamicAnimation, easing, enabled, enabledOnSeries, fill, fontFamily, foreColor, graduallyDelay, group, height, id, left, locales, max, min, months, name, offsetX, offsetY, opacity, options, pan, parentHeightOffset, redrawOnParentResize, reset, selection, selectionZoom, shortDays, shortMonths, show, sparkline, speed, stackType, stacked, stroke, target, toolbar, tools, top, type', width, xaxis, yaxis, zoom, zoomIn, zoomOut, zoomin, zooming, zoomout)
+import Apexcharts (AxisType(..), ChartType(..), Easing(..), OrientationType(..), StackType(..), animateGradually, animations, autoScaleYaxis, background, blur, brush, categories, chart, color, colors, dashArray, data', days, defaultLocale, download, dropShadow, dynamicAnimation, easing, enabled, enabledOnSeries, fill, fontFamily, foreColor, graduallyDelay, group, height, id, labels, left, locales, max, min, months, name, offsetX, offsetY, opacity, options, pan, parentHeightOffset, redrawOnParentResize, reset, selection, selectionZoom, series, shortDays, shortMonths, show, sparkline, speed, stackType, stacked, stroke, target, toolbar, tools, top, type', width, x, xAxis, xaxis, y, yaxis, zoom, zoomIn, zoomOut, zoomin, zooming, zoomout)
 import Data.Options (Options, (:=))
 import Data.Options as Opt
 import Effect (Effect)
@@ -16,6 +16,23 @@ import Test.Spec.Runner (run)
 
 main :: Effect Unit
 main = run [specReporter] do
+  describe "basic chart" do
+    let 
+      expected = "{\"chart\":{\"type\":\"line\"}," 
+        <> "\"series\":[{\"name\":\"sales\",\"data\":[30,40,35,50,49,60,70,91,125]}],"
+        <> "\"xaxis\":{\"categories\":[1991,1992,1993,1994,1995,1996,1997,1998,1999]}}"
+      basicChart =  (
+        chart := (type' := Line) 
+        <> series := [
+          name := "sales"
+          <> data' := [30,40,35,50,49,60,70,91,125]
+        ]
+        <> xaxis := (
+          categories := [1991,1992,1993,1994,1995,1996,1997,1998,1999]
+        )
+      )
+    it "is possible" $ basicChart `shouldBeOption` expected
+      
   describe "Apexoptions" do
     describe "chart" do
       describe "animations" do
@@ -92,7 +109,7 @@ main = run [specReporter] do
       it "selection" $ (chart := (selection := (enabled := true <> type' := X
         <> fill := (color := "#24292e" <> opacity := 0.1)
         <> stroke := (width := 1.0 <> dashArray := 3.0 <> color := "#294820" <> opacity := 0.4 )
-        <> xaxis := (min := 1.0 <> max := 3.0)
+        <> xAxis := (min := 1.0 <> max := 3.0)
         <> yaxis := (min := 7.0 <> max := 11.0)))) 
           `shouldBeOption` ("{\"chart\":{\"selection\":{\"enabled\":true,\"type\":\"x\","
             <> "\"fill\":{\"color\":\"#24292e\",\"opacity\":0.1},"
@@ -120,8 +137,21 @@ main = run [specReporter] do
           `shouldBeOption` "{\"chart\":{\"zoom\":{\"fill\":{\"color\":\"#fff\",\"opacity\":0.4}}}}"
         it "stroke" $ (chart := (zooming := (stroke := (color := "#fff" <> opacity := 0.4 <> width := 1.0)))) 
           `shouldBeOption` "{\"chart\":{\"zoom\":{\"stroke\":{\"color\":\"#fff\",\"opacity\":0.4,\"width\":1}}}}"
-
-
+    
+    it "colors" $ (colors := ["#fff", "#aaa"]) `shouldBeOption` "{\"colors\":[\"#fff\",\"#aaa\"]}"
+    it "labels" $ (labels := ["Beer", "Bar"]) `shouldBeOption` "{\"labels\":[\"Beer\",\"Bar\"]}"
+    
+    describe "series" do
+      it "name" $ (series := [name := "Series 1"]) `shouldBeOption` "{\"series\":[{\"name\":\"Series 1\"}]}"
+      describe "data" do
+        it "single values" $ (series := [data' := [23.0, 42.0]]) `shouldBeOption` "{\"series\":[{\"data\":[23,42]}]}"
+        it "paired values" $ (series := [data' := [[22.0,23.0], [11.0, 42.0]]]) `shouldBeOption` "{\"series\":[{\"data\":[[22,23],[11,42]]}]}"
+        it "paired values xy" $ (series := [data' := [(x := 22.0 <> y := 23.0), (x := 11.0 <> y := 42.0)]]) 
+          `shouldBeOption` "{\"series\":[{\"data\":[{\"x\":22,\"y\":23},{\"x\":11,\"y\":42}]}]}"
+    
+    describe "xaxis" do
+      it "type" $ (xaxis := (type' := Category)) `shouldBeOption` "{\"xaxis\":{\"type\":\"category\"}}"
+      it "categories" $ (xaxis := (categories := ["Apples", "Bananas"])) `shouldBeOption` "{\"xaxis\":{\"categories\":[\"Apples\",\"Bananas\"]}}"
 
 shouldBeOption :: forall a. Options a -> String -> Aff Unit
 shouldBeOption opti expected = (stringify $ Opt.options opti) `shouldEqual` expected

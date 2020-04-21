@@ -3,9 +3,9 @@
 // module Apexcharts
 
 
-exports._createChart = function(el){
+exports._createChart = function(sel){
     return function(options){
-        return new ApexCharts(el, options);
+        return new ApexCharts(document.querySelector(sel), options);
     }
 };
 
