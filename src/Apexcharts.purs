@@ -30,6 +30,7 @@ data Zoom
 data Series
 data Paired
 
+
 foreign import data Apexchart :: Type
 
 
@@ -61,6 +62,7 @@ chartTypeToString = case _ of
     Heatmap -> "heatmap"
     Candlestick -> "candlestick"
 
+
 data StackType = Normal | Percent
 
 stackTypeToString :: StackType -> String
@@ -77,6 +79,7 @@ orientationTypeToString = case _ of
     Y -> "y"
     XY -> "xy"
 
+
 data AxisType = Category | Datetime | Numeric
 
 axisTypeToString :: AxisType -> String
@@ -84,6 +87,7 @@ axisTypeToString = case _ of
     Category -> "category"
     Datetime -> "datetime"
     Numeric -> "numeric"
+
 
 data Easing = Linear
     | Easein
@@ -125,6 +129,7 @@ instance enableSparkline :: Enabled Sparkline where
 instance enableZoom :: Enabled Zoom where
   enabled = opt "enabled"      
 
+
 class Speed a where
   speed :: Option a Number      
 
@@ -134,6 +139,7 @@ instance speedAnimations :: Speed Animations where
 instance speedDynamicAnimation :: Speed DynamicAnimation where
   speed = opt "speed"
 
+
 class Height a b where
   height :: Option a b
 
@@ -142,6 +148,7 @@ instance heightChartNumber :: Height Chart Number where
 
 instance heightChartString :: Height Chart String where
   height = opt "height"      
+
 
 class SelectionClass a b where
   selection :: Option a b
@@ -170,6 +177,7 @@ instance fillColor :: Color Fill String where
 
 instance strokeColor :: Color Stroke String where
     color = opt "color"
+
 
 class Opacity a b where
   opacity :: Option a b
@@ -242,6 +250,7 @@ instance downloadChartToolbar :: Download ChartToolbar Boolean where
 instance downloadTools :: Download Tools Boolean where
     download = opt "download"
 
+
 class Pan a b where
   pan :: Option a b
 
@@ -301,6 +310,7 @@ instance selectionStroke :: StrokeClass Selection where
 instance selectionZoomClass :: StrokeClass Zoom where
     stroke = cmap Opt.options (opt "stroke")  
 
+
 class FillClass a  where
     fill :: Option a (Options Fill) 
 
@@ -336,9 +346,9 @@ instance pairedNumValuesSeries :: SeriesData (Array Number) where
 instance pairedIntValuesSeries :: SeriesData (Array Int) where
     data' = opt "data"
 
-
 instance pairedValuesXYSeries :: SeriesData (Options Paired) where
     data' = cmap (\arr -> arr <#> Opt.options) (opt "data")
+
 
 class PairedX a where
   x :: Option Paired a
@@ -391,8 +401,7 @@ xAxis = cmap Opt.options (opt "xaxis")
 
 xaxis :: Option Apexoptions (Options Axis)
 xaxis = cmap Opt.options (opt "xaxis")
-
-    
+   
 colors :: Option Apexchart (Array String)
 colors = opt "colors"
 
