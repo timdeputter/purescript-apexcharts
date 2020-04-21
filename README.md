@@ -1,9 +1,13 @@
 # purescript-apexcharts
 Purescript bindings for apexcharts.js - "A modern JavaScript charting library to build interactive charts and visualizations with simple API" (https://apexcharts.com)
 
+
+
 ## State
 
 Not all options have been wrapped til now (there are plenty of them). Basic charts do work.
+
+
 
 ## Download and Installation
 
@@ -13,6 +17,8 @@ Install apexcharts via npm first.
 npm install apexcharts --save
 bower install --save purescript-apexcharts
 ```
+
+
 
 ## Basic example
 
@@ -56,9 +62,13 @@ let chart = (
 in render $ createChart "#chart" chart
 ```
 
+
+
 ## Documentation
 
 Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-apexcharts).
+
+
 
 ## License
 
