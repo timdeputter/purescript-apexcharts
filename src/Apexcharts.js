@@ -19,3 +19,4 @@ exports._updateOptions = function(chart) {
         return function() {chart.updateOptions(newOptions);};
     };
 };
+
