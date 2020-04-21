@@ -1,13 +1,11 @@
 # purescript-apexcharts
 Purescript bindings for apexcharts.js - "A modern JavaScript charting library to build interactive charts and visualizations with simple API" (https://apexcharts.com)
-
-
+</br>
 
 ## State
 
 Not all options have been wrapped til now (there are plenty of them). Basic charts do work.
-
-
+</br>
 
 ## Download and Installation
 
@@ -17,8 +15,7 @@ Install apexcharts via npm first.
 npm install apexcharts --save
 bower install --save purescript-apexcharts
 ```
-
-
+</br>
 
 ## Basic example
 
@@ -46,8 +43,6 @@ chart.render()
 
 The equivalent in purescript:
 
-
-
 ```purescript
 let chart = (
         chart := (type' := Bar) 
@@ -61,7 +56,7 @@ let chart = (
     )
 in render $ createChart "#chart" chart
 ```
-
+</br>
 
 
 ## Documentation
