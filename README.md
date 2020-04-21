@@ -56,3 +56,10 @@ let chart = (
 in render $ createChart "#chart" chart
 ```
 
+## Documentation
+
+Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-apexcharts).
+
+## License
+
+Check [LICENSE](LICENSE) file for more information.
