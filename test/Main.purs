@@ -2,7 +2,7 @@ module Test.Main where
 
 
 
-import Apexcharts (AxisType(..), ChartType(..), Easing(..), OrientationType(..), StackType(..), animateGradually, animations, autoScaleYaxis, background, blur, brush, categories, chart, color, colors, dashArray, data', days, defaultLocale, download, dropShadow, dynamicAnimation, easing, enabled, enabledOnSeries, fill, fontFamily, foreColor, graduallyDelay, group, height, id, labels, left, locales, max, min, months, name, offsetX, offsetY, opacity, options, pan, parentHeightOffset, redrawOnParentResize, reset, selection, selectionZoom, series, shortDays, shortMonths, show, sparkline, speed, stackType, stacked, stroke, target, toolbar, tools, top, type', width, x, xAxis, xaxis, y, yaxis, zoom, zoomIn, zoomOut, zoomin, zooming, zoomout)
+import Apexcharts (Align(..), Apexchart, AxisType(..), ChartType(..), Curve(..), Easing(..), LineCap(..), OrientationType(..), StackType(..), TextAnchor(..), align, animateGradually, animations, autoScaleYaxis, background, blur, brush, categories, chart, color, colors, curve, dashArray, data', dataLabels, days, defaultLocale, distributed, download, dropShadow, dynamicAnimation, easing, enabled, enabledOnSeries, fill, fontFamily, foreColor, graduallyDelay, group, height, id, labels, left, lineCap, locales, max, min, months, name, offsetX, offsetY, opacity, options, pan, parentHeightOffset, redrawOnParentResize, reset, selection, selectionStroke, selectionZoom, series, shortDays, shortMonths, show, sparkline, speed, stackType, stacked, stroke, target, text, textAnchor, title, toolbar, tools, top, type', width, x, xAxis, xaxis, y, yaxis, zoom, zoomIn, zoomOut, zoomStroke, zoomin, zooming, zoomout)
 import Data.Options (Options, (:=))
 import Data.Options as Opt
 import Effect (Effect)
@@ -108,7 +108,7 @@ main = run [specReporter] do
       it "redrawOnParentResize" $ (chart := (redrawOnParentResize := true)) `shouldBeOption` "{\"chart\":{\"redrawOnParentResize\":true}}"          
       it "selection" $ (chart := (selection := (enabled := true <> type' := X
         <> fill := (color := "#24292e" <> opacity := 0.1)
-        <> stroke := (width := 1.0 <> dashArray := 3.0 <> color := "#294820" <> opacity := 0.4 )
+        <> selectionStroke := (width := 1.0 <> dashArray := 3.0 <> color := "#294820" <> opacity := 0.4 )
         <> xAxis := (min := 1.0 <> max := 3.0)
         <> yaxis := (min := 7.0 <> max := 11.0)))) 
           `shouldBeOption` ("{\"chart\":{\"selection\":{\"enabled\":true,\"type\":\"x\","
@@ -120,9 +120,9 @@ main = run [specReporter] do
       it "stacked" $ (chart := (stacked := true)) `shouldBeOption` "{\"chart\":{\"stacked\":true}}"
       it "stackType" $ (chart := (stackType := Normal)) `shouldBeOption` "{\"chart\":{\"stackType\":\"normal\"}}"
       describe "toolbar" do
-        it "show" $ (chart := (toolbar := (show := true))) `shouldBeOption` "{\"chart\":{\"toolbar\":{\"show\":true}}}"
-        it "offsetX" $ (chart := (toolbar := (show := true <> offsetX := 3.0))) `shouldBeOption` "{\"chart\":{\"toolbar\":{\"show\":true,\"offsetX\":3}}}"
-        it "offsetY" $ (chart := (toolbar := (show := true <> offsetY := 4.0))) `shouldBeOption` "{\"chart\":{\"toolbar\":{\"show\":true,\"offsetY\":4}}}"
+        it "show" $ (chart := (toolbar := (show := true <> tools := (download := true)))) `shouldBeOption` "{\"chart\":{\"toolbar\":{\"show\":true,\"tools\":{\"download\":true}}}}"
+        it "offsetX" $ (chart := (toolbar := (offsetX := 3.0 <> tools := (download := true)))) `shouldBeOption` "{\"chart\":{\"toolbar\":{\"offsetX\":3,\"tools\":{\"download\":true}}}}"
+        it "offsetY" $ (chart := (toolbar := (offsetY := 4.0 <> tools := (download := true)))) `shouldBeOption` "{\"chart\":{\"toolbar\":{\"offsetY\":4,\"tools\":{\"download\":true}}}}"
         it "tools" $ (chart := (toolbar := (tools := (zoomin := true <> zoom := true <> download := true <> selection := true 
           <> zoomout := true <> pan := true <> reset := true)))) 
             `shouldBeOption` ("{\"chart\":{\"toolbar\":{\"tools\":{\"zoomin\":true,\"zoom\":true,\"download\":true," 
@@ -135,10 +135,12 @@ main = run [specReporter] do
         it "autoScaleYaxis" $ (chart := (zooming := (autoScaleYaxis := true))) `shouldBeOption` "{\"chart\":{\"zoom\":{\"autoScaleYaxis\":true}}}"
         it "fill" $ (chart := (zooming := (fill := (color := "#fff" <> opacity := 0.4)))) 
           `shouldBeOption` "{\"chart\":{\"zoom\":{\"fill\":{\"color\":\"#fff\",\"opacity\":0.4}}}}"
-        it "stroke" $ (chart := (zooming := (stroke := (color := "#fff" <> opacity := 0.4 <> width := 1.0)))) 
+        it "stroke" $ (chart := (zooming := (zoomStroke := (color := "#fff" <> opacity := 0.4 <> width := 1.0)))) 
           `shouldBeOption` "{\"chart\":{\"zoom\":{\"stroke\":{\"color\":\"#fff\",\"opacity\":0.4,\"width\":1}}}}"
-    
-    it "colors" $ (colors := ["#fff", "#aaa"]) `shouldBeOption` "{\"colors\":[\"#fff\",\"#aaa\"]}"
+    let 
+      opts :: Options Apexchart
+      opts = colors := ["#fff", "#aaa"]
+    it "colors" $ opts `shouldBeOption` "{\"colors\":[\"#fff\",\"#aaa\"]}"
     it "labels" $ (labels := ["Beer", "Bar"]) `shouldBeOption` "{\"labels\":[\"Beer\",\"Bar\"]}"
     
     describe "series" do
@@ -152,6 +154,27 @@ main = run [specReporter] do
     describe "xaxis" do
       it "type" $ (xaxis := (type' := Category)) `shouldBeOption` "{\"xaxis\":{\"type\":\"category\"}}"
       it "categories" $ (xaxis := (categories := ["Apples", "Bananas"])) `shouldBeOption` "{\"xaxis\":{\"categories\":[\"Apples\",\"Bananas\"]}}"
+    
+    describe "dataLabels" do
+      it "enabled" $ (dataLabels := (enabled := true)) `shouldBeOption` "{\"dataLabels\":{\"enabled\":true}}"
+      it "enabledOnSeries" $ (dataLabels := (enabledOnSeries := [1.0, 3.0])) `shouldBeOption` "{\"dataLabels\":{\"enabledOnSeries\":[1,3]}}"
+      it "textAnchor" $ (dataLabels := (textAnchor := Middle)) `shouldBeOption` "{\"dataLabels\":{\"textAnchor\":\"middle\"}}"
+      it "distributed" $ (dataLabels := (distributed := true)) `shouldBeOption` "{\"dataLabels\":{\"distributed\":true}}" 
+      it "offsetX" $ (dataLabels := (offsetX := 1.0)) `shouldBeOption` "{\"dataLabels\":{\"offsetX\":1}}"
+      it "offsetY" $ (dataLabels := (offsetY := 3.0)) `shouldBeOption` "{\"dataLabels\":{\"offsetY\":3}}"
+    
+    describe "stroke" do
+      it "show" $ (stroke := (show := true)) `shouldBeOption` "{\"stroke\":{\"show\":true}}"
+      it "curve"  $ (stroke := (curve := Smooth)) `shouldBeOption` "{\"stroke\":{\"curve\":\"smooth\"}}"
+      it "lineCap" $ (stroke := (lineCap := Butt)) `shouldBeOption` "{\"stroke\":{\"lineCap\":\"butt\"}}"
+      it "colors" $ (stroke := (colors := ["#fff", "#aaa"])) `shouldBeOption` "{\"stroke\":{\"colors\":[\"#fff\",\"#aaa\"]}}"
+      it "width"  $ (stroke := (width := 2.0)) `shouldBeOption` "{\"stroke\":{\"width\":2}}"
+      it "dashArray"   $ (stroke := (dashArray := 3.0)) `shouldBeOption` "{\"stroke\":{\"dashArray\":3}}"
+
+    describe "title" do
+      it "text" $ (title := (text := "Der Text")) `shouldBeOption` "{\"title\":{\"text\":\"Der Text\"}}"
+      it "align" $ (title := (align := Left)) `shouldBeOption` "{\"title\":{\"align\":\"left\"}}"
+
 
 shouldBeOption :: forall a. Options a -> String -> Aff Unit
 shouldBeOption opti expected = (stringify $ Opt.options opti) `shouldEqual` expected

@@ -10,7 +10,8 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
         });
         $('line.apexcharts-gridline').exists();
         $('path.apexcharts-line').exists();
-        text("150", below('text.apexcharts-yaxis-label')).exists();
+        text("150").exists();
+        text("Product Trends by Month").exists();
     } catch (error) {
         console.error(error);
     } finally {
