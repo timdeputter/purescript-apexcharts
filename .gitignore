@@ -11,3 +11,4 @@
 /.vagrant/
 firebase-debug.log
 /build/
+/examples/build/
