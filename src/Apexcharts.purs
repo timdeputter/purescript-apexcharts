@@ -2,7 +2,6 @@ module Apexcharts where
 
 import Prelude
 
-import Data.Char.Unicode (GeneralCategory(..))
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
