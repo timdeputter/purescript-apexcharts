@@ -610,7 +610,7 @@ class Colors a where
   colors :: Option a (Array String)
 
 
-instance apexchartColors :: Colors Apexchart where
+instance apexchartColors :: Colors Apexoptions where
   colors = opt "colors"  
 
 instance strokeColors :: Colors MainStroke where
@@ -850,10 +850,10 @@ gradientToColors = opt "gradientToColors"
 inverseColors :: Option Gradient Boolean
 inverseColors = opt "inverseColors"
 
-opacityFrom :: Option Gradient Int
+opacityFrom :: Option Gradient Number
 opacityFrom = opt "opacityFrom"
 
-opacityTo :: Option Gradient Int
+opacityTo :: Option Gradient Number
 opacityTo = opt "opacityTo"
 
 stops :: Option Gradient (Array Int)

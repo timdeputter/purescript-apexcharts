@@ -3,13 +3,9 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
     try {
         console.log(`Current directory: ${process.cwd()}`);
         await openBrowser();
-        await goto("file:///" + process.cwd() + "/examples/BasicAreachart.html");
+        await goto("file:///" + process.cwd() + "/examples/Stackedchart.html");
         
-        ["00:00","01:00","02:00","03:00","06:00"].forEach(async el => {
-            await text(el.toString(), below($('text.apexcharts-text > tspan'))).exists()
-        });
-
-        await $(".apexcharts-area").exists();
+        await $('path.apexcharts-area').exists();
 
     } catch (error) {
         console.error(error);
