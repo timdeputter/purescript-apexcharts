@@ -76,12 +76,12 @@ chartTypeToString = case _ of
     Candlestick -> "candlestick"
 
 
-data StackType = NormalStack | Percent
+data StackType = NormalStack | HundredPercent
 
 stackTypeToString :: StackType -> String
 stackTypeToString = case _ of
     NormalStack -> "normal"
-    Percent -> "100%"
+    HundredPercent -> "100%"
 
 
 data OrientationType = X | Y | XY
