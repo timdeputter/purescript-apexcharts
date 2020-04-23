@@ -2,7 +2,7 @@ module Test.Main where
 
 
 
-import Apexcharts (Align(..), Apexchart, AxisType(..), ChartType(..), Curve(..), Easing(..), LineCap(..), OrientationType(..), StackType(..), TextAnchor(..), align, animateGradually, animations, autoScaleYaxis, background, blur, brush, categories, chart, color, colors, curve, dashArray, data', dataLabels, days, defaultLocale, distributed, download, dropShadow, dynamicAnimation, easing, enabled, enabledOnSeries, fill, fontFamily, foreColor, graduallyDelay, group, height, id, labels, left, lineCap, locales, max, min, months, name, offsetX, offsetY, opacity, options, pan, parentHeightOffset, redrawOnParentResize, reset, selection, selectionStroke, selectionZoom, series, shortDays, shortMonths, show, sparkline, speed, stackType, stacked, stroke, target, text, textAnchor, title, toolbar, tools, top, type', width, x, xAxis, xaxis, y, yaxis, zoom, zoomIn, zoomOut, zoomStroke, zoomin, zooming, zoomout)
+import Apexcharts (Align(..), Apexchart, Apexoptions, Axis, AxisType(..), ChartType(..), Curve(..), Easing(..), Fill, FillType(..), FontWeight(..), GeneralFill, GradientType(..), Gridposition(..), LineCap(..), OrientationType(..), PatternStyle(..), Shade(..), StackType(..), TextAnchor(..), align, animateGradually, animations, autoScaleYaxis, background, blur, borderColor, borderRadius, borderWidth, bottom, brush, categories, chart, color, colors, column, curve, dashArray, data', dataLabels, days, defaultLocale, distributed, download, dropShadow, dynamicAnimation, easing, enabled, enabledOnSeries, fill, fontFamily, fontSize, fontWeight, foreColor, gradient, gradientToColors, graduallyDelay, grid, group, height, id, image, inverseColors, labels, left, lineCap, lines, locales, max, min, months, name, offsetX, offsetY, opacity, opacityFrom, opacityTo, options, padding, pan, parentHeightOffset, pattern, position, redrawOnParentResize, reset, right, row, selection, selectionStroke, selectionZoom, series, shade, shadeIntensity, shortDays, shortMonths, show, sparkline, speed, src, stackType, stacked, stops, stroke, strokeDashArray, strokeWidth, style, target, text, textAnchor, title, toolbar, tools, top, type', width, x, xaxis, y, yaxis, zoom, zoomIn, zoomOut, zoomStroke, zoomin, zooming, zoomout)
 import Data.Options (Options, (:=))
 import Data.Options as Opt
 import Effect (Effect)
@@ -59,11 +59,11 @@ main = run [specReporter] do
         it "enabled" $ (chart := (dropShadow := (enabled := true))) `shouldBeOption` "{\"chart\":{\"dropShadow\":{\"enabled\":true}}}"
         it "enabledOnSeries" $  (chart := (dropShadow := (enabledOnSeries := [3.0,2.0]))) 
           `shouldBeOption` "{\"chart\":{\"dropShadow\":{\"enabledOnSeries\":[3,2]}}}"
-        it "top" $  (chart := (dropShadow := (top := 4.0))) 
+        it "top" $  (chart := (dropShadow := (top := 4))) 
           `shouldBeOption` "{\"chart\":{\"dropShadow\":{\"top\":4}}}"
-        it "left" $  (chart := (dropShadow := (left := 5.0))) 
+        it "left" $  (chart := (dropShadow := (left := 5))) 
           `shouldBeOption` "{\"chart\":{\"dropShadow\":{\"left\":5}}}"
-        it "blur" $  (chart := (dropShadow := (blur := 6.0))) 
+        it "blur" $  (chart := (dropShadow := (blur := 6))) 
           `shouldBeOption` "{\"chart\":{\"dropShadow\":{\"blur\":6}}}"
         it "color" $ (chart := (dropShadow := (color := ["#fff"]))) 
           `shouldBeOption` "{\"chart\":{\"dropShadow\":{\"color\":[\"#fff\"]}}}"
@@ -106,10 +106,13 @@ main = run [specReporter] do
       it "offsetY" $ (chart := (offsetY := 1.0)) `shouldBeOption` "{\"chart\":{\"offsetY\":1}}"          
       it "parentHeightOffset" $ (chart := (parentHeightOffset := 2.0)) `shouldBeOption` "{\"chart\":{\"parentHeightOffset\":2}}"          
       it "redrawOnParentResize" $ (chart := (redrawOnParentResize := true)) `shouldBeOption` "{\"chart\":{\"redrawOnParentResize\":true}}"          
+      let
+        fil :: Options Fill
+        fil = (color := "#24292e" <> opacity := 0.1)
       it "selection" $ (chart := (selection := (enabled := true <> type' := X
-        <> fill := (color := "#24292e" <> opacity := 0.1)
+        <> fill := fil
         <> selectionStroke := (width := 1.0 <> dashArray := 3.0 <> color := "#294820" <> opacity := 0.4 )
-        <> xAxis := (min := 1.0 <> max := 3.0)
+        <> xaxis := (min := 1.0 <> max := 3.0)
         <> yaxis := (min := 7.0 <> max := 11.0)))) 
           `shouldBeOption` ("{\"chart\":{\"selection\":{\"enabled\":true,\"type\":\"x\","
             <> "\"fill\":{\"color\":\"#24292e\",\"opacity\":0.1},"
@@ -118,7 +121,7 @@ main = run [specReporter] do
             <> "\"yaxis\":{\"min\":7,\"max\":11}}}}")
       it "sparkline" $ (chart := (sparkline := (enabled := true))) `shouldBeOption` "{\"chart\":{\"sparkline\":{\"enabled\":true}}}"
       it "stacked" $ (chart := (stacked := true)) `shouldBeOption` "{\"chart\":{\"stacked\":true}}"
-      it "stackType" $ (chart := (stackType := Normal)) `shouldBeOption` "{\"chart\":{\"stackType\":\"normal\"}}"
+      it "stackType" $ (chart := (stackType := NormalStack)) `shouldBeOption` "{\"chart\":{\"stackType\":\"normal\"}}"
       describe "toolbar" do
         it "show" $ (chart := (toolbar := (show := true <> tools := (download := true)))) `shouldBeOption` "{\"chart\":{\"toolbar\":{\"show\":true,\"tools\":{\"download\":true}}}}"
         it "offsetX" $ (chart := (toolbar := (offsetX := 3.0 <> tools := (download := true)))) `shouldBeOption` "{\"chart\":{\"toolbar\":{\"offsetX\":3,\"tools\":{\"download\":true}}}}"
@@ -133,7 +136,10 @@ main = run [specReporter] do
         it "enabled" $ (chart := (zooming := (enabled := true))) `shouldBeOption` "{\"chart\":{\"zoom\":{\"enabled\":true}}}"
         it "type" $ (chart := (zooming := (type' := X))) `shouldBeOption` "{\"chart\":{\"zoom\":{\"type\":\"x\"}}}"
         it "autoScaleYaxis" $ (chart := (zooming := (autoScaleYaxis := true))) `shouldBeOption` "{\"chart\":{\"zoom\":{\"autoScaleYaxis\":true}}}"
-        it "fill" $ (chart := (zooming := (fill := (color := "#fff" <> opacity := 0.4)))) 
+        let 
+          fi :: Options Fill
+          fi = (color := "#fff" <> opacity := 0.4)
+        it "fill" $ (chart := (zooming := (fill := fi))) 
           `shouldBeOption` "{\"chart\":{\"zoom\":{\"fill\":{\"color\":\"#fff\",\"opacity\":0.4}}}}"
         it "stroke" $ (chart := (zooming := (zoomStroke := (color := "#fff" <> opacity := 0.4 <> width := 1.0)))) 
           `shouldBeOption` "{\"chart\":{\"zoom\":{\"stroke\":{\"color\":\"#fff\",\"opacity\":0.4,\"width\":1}}}}"
@@ -152,8 +158,11 @@ main = run [specReporter] do
           `shouldBeOption` "{\"series\":[{\"data\":[{\"x\":22,\"y\":23},{\"x\":11,\"y\":42}]}]}"
     
     describe "xaxis" do
-      it "type" $ (xaxis := (type' := Category)) `shouldBeOption` "{\"xaxis\":{\"type\":\"category\"}}"
-      it "categories" $ (xaxis := (categories := ["Apples", "Bananas"])) `shouldBeOption` "{\"xaxis\":{\"categories\":[\"Apples\",\"Bananas\"]}}"
+      let 
+        getAxis :: Options Axis -> Options Apexoptions
+        getAxis a = (xaxis := a)
+      it "type" $ (getAxis (type' := Category)) `shouldBeOption` "{\"xaxis\":{\"type\":\"category\"}}"
+      it "categories" $ (getAxis (categories := ["Apples", "Bananas"])) `shouldBeOption` "{\"xaxis\":{\"categories\":[\"Apples\",\"Bananas\"]}}"
     
     describe "dataLabels" do
       it "enabled" $ (dataLabels := (enabled := true)) `shouldBeOption` "{\"dataLabels\":{\"enabled\":true}}"
@@ -162,7 +171,50 @@ main = run [specReporter] do
       it "distributed" $ (dataLabels := (distributed := true)) `shouldBeOption` "{\"dataLabels\":{\"distributed\":true}}" 
       it "offsetX" $ (dataLabels := (offsetX := 1.0)) `shouldBeOption` "{\"dataLabels\":{\"offsetX\":1}}"
       it "offsetY" $ (dataLabels := (offsetY := 3.0)) `shouldBeOption` "{\"dataLabels\":{\"offsetY\":3}}"
-    
+      it "style" $ (dataLabels := (style := (fontSize := "14px" <> fontFamily := "Helvetica, Arial" 
+        <> fontWeight := Bold <> colors := ["#aaa", "#bbb"]))) 
+          `shouldBeOption` ("{\"dataLabels\":{\"style\":{\"fontSize\":\"14px\",\"fontFamily\":\"Helvetica, Arial\","
+            <> "\"fontWeight\":{},\"colors\":[\"#aaa\",\"#bbb\"]}}}")
+      it "background" $ (dataLabels := (background := (enabled := true <> foreColor := "#fff" <> padding := 4 <>
+          borderRadius := 2 <> borderWidth := 1 <> borderColor := "#fff" <> opacity := 0.9 <> dropShadow := (
+          enabled := false <> top := 1 <> left := 1 <> blur := 1 <> color := "#000" <> opacity := 0.45))))
+          `shouldBeOption` ("{\"dataLabels\":{\"background\":{\"enabled\":true,\"foreColor\":\"#fff\",\"padding\":4,"
+            <> "\"borderRadius\":2,\"borderWidth\":1,\"borderColor\":\"#fff\",\"opacity\":0.9,\"dropShadow\":{"
+            <> "\"enabled\":false,\"top\":1,\"left\":1,\"blur\":1,\"color\":\"#000\",\"opacity\":0.45}}}}")
+      it "dropShadow" $ (dataLabels := (dropShadow := (enabled := false <> top := 1 <> left := 1 
+        <> blur := 1 <> color := "#000" <> opacity := 0.45))) `shouldBeOption` "{\"dataLabels\":{\"dropShadow\":{\"enabled\":false,\"top\":1,\"left\":1,\"blur\":1,\"color\":\"#000\",\"opacity\":0.45}}}"
+
+    describe "fill" do
+      let
+        withFill :: Options GeneralFill -> Options Apexoptions
+        withFill f = (fill := f)
+      it "colors" $ (withFill $ colors := ["#aaa", "#bbb"]) `shouldBeOption` "{\"fill\":{\"colors\":[\"#aaa\",\"#bbb\"]}}"
+      it "opacity" $ (withFill $ opacity := 0.9) `shouldBeOption` "{\"fill\":{\"opacity\":0.9}}"
+      it "type" $ (withFill $ type' := Solid) `shouldBeOption`  "{\"fill\":{\"type\":\"solid\"}}"
+      it "gradient" $ (withFill $ gradient := (shade := Dark <> type' := GradientHorizontal <> shadeIntensity := 0.5
+        <> gradientToColors := ["#aaa", "#bbb"] <> inverseColors := true <> opacityFrom := 1 <> opacityTo := 2
+        <> stops := [0, 50, 100])) `shouldBeOption`  ("{\"fill\":{\"gradient\":{\"shade\":\"dark\",\"type\":\"horizontal\","
+        <> "\"shadeIntensity\":0.5,\"gradientToColors\":[\"#aaa\",\"#bbb\"],\"inverseColors\":true,"
+        <> "\"opacityFrom\":1,\"opacityTo\":2,\"stops\":[0,50,100]}}}")
+      it "image" $ (withFill $ image := (src := ["img.png"] <> width := 10 <> height := 12)) 
+        `shouldBeOption` "{\"fill\":{\"image\":{\"src\":[\"img.png\"],\"width\":10,\"height\":12}}}"
+      it "pattern" $ (withFill $ pattern := (style := VerticalLines <> width := 10 <> height := 12 <> strokeWidth := 2)) 
+        `shouldBeOption` "{\"fill\":{\"pattern\":{\"style\":\"verticalLines\",\"width\":10,\"height\":12,\"strokeWidth\":2}}}"
+
+    describe "grid" do
+      it "basics" $ (grid := (show := true <> borderColor := "#90A4AE" <> strokeDashArray := 3.0 <> position := Front)) 
+        `shouldBeOption` "{\"grid\":{\"show\":true,\"borderColor\":\"#90A4AE\",\"strokeDashArray\":3,\"position\":\"front\"}}"
+      it "xaxis" $ (grid := (position := Front <> xaxis := (lines := (show := false)))) 
+        `shouldBeOption` "{\"grid\":{\"position\":\"front\",\"xaxis\":{\"position\":{\"show\":false}}}}"
+      it "yaxis" $ (grid := (position := Front <> yaxis := (lines := (show := false)))) 
+        `shouldBeOption` "{\"grid\":{\"position\":\"front\",\"yaxis\":{\"position\":{\"show\":false}}}}"
+      it "row" $ (grid := (row := (colors := ["#aaa"] <> opacity := 0.5))) 
+        `shouldBeOption` "{\"grid\":{\"row\":{\"colors\":[\"#aaa\"],\"opacity\":0.5}}}"
+      it "column" $ (grid := (column := (colors := ["#aaa"] <> opacity := 0.5))) 
+        `shouldBeOption` "{\"grid\":{\"column\":{\"colors\":[\"#aaa\"],\"opacity\":0.5}}}"
+      it "padding" $ (grid := (padding := (top := 0 <> right := 0 <> bottom := 0 <> left := 0)))
+        `shouldBeOption` "{\"grid\":{\"padding\":{\"top\":0,\"right\":0,\"bottom\":0,\"left\":0}}}"
+
     describe "stroke" do
       it "show" $ (stroke := (show := true)) `shouldBeOption` "{\"stroke\":{\"show\":true}}"
       it "curve"  $ (stroke := (curve := Smooth)) `shouldBeOption` "{\"stroke\":{\"curve\":\"smooth\"}}"

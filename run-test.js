@@ -23,6 +23,7 @@ async function main() {
         doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
         doLog(await sh(`taiko ./taiko/test-${el}.js --observe`));    
     });
+    console.log("examples finished");
 }
 
 function doLog(res) {

@@ -20,6 +20,7 @@ data Locale
 data LocaleOptions
 data Toolbar
 data Selection
+data GeneralFill
 data Fill
 data Stroke
 data MainStroke
@@ -32,6 +33,16 @@ data Series
 data Paired
 data DataLabels
 data Title
+data Style
+data Background
+data Gradient
+data Image
+data Pattern
+data Grid
+data Gridaxis
+data Lines
+data RowOrColumn
+data Padding
 
 foreign import data Apexchart :: Type
 
@@ -65,11 +76,11 @@ chartTypeToString = case _ of
     Candlestick -> "candlestick"
 
 
-data StackType = Normal | Percent
+data StackType = NormalStack | Percent
 
 stackTypeToString :: StackType -> String
 stackTypeToString = case _ of
-    Normal -> "normal"
+    NormalStack -> "normal"
     Percent -> "100%"
 
 
@@ -138,6 +149,82 @@ alignToString = case _ of
   Right -> "right"
 
 
+data FontWeight = Normal | Bold | Bolder | Lighter
+
+fontWeightToString :: FontWeight -> String
+fontWeightToString = case _ of
+  Normal -> "normal"
+  Bold -> "bold"
+  Bolder -> "bolder"
+  Lighter -> "lighter"
+
+
+data FontWeightNum = N100 | N200 | N300 | N400 | N500 | N600 | N700 | N800 | N900
+
+fontWeightNumToString :: FontWeightNum -> Int
+fontWeightNumToString = case _ of
+  N100 -> 100
+  N200 -> 200
+  N300 -> 300
+  N400 -> 400
+  N500 -> 500
+  N600 -> 600
+  N700 -> 700
+  N800 -> 800
+  N900 -> 900
+
+
+data FillType = Solid | Gradient | Pattern | Image
+
+fillTypeToString :: FillType -> String
+fillTypeToString = case _ of
+  Solid -> "solid"
+  Gradient -> "gradient"
+  Pattern -> "pattern"
+  Image -> "image"
+
+
+data Shade = Light | Dark
+
+shadeToString :: Shade -> String
+shadeToString = case _ of
+  Light -> "light"
+  Dark -> "dark"
+
+data GradientType = GradientHorizontal
+    | GradientVertical
+    | Diagonal1
+    | Diagonal2
+
+gradientTypeToString :: GradientType -> String
+gradientTypeToString = case _ of
+  GradientHorizontal -> "horizontal"
+  GradientVertical -> "vertical"
+  Diagonal1 -> "diagonal1"
+  Diagonal2 -> "diagonal2"
+
+data PatternStyle = VerticalLines
+    | HorizontalLines
+    | SlantedLines
+    | Squares
+    | Circles
+
+patternStyleToString :: PatternStyle -> String
+patternStyleToString = case _ of
+  VerticalLines -> "verticalLines"
+  HorizontalLines -> "horizontalLines"
+  SlantedLines -> "slantedLines"
+  Squares -> "squares"
+  Circles -> "circles"
+
+data Gridposition = Front | Back
+
+gridpositionToString :: Gridposition -> String
+gridpositionToString = case _ of
+  Front -> "front"
+  Back -> "back"
+
+
 class Enabled a where
   enabled :: Option a Boolean
 
@@ -168,6 +255,8 @@ instance enableZoom :: Enabled Zoom where
 instance enableDataLabels :: Enabled DataLabels where
   enabled = opt "enabled"      
 
+instance backgroundEnabled :: Enabled Background where
+  enabled = opt "enabled"      
 
 class Speed a where
   speed :: Option a Number      
@@ -186,6 +275,12 @@ instance heightChartNumber :: Height Chart Number where
   height = opt "height"      
 
 instance heightChartString :: Height Chart String where
+  height = opt "height"      
+
+instance heightImage :: Height Image Int where
+  height = opt "height"      
+
+instance heightPattern :: Height Pattern Int where
   height = opt "height"      
 
 
@@ -208,11 +303,18 @@ instance toolsSelection :: SelectionClass Tools Boolean where
 class Color a b where
   color :: Option a b
 
-instance dropshadowColor :: Color Dropshadow (Array String) where
+instance dropshadowColorArray :: Color Dropshadow (Array String) where
+    color = opt "color"
+
+instance dropshadowColor :: Color Dropshadow String where
     color = opt "color"
 
 instance fillColor :: Color Fill String where
     color = opt "color"
+
+instance generalfillColor :: Color GeneralFill String where
+    color = opt "color"
+
 
 instance strokeColor :: Color Stroke String where
     color = opt "color"
@@ -227,7 +329,16 @@ instance opacityDropshadow :: Opacity Dropshadow Number where
 instance opacityFill :: Opacity Fill Number where
     opacity = opt "opacity"
 
+instance opacityGeneralFill :: Opacity GeneralFill Number where
+    opacity = opt "opacity"
+
 instance opacityStroke :: Opacity Stroke Number where
+    opacity = opt "opacity"
+
+instance opacityBackground :: Opacity Background Number where
+    opacity = opt "opacity"
+
+instance opacityRowOrColumn :: Opacity RowOrColumn Number where
     opacity = opt "opacity"
 
 
@@ -245,6 +356,15 @@ instance typeZoom :: Type Zoom OrientationType where
 
 instance typeAxis :: Type Axis AxisType where
     type' = cmap axisTypeToString (opt "type")
+
+instance typeGeneralFill :: Type GeneralFill FillType where
+    type' = cmap fillTypeToString (opt "type")
+
+instance typeGeneralFillArray :: Type GeneralFill (Array FillType) where
+    type' = cmap (map fillTypeToString) (opt "type")
+
+instance gradientType :: Type Gradient GradientType where
+    type' = cmap gradientTypeToString (opt "type")
 
 
 class ToolbarClass a b where
@@ -331,6 +451,11 @@ instance widthChartNum :: Width Chart Number where
 instance widthChartStr :: Width Chart String where
   width = opt "width"
 
+instance widthImage :: Width Image Int where
+  width = opt "width"
+
+instance widthPattern :: Width Pattern Int where
+  width = opt "width"
 
 class ZoomClass a b where
   zoom :: Option a b
@@ -349,14 +474,17 @@ instance zoomAutoscale :: AutoScale Zoom Boolean where
     autoScaleYaxis = opt "autoScaleYaxis"
 
 
-class FillClass a  where
-    fill :: Option a (Options Fill) 
+class FillClass a b where
+    fill :: Option a (Options b) 
 
-instance selectionFill :: FillClass Selection where
+instance selectionFill :: FillClass Selection Fill where
     fill = cmap Opt.options (opt "fill")
 
-instance zoomFill :: FillClass Zoom where
+instance zoomFill :: FillClass Zoom Fill where
     fill = cmap Opt.options (opt "fill")
+
+instance generalFill :: FillClass Apexoptions GeneralFill where
+  fill = cmap Opt.options (opt "fill")
 
 
 class Name a where
@@ -385,7 +513,7 @@ instance pairedIntValuesSeries :: SeriesData (Array Int) where
     data' = opt "data"
 
 instance pairedValuesXYSeries :: SeriesData (Options Paired) where
-    data' = cmap (\arr -> arr <#> Opt.options) (opt "data")
+    data' = cmap (map Opt.options) (opt "data")
 
 
 class PairedX a where
@@ -445,6 +573,12 @@ instance showChartToolbar :: ShowClass ChartToolbar where
 instance showMainStroke :: ShowClass MainStroke where
   show = opt "show"
 
+instance showGrid :: ShowClass Grid where
+  show = opt "show"
+
+instance showLines :: ShowClass Lines where
+  show = opt "show"
+
 
 class DashArray a b where
   dashArray :: Option a b
@@ -469,7 +603,7 @@ instance simpleCurve :: CurveClass Curve where
   curve = cmap curveToString (opt "curve")
 
 instance arrayCurve :: CurveClass (Array Curve) where
-  curve = cmap (\arr -> arr <#> curveToString) (opt "curve")
+  curve = cmap (map curveToString) (opt "curve")
 
 
 class Colors a where
@@ -482,21 +616,164 @@ instance apexchartColors :: Colors Apexchart where
 instance strokeColors :: Colors MainStroke where
   colors = opt "colors"  
 
+instance styleColors :: Colors Style where
+  colors = opt "colors"  
+
+instance generalFillColors :: Colors GeneralFill where
+  colors = opt "colors"  
+
+instance rowOrColumnColors :: Colors RowOrColumn where
+  colors = opt "colors"  
+
+
+class FontFamily a where
+  fontFamily :: Option a String
+
+instance chartFontFamily :: FontFamily Chart where
+  fontFamily = opt "fontFamily"
+  
+instance styleFontFamily :: FontFamily Style where
+  fontFamily = opt "fontFamily"
+
+
+class FontWeightClass a where
+  fontWeight :: Option Style a
+
+instance fontWeightString :: FontWeightClass FontWeight where
+  fontWeight = opt "fontWeight"
+
+instance fontWeightNum :: FontWeightClass Number where
+  fontWeight = opt "fontWeight"
+
+
+class BackgroundClass a b where
+  background :: Option a b
+
+instance chartBackground :: BackgroundClass Chart String where
+  background = opt "background"
+
+instance dataLabelsBackground :: BackgroundClass DataLabels (Options Background) where
+  background = cmap Opt.options (opt "background")
+
+
+class ForeColor a where
+  foreColor :: Option a String
+
+instance chartForecolor :: ForeColor Chart where
+  foreColor = opt "foreColor"
+  
+instance backgroundForecolor :: ForeColor Background where
+  foreColor = opt "foreColor"
+
+
+class DropShadowClass a where
+  dropShadow :: Option a (Options Dropshadow)
+
+instance dropshadowChart :: DropShadowClass Chart where
+  dropShadow = cmap Opt.options (opt "dropShadow")
+
+instance dropshadowBackground :: DropShadowClass Background where
+  dropShadow = cmap Opt.options (opt "dropShadow")
+
+instance dropshadowDataLabels :: DropShadowClass DataLabels where
+  dropShadow = cmap Opt.options (opt "dropShadow")
+
+
+class StyleClass a b where
+  style :: Option a b
+
+instance dataLabelsStyle :: StyleClass DataLabels (Options Style) where  
+  style =  cmap Opt.options (opt "style")
+
+instance patternStyle :: StyleClass Pattern PatternStyle where  
+  style =  cmap patternStyleToString (opt "style")
+
+
+class BorderColor a where
+  borderColor :: Option a String
+
+instance backgroundBorderColor :: BorderColor Background where
+  borderColor = opt "borderColor"
+
+instance gridBorderColor :: BorderColor Grid where
+  borderColor = opt "borderColor"
+
+
+class Xaxis a b where 
+  xaxis :: Option a (Options b)
+
+instance apexoptionsXaxis :: Xaxis Apexoptions Axis where
+  xaxis = cmap Opt.options (opt "xaxis")
+
+instance selectionXaxis :: Xaxis Selection SelectionAxis where
+  xaxis = cmap Opt.options (opt "xaxis")
+
+instance gridXaxis :: Xaxis Grid Gridaxis where
+  xaxis = cmap Opt.options (opt "xaxis")
+
+
+class Yaxis a b where 
+  yaxis :: Option a (Options b)
+
+instance gridYaxis :: Yaxis Grid Gridaxis where
+  yaxis = cmap Opt.options (opt "yaxis")
+
+instance selectionYaxis :: Yaxis Selection SelectionAxis where
+  yaxis = cmap Opt.options (opt "yaxis")
+
+class PaddingClass a b where
+  padding :: Option a b
+
+instance backgroundpadding :: PaddingClass Background Int where
+  padding = opt "padding"
+
+instance gridpadding :: PaddingClass Grid (Options Padding) where
+  padding = cmap Opt.options (opt "padding")
+
+
+class Top a where
+  top :: Option a Int  
+
+instance dropShadowTop :: Top Dropshadow where
+  top = opt "top"  
+
+instance paddingTop :: Top Padding where
+  top = opt "top"  
+
+
+class Leftclass a where
+  left :: Option a Int  
+
+instance dropshadowLeft :: Leftclass Dropshadow where
+  left = opt "left"
+
+instance paddingLeft :: Leftclass Padding where
+  left = opt "left"
+
 
 chart :: Option Apexoptions (Options Chart)
 chart = cmap Opt.options (opt "chart")
 
 series :: Option Apexoptions (Array (Options Series))
-series = cmap (\arr -> arr <#> Opt.options) (opt "series")
+series = cmap (map Opt.options) (opt "series")
 
 dataLabels :: Option Apexoptions (Options DataLabels)
 dataLabels = cmap Opt.options (opt "dataLabels")
+
+fontSize :: Option Style String
+fontSize = opt "fontSize"
 
 title :: Option Apexoptions (Options Title)
 title = cmap Opt.options (opt "title")
 
 text :: Option Title String
 text = opt "text"
+
+borderRadius :: Option Background Int
+borderRadius = opt "borderRadius"
+
+borderWidth :: Option Background Int
+borderWidth = opt "borderWidth"
 
 align :: Option Title Align
 align =  cmap alignToString (opt "align")
@@ -512,19 +789,9 @@ stroke = cmap Opt.options (opt "stroke")
 
 lineCap :: Option MainStroke LineCap
 lineCap = cmap lineCapToString (opt "lineCap")  
-
-xAxis :: Option Selection (Options SelectionAxis)
-xAxis = cmap Opt.options (opt "xaxis")
-
-xaxis :: Option Apexoptions (Options Axis)
-xaxis = cmap Opt.options (opt "xaxis")
    
-
 labels :: Option Apexchart (Array String)
 labels = opt "labels"
-
-background :: Option Chart String
-background = opt "background"
 
 brush :: Option Chart (Options Brush)
 brush = cmap Opt.options (opt "brush")
@@ -535,23 +802,8 @@ target = opt "target"
 defaultLocale :: Option Chart String
 defaultLocale = opt "defaultLocale"
 
-dropShadow :: Option Chart (Options Dropshadow)
-dropShadow = cmap Opt.options (opt "dropShadow")
-
-top :: Option Dropshadow Number
-top = opt "top"
-
-left :: Option Dropshadow Number
-left = opt "left"
-
-blur :: Option Dropshadow Number
+blur :: Option Dropshadow Int
 blur = opt "blur"
-
-fontFamily :: Option Chart String
-fontFamily = opt "fontFamily"
-
-foreColor :: Option Chart String
-foreColor = opt "foreColor"
 
 group :: Option Chart String
 group = opt "group"
@@ -560,7 +812,7 @@ id :: Option Chart String
 id = opt "id"
 
 locales :: Option Chart (Array (Options Locale))
-locales =  cmap (\arr -> arr <#> Opt.options) (opt "locales")
+locales =  cmap (map Opt.options) (opt "locales")
 
 options :: Option Locale (Options LocaleOptions)
 options = cmap Opt.options (opt "options")
@@ -586,14 +838,71 @@ zoomIn = opt "zoomIn"
 zoomOut :: Option Toolbar String
 zoomOut = opt "zoomOut"
 
+gradient :: Option GeneralFill (Options Gradient)
+gradient = cmap Opt.options (opt "gradient")
+
+shadeIntensity :: Option Gradient Number
+shadeIntensity = opt "shadeIntensity"
+
+gradientToColors :: Option Gradient (Array String)
+gradientToColors = opt "gradientToColors"
+
+inverseColors :: Option Gradient Boolean
+inverseColors = opt "inverseColors"
+
+opacityFrom :: Option Gradient Int
+opacityFrom = opt "opacityFrom"
+
+opacityTo :: Option Gradient Int
+opacityTo = opt "opacityTo"
+
+stops :: Option Gradient (Array Int)
+stops = opt "stops"
+
+shade :: Option Gradient Shade
+shade = cmap shadeToString (opt "shade")
+
+image :: Option GeneralFill (Options Image)
+image = cmap Opt.options (opt "image")
+
+pattern :: Option GeneralFill (Options Pattern)
+pattern = cmap Opt.options (opt "pattern")
+
+strokeWidth :: Option Pattern Int
+strokeWidth = opt "strokeWidth"
+
+src :: Option Image (Array String)
+src = opt "src"  
+
+grid :: Option Apexoptions (Options Grid)
+grid = cmap Opt.options (opt "grid")
+
+strokeDashArray :: Option Grid Number
+strokeDashArray = opt "strokeDashArray"
+
+position :: Option Grid Gridposition
+position = cmap gridpositionToString (opt "position")  
+
+lines :: Option Gridaxis (Options Lines)
+lines = cmap Opt.options (opt "position")  
+
+row :: Option Grid (Options RowOrColumn)
+row = cmap Opt.options (opt "row")  
+
+column :: Option Grid (Options RowOrColumn)
+column = cmap Opt.options (opt "column")  
+
+right :: Option Padding Int
+right = opt "right"
+
+bottom :: Option Padding Int
+bottom = opt "bottom"
+
 parentHeightOffset :: Option Chart Number
 parentHeightOffset = opt "parentHeightOffset"
 
 redrawOnParentResize :: Option Chart Boolean
 redrawOnParentResize = opt "redrawOnParentResize"
-
-yaxis :: Option Selection (Options SelectionAxis)
-yaxis = cmap Opt.options (opt "yaxis")
 
 min :: Option SelectionAxis Number
 min = opt "min"
