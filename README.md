@@ -58,6 +58,7 @@ in render $ createChart "#chart" chart
 ```
 </br>
 
+More Examples [here](https://github.com/timdeputter/purescript-apexcharts/tree/master/examples).
 
 ## Documentation
 
