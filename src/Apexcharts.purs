@@ -22,6 +22,7 @@ data Toolbar
 data Selection
 data Fill
 data Stroke
+data MainStroke
 data SelectionAxis
 data Sparkline
 data ChartToolbar
@@ -29,7 +30,8 @@ data Tools
 data Zoom
 data Series
 data Paired
-
+data DataLabels
+data Title
 
 foreign import data Apexchart :: Type
 
@@ -101,6 +103,40 @@ easingToString = case _ of
     Easeout -> "easeout"
     Easeinout -> "easeinout"
 
+data TextAnchor = Start | Middle | End
+
+
+textAnchorToString :: TextAnchor -> String
+textAnchorToString = case _ of
+    Start -> "start"
+    Middle -> "middle"
+    End -> "end"
+
+
+data Curve = Smooth | Straight | Stepline
+
+curveToString :: Curve -> String
+curveToString = case _ of
+  Smooth -> "smooth"
+  Straight -> "straight"
+  Stepline -> "stepline"
+
+data LineCap = Butt | Square | Round
+
+lineCapToString :: LineCap -> String
+lineCapToString = case _ of
+  Butt -> "butt"
+  Square -> "square"
+  Round -> "round"
+
+data Align = Left | Center | Right
+
+alignToString :: Align -> String
+alignToString = case _ of
+  Left -> "left"
+  Center -> "center"
+  Right -> "right"
+
 
 class Enabled a where
   enabled :: Option a Boolean
@@ -127,6 +163,9 @@ instance enableSparkline :: Enabled Sparkline where
   enabled = opt "enabled"      
 
 instance enableZoom :: Enabled Zoom where
+  enabled = opt "enabled"      
+
+instance enableDataLabels :: Enabled DataLabels where
   enabled = opt "enabled"      
 
 
@@ -227,6 +266,9 @@ instance chartOffsetX :: OffsetX Chart Number where
 instance chartToolbarOffsetX :: OffsetX ChartToolbar Number where
     offsetX = opt "offsetX"
 
+instance dataLabelsOffsetX :: OffsetX DataLabels Number where
+    offsetX = opt "offsetX"
+
 
 class OffsetY a b where
   offsetY :: Option a b
@@ -235,6 +277,9 @@ instance chartOffsetY :: OffsetY Chart Number where
     offsetY = opt "offsetY"
 
 instance chartToolbarOffsetY :: OffsetY ChartToolbar Number where
+    offsetY = opt "offsetY"
+
+instance dataLabelsOffsetY :: OffsetY DataLabels Number where
     offsetY = opt "offsetY"
 
 
@@ -277,6 +322,9 @@ class Width a b where
 instance widthStroke :: Width Stroke Number where
   width = opt "width"
 
+instance widthMainstroke :: Width MainStroke Number where
+  width = opt "width"
+
 instance widthChartNum :: Width Chart Number where
   width = opt "width"
 
@@ -299,16 +347,6 @@ instance brushAutoscale :: AutoScale Brush Boolean where
 
 instance zoomAutoscale :: AutoScale Zoom Boolean where
     autoScaleYaxis = opt "autoScaleYaxis"
-
-
-class StrokeClass a where
-    stroke :: Option a (Options Stroke)
-
-instance selectionStroke :: StrokeClass Selection where
-    stroke = cmap Opt.options (opt "stroke")  
-
-instance selectionZoomClass :: StrokeClass Zoom where
-    stroke = cmap Opt.options (opt "stroke")  
 
 
 class FillClass a  where
@@ -388,6 +426,61 @@ instance strcats :: Categories String where
 instance numcats :: Categories Number where
     categories = opt "categories"
 
+class EnabledOnSeries a where
+  enabledOnSeries :: Option a (Array Number)
+
+instance enabledOnSeriesDropshadow :: EnabledOnSeries Dropshadow where
+    enabledOnSeries = opt "enabledOnSeries"
+
+instance enabledOnSeriesDataLabels:: EnabledOnSeries DataLabels where
+    enabledOnSeries = opt "enabledOnSeries"
+
+
+class ShowClass a where
+  show :: Option a Boolean
+
+instance showChartToolbar :: ShowClass ChartToolbar where
+  show = opt "show"
+
+instance showMainStroke :: ShowClass MainStroke where
+  show = opt "show"
+
+
+class DashArray a b where
+  dashArray :: Option a b
+
+instance dashArrayStroke :: DashArray Stroke Number where
+  dashArray = opt "dashArray"  
+
+instance dashArrayStrokeArray :: DashArray Stroke (Array Number) where
+  dashArray = opt "dashArray"  
+
+instance dashArrayMainstroke :: DashArray MainStroke Number where
+  dashArray = opt "dashArray"  
+
+instance dashArrayMainstrokeArray :: DashArray MainStroke (Array Number) where
+  dashArray = opt "dashArray"  
+
+
+class CurveClass a  where
+  curve :: Option MainStroke a
+
+instance simpleCurve :: CurveClass Curve where
+  curve = cmap curveToString (opt "curve")
+
+instance arrayCurve :: CurveClass (Array Curve) where
+  curve = cmap (\arr -> arr <#> curveToString) (opt "curve")
+
+
+class Colors a where
+  colors :: Option a (Array String)
+
+
+instance apexchartColors :: Colors Apexchart where
+  colors = opt "colors"  
+
+instance strokeColors :: Colors MainStroke where
+  colors = opt "colors"  
 
 
 chart :: Option Apexoptions (Options Chart)
@@ -396,14 +489,36 @@ chart = cmap Opt.options (opt "chart")
 series :: Option Apexoptions (Array (Options Series))
 series = cmap (\arr -> arr <#> Opt.options) (opt "series")
 
+dataLabels :: Option Apexoptions (Options DataLabels)
+dataLabels = cmap Opt.options (opt "dataLabels")
+
+title :: Option Apexoptions (Options Title)
+title = cmap Opt.options (opt "title")
+
+text :: Option Title String
+text = opt "text"
+
+align :: Option Title Align
+align =  cmap alignToString (opt "align")
+
+selectionStroke :: Option Selection (Options Stroke)
+selectionStroke = cmap Opt.options (opt "stroke")  
+
+zoomStroke :: Option Zoom (Options Stroke)
+zoomStroke = cmap Opt.options (opt "stroke")  
+
+stroke :: Option Apexoptions (Options MainStroke)
+stroke = cmap Opt.options (opt "stroke")  
+
+lineCap :: Option MainStroke LineCap
+lineCap = cmap lineCapToString (opt "lineCap")  
+
 xAxis :: Option Selection (Options SelectionAxis)
 xAxis = cmap Opt.options (opt "xaxis")
 
 xaxis :: Option Apexoptions (Options Axis)
 xaxis = cmap Opt.options (opt "xaxis")
    
-colors :: Option Apexchart (Array String)
-colors = opt "colors"
 
 labels :: Option Apexchart (Array String)
 labels = opt "labels"
@@ -422,9 +537,6 @@ defaultLocale = opt "defaultLocale"
 
 dropShadow :: Option Chart (Options Dropshadow)
 dropShadow = cmap Opt.options (opt "dropShadow")
-
-enabledOnSeries :: Option Dropshadow (Array Number)
-enabledOnSeries = opt "enabledOnSeries"
 
 top :: Option Dropshadow Number
 top = opt "top"
@@ -480,9 +592,6 @@ parentHeightOffset = opt "parentHeightOffset"
 redrawOnParentResize :: Option Chart Boolean
 redrawOnParentResize = opt "redrawOnParentResize"
 
-dashArray :: Option Stroke Number
-dashArray = opt "dashArray"
-
 yaxis :: Option Selection (Options SelectionAxis)
 yaxis = cmap Opt.options (opt "yaxis")
 
@@ -500,9 +609,6 @@ stacked = opt "stacked"
 
 stackType :: Option Chart StackType
 stackType = cmap stackTypeToString (opt "stackType")
-
-show :: Option ChartToolbar Boolean
-show = opt "show"
 
 tools :: Option ChartToolbar (Options Tools)
 tools = cmap Opt.options (opt "tools")
@@ -530,6 +636,12 @@ graduallyDelay = opt "delay"
 
 dynamicAnimation :: Option Animations (Options DynamicAnimation)     
 dynamicAnimation = cmap Opt.options (opt "dynamicAnimation")
+
+textAnchor :: Option DataLabels TextAnchor
+textAnchor = cmap textAnchorToString (opt "textAnchor")
+
+distributed :: Option DataLabels Boolean
+distributed = opt "distributed"
 
 
 createChart :: String -> Options Apexoptions -> Apexchart

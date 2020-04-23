@@ -18,7 +18,8 @@ async function sh(cmd) {
 }
 
 async function main() {
-    (await getExamples()).forEach(async el => {
+    asyncForEach(await getExamples(), async el => {
+        console.log("Running example " + el + ":"); 
         doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
         doLog(await sh(`taiko ./taiko/test-${el}.js --observe`));    
     });
@@ -40,6 +41,12 @@ async function getExamples() {
         }
     });
     return res;
+}
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
 }
   
 main();
