@@ -1,4 +1,4 @@
-module Examples.BasicChart where
+module Examples.BasicBarchart where
 
 import Prelude
 
