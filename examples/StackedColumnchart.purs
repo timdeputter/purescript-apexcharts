@@ -1,17 +1,16 @@
 module Examples.StackedColumnchart where
 
-import Prelude
+import Apexcharts (StackType(..), categories, createChart, data', fill, name, render, series, type', xaxis)
+import Prelude (Unit, ($), (<>))
 
-import Apexcharts (ChartType(..), GeneralFill, StackType(..), categories, chart, createChart, data', fill, name, opacity, render, series, stackType, stacked, type', xaxis)
-import Data.Options (Options, (:=))
+import Apexcharts.Chart (ChartType(..), chart, stackType, stacked)
+
+import Apexcharts.Fill as F
+import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
-main =  
-  let 
-    fill' :: Options GeneralFill
-    fill' = opacity := 1.0
-  in render $ createChart "#chart" (
+main = render $ createChart "#chart" (
         chart := (type' := Bar <> stacked := true <> stackType := HundredPercent)
         <> series := [
           name := "PRODUCT A"
@@ -26,5 +25,5 @@ main =
             "2012 Q1", "2012 Q2", "2012 Q3", "2012 Q4"
           ]
         )
-        <> fill := fill'
+        <> fill := F.opacity := 1.0
     )

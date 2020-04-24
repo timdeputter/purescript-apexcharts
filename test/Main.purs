@@ -2,7 +2,10 @@ module Test.Main where
 
 
 
-import Apexcharts (Align(..), Apexoptions, Axis, AxisType(..), ChartType(..), Curve(..), Easing(..), Fill, FillType(..), FontWeight(..), GeneralFill, GradientType(..), Gridposition(..), LineCap(..), OrientationType(..), PatternStyle(..), Shade(..), StackType(..), TextAnchor(..), align, animateGradually, animations, autoScaleYaxis, background, blur, borderColor, borderRadius, borderWidth, bottom, brush, categories, chart, color, colors, column, curve, dashArray, data', dataLabels, days, defaultLocale, distributed, download, dropShadow, dynamicAnimation, easing, enabled, enabledOnSeries, fill, fontFamily, fontSize, fontWeight, foreColor, gradient, gradientToColors, graduallyDelay, grid, group, height, id, image, inverseColors, labels, left, lineCap, lines, locales, max, min, months, name, offsetX, offsetY, opacity, opacityFrom, opacityTo, options, padding, pan, parentHeightOffset, pattern, position, redrawOnParentResize, reset, right, row, selection, selectionStroke, selectionZoom, series, shade, shadeIntensity, shortDays, shortMonths, show, sparkline, speed, src, stackType, stacked, stops, stroke, strokeDashArray, strokeWidth, style, target, text, textAnchor, title, toolbar, tools, top, type', width, x, xaxis, y, yaxis, zoom, zoomIn, zoomOut, zoomStroke, zoomin, zooming, zoomout)
+import Apexcharts (Align(..), Apexoptions, Axis, AxisType(..), Curve(..), FontWeight(..), GradientType(..), Gridposition(..), LineCap(..), OrientationType(..), PatternStyle(..), Shade(..), TextAnchor(..), align, autoScaleYaxis, background, blur, borderColor, borderRadius, borderWidth, bottom, categories, color, colors, column, curve, dashArray, data', dataLabels, distributed, download, dropShadow, enabled, enabledOnSeries, fill, fontFamily, fontSize, fontWeight, foreColor, gradientToColors, grid, height, inverseColors, labels, left, lineCap, lines, name, offsetX, offsetY, opacity, opacityFrom, opacityTo, padding, pan, position, reset, right, row, selection, selectionZoom, series, shade, shadeIntensity, show, speed, src, stops, stroke, strokeDashArray, strokeWidth, style, text, textAnchor, title, toolbar, top, type', width, x, xaxis, y, yaxis, zoom, zoomIn, zoomOut)
+import Apexcharts.Chart (ChartType(..), Easing(..), Fill, StackType(..), animateGradually, animations, brush, chart, days, defaultLocale, dynamicAnimation, easing, graduallyDelay, group, id, locales, max, min, months, options, parentHeightOffset, redrawOnParentResize, selectionStroke, shortDays, shortMonths, sparkline, stackType, stacked, target, tools, zoomStroke, zoomin, zooming, zoomout)
+import Apexcharts.Fill (FillType(..))
+import Apexcharts.Fill as F
 import Data.Options (Options, (:=))
 import Data.Options as Opt
 import Effect (Effect)
@@ -190,19 +193,19 @@ main = run [specReporter] do
 
     describe "fill" do
       let
-        withFill :: Options GeneralFill -> Options Apexoptions
+        withFill :: Options F.GeneralFill -> Options Apexoptions
         withFill f = (fill := f)
       it "colors" $ (withFill $ colors := ["#aaa", "#bbb"]) `shouldBeOption` "{\"fill\":{\"colors\":[\"#aaa\",\"#bbb\"]}}"
-      it "opacity" $ (withFill $ opacity := 0.9) `shouldBeOption` "{\"fill\":{\"opacity\":0.9}}"
+      it "opacity" $ (withFill $ F.opacity := 0.9) `shouldBeOption` "{\"fill\":{\"opacity\":0.9}}"
       it "type" $ (withFill $ type' := Solid) `shouldBeOption`  "{\"fill\":{\"type\":\"solid\"}}"
-      it "gradient" $ (withFill $ gradient := (shade := Dark <> type' := GradientHorizontal <> shadeIntensity := 0.5
+      it "gradient" $ (withFill $ F.gradient := (shade := Dark <> type' := GradientHorizontal <> shadeIntensity := 0.5
         <> gradientToColors := ["#aaa", "#bbb"] <> inverseColors := true <> opacityFrom := 1.0 <> opacityTo := 2.0
         <> stops := [0, 50, 100])) `shouldBeOption`  ("{\"fill\":{\"gradient\":{\"shade\":\"dark\",\"type\":\"horizontal\","
         <> "\"shadeIntensity\":0.5,\"gradientToColors\":[\"#aaa\",\"#bbb\"],\"inverseColors\":true,"
         <> "\"opacityFrom\":1,\"opacityTo\":2,\"stops\":[0,50,100]}}}")
-      it "image" $ (withFill $ image := (src := ["img.png"] <> width := 10 <> height := 12)) 
+      it "image" $ (withFill $ F.image := (src := ["img.png"] <> width := 10 <> height := 12)) 
         `shouldBeOption` "{\"fill\":{\"image\":{\"src\":[\"img.png\"],\"width\":10,\"height\":12}}}"
-      it "pattern" $ (withFill $ pattern := (style := VerticalLines <> width := 10 <> height := 12 <> strokeWidth := 2)) 
+      it "pattern" $ (withFill $ F.pattern := (style := VerticalLines <> width := 10 <> height := 12 <> strokeWidth := 2)) 
         `shouldBeOption` "{\"fill\":{\"pattern\":{\"style\":\"verticalLines\",\"width\":10,\"height\":12,\"strokeWidth\":2}}}"
 
     describe "grid" do
