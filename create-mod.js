@@ -79,11 +79,13 @@ var createFunctions = function(toCheck, currentName, parents, arr, sourceCode) {
 
 
 var createModuleAndDataDef = function(currentName, parents) {
-    parents = parents.filter(p => p !== "Apexoptions")
+    var modparents = parents.filter(p => p !== "Apexoptions")
+    var parentModuleImport = modparents[0] == "Apexoptions" || modparents.length == 0 ? "import Apexcharts" : "import Apexcharts." + joinStrs(modparents);
+    var moduleName = modparents.length == 0 
+        ? "Apexcharts." + capitalizeFLetter(currentName)
+        : "Apexcharts." + joinStrs(modparents) + "." + capitalizeFLetter(currentName); 
     if(parents.length > 0) {
-        var parentModuleImport = parents[0] == "Apexoptions" ? "import Apexcharts" : "import Apexcharts." + joinStrs(parents);
-        var moduleName = "Apexcharts." + joinStrs(parents) + "." + capitalizeFLetter(currentName); 
-        var sourceCode = `
+    var sourceCode = `
 module ${moduleName} where
 
 ${parentModuleImport}
@@ -92,8 +94,8 @@ import Data.Options (Option, Options, opt)
 import Data.Options as Opt
 
 `;
-        sourceCode += createDataType(currentName, parents);
-        return sourceCode;
+    sourceCode += createDataType(currentName, parents);
+    return sourceCode;
     }
     return "";
 };
@@ -126,9 +128,9 @@ var joinStrs = function(arr) {
 
 var res = [];
 createTypeDefinitions(desc, 'Apexoptions', [], res)
-res.forEach(sc => {
+res.filter(e => e.filename !== "Apexoptions.purs").forEach(sc => {
     console.log("Schreibe Datei: " + sc.filename);
-    fs.writeFile(sc.filename, sc.code);
+    fs.writeFile(sc.filename, sc.code, err =>{ if(err) console.log(err)});
 
     console.log("done");
 });
