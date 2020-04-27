@@ -8,10 +8,10 @@ import Data.Options as Opt
 
 data Labels
 
-labels :: Option Apexoptions (Options Labels)
+labels :: Option Legend (Options Labels)
 labels = cmap Opt.options (opt "labels")
 
-colors :: Option Labels Undefined
+colors :: Option Labels (Array String)
 colors = opt "colors"
 
 useSeriesColors :: Option Labels Boolean

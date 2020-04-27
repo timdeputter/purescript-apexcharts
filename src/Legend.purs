@@ -41,20 +41,14 @@ fontFamily = opt "fontFamily"
 fontWeight :: Option Legend Number
 fontWeight = opt "fontWeight"
 
-formatter :: Option Legend Undefined
-formatter = opt "formatter"
-
 inverseOrder :: Option Legend Boolean
 inverseOrder = opt "inverseOrder"
 
-width :: Option Legend Undefined
+width :: Option Legend Number
 width = opt "width"
 
-height :: Option Legend Undefined
+height :: Option Legend Number
 height = opt "height"
-
-tooltipHoverFormatter :: Option Legend Undefined
-tooltipHoverFormatter = opt "tooltipHoverFormatter"
 
 offsetX :: Option Legend Number
 offsetX = opt "offsetX"

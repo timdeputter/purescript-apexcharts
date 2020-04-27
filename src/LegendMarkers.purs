@@ -8,7 +8,7 @@ import Data.Options as Opt
 
 data Markers
 
-markers :: Option Apexoptions (Options Markers)
+markers :: Option Legend (Options Markers)
 markers = cmap Opt.options (opt "markers")
 
 width :: Option Markers Number
@@ -23,17 +23,11 @@ strokeWidth = opt "strokeWidth"
 strokeColor :: Option Markers String
 strokeColor = opt "strokeColor"
 
-fillColors :: Option Markers Undefined
+fillColors :: Option Markers (Array String)
 fillColors = opt "fillColors"
 
 radius :: Option Markers Number
 radius = opt "radius"
-
-customHTML :: Option Markers Undefined
-customHTML = opt "customHTML"
-
-onClick :: Option Markers Undefined
-onClick = opt "onClick"
 
 offsetX :: Option Markers Number
 offsetX = opt "offsetX"

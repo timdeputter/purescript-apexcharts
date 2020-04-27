@@ -8,7 +8,7 @@ import Data.Options as Opt
 
 data ItemMargin
 
-itemMargin :: Option Apexoptions (Options ItemMargin)
+itemMargin :: Option Legend (Options ItemMargin)
 itemMargin = cmap Opt.options (opt "itemMargin")
 
 horizontal :: Option ItemMargin Number

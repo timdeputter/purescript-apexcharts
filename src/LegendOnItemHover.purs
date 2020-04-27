@@ -8,7 +8,7 @@ import Data.Options as Opt
 
 data OnItemHover
 
-onItemHover :: Option Apexoptions (Options OnItemHover)
+onItemHover :: Option Legend (Options OnItemHover)
 onItemHover = cmap Opt.options (opt "onItemHover")
 
 highlightDataSeries :: Option OnItemHover Boolean

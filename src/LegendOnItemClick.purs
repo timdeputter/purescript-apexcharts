@@ -8,7 +8,7 @@ import Data.Options as Opt
 
 data OnItemClick
 
-onItemClick :: Option Apexoptions (Options OnItemClick)
+onItemClick :: Option Legend (Options OnItemClick)
 onItemClick = cmap Opt.options (opt "onItemClick")
 
 toggleDataSeries :: Option OnItemClick Boolean

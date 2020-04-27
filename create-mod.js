@@ -102,7 +102,7 @@ import Data.Options as Opt
 
 var createDataType = function(currentName, parents) {
     var sourceCode = 'data ' + capitalizeFLetter(currentName) + "\n\n";
-    sourceCode += currentName + ' :: Option ' + capitalizeFLetter(parents[0]) + ' (Options ' + capitalizeFLetter(currentName) + ')\n';
+    sourceCode += currentName + ' :: Option ' + capitalizeFLetter(parents[parents.length-1]) + ' (Options ' + capitalizeFLetter(currentName) + ')\n';
     sourceCode += currentName + ' = cmap Opt.options (opt \"' + currentName + '\")\n\n';
     return sourceCode;    
 };
@@ -128,7 +128,7 @@ var joinStrs = function(arr) {
 
 var res = [];
 createTypeDefinitions(desc, 'Apexoptions', [], res)
-res.filter(e => e.filename !== "Apexoptions.purs").forEach(sc => {
+res.filter(e => e.filename !== "./src/Apexoptions.purs").forEach(sc => {
     console.log("Schreibe Datei: " + sc.filename);
     fs.writeFile(sc.filename, sc.code, err =>{ if(err) console.log(err)});
 
