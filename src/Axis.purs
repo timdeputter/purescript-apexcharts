@@ -1,8 +1,8 @@
 module Apexcharts.Axis where
 
-import Apexcharts (class Type, class Xaxis, Apexoptions)
+import Apexcharts (Apexoptions)
 import Data.Functor.Contravariant (cmap)
-import Data.Options (Option, opt)
+import Data.Options (Option, Options, opt)
 import Data.Options as Opt
 
 
@@ -19,12 +19,12 @@ axisTypeToString = case _ of
     Numeric -> "numeric"
 
 
-instance apexoptionsXaxis :: Xaxis Apexoptions Axis where
-  xaxis = cmap Opt.options (opt "xaxis")
+xaxis :: Option Apexoptions (Options Axis)
+xaxis = cmap Opt.options (opt "xaxis")
 
 
-instance typeAxis :: Type Axis AxisType where
-    type' = cmap axisTypeToString (opt "type")
+type' :: Option Axis AxisType
+type' = cmap axisTypeToString (opt "type")
 
 
 class Categories a where

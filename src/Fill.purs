@@ -1,9 +1,9 @@
 module Apexcharts.Fill where
 
 import Apexcharts (Apexoptions)
-import Apexcharts.Commons (class Color, class FillClass)
+
 import Data.Functor.Contravariant (cmap)
-import Data.Options (Option, opt)
+import Data.Options (Option, Options, opt)
 import Data.Options as Opt
 import Prelude (map)
 
@@ -21,11 +21,11 @@ fillTypeToString = case _ of
   Image -> "image"
 
 
-instance generalFill :: FillClass Apexoptions GeneralFill where
-  fill = cmap Opt.options (opt "fill")
+fill :: Option Apexoptions (Options GeneralFill)
+fill = cmap Opt.options (opt "fill")
 
-instance generalfillColor :: Color GeneralFill String where
-    color = opt "color"
+color :: Option GeneralFill String
+color = opt "color"
 
 opacity :: Option GeneralFill Number
 opacity = opt "opacity"

@@ -2,6 +2,18 @@ module Apexcharts.Commons where
 
 import Data.Options (Option, Options)
   
+
+
+
+data OrientationType = X | Y | XY
+
+orientationTypeToString :: OrientationType -> String
+orientationTypeToString = case _ of
+    X -> "x"
+    Y -> "y"
+    XY -> "xy"
+
+
 class FillClass a b where
     fill :: Option a (Options b) 
 
@@ -36,3 +48,6 @@ class Height a b where
 
 class Colors a where
   colors :: Option a (Array String)
+
+class Opacity a b where
+  opacity :: Option a b

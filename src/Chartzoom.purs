@@ -1,10 +1,10 @@
 module Apexcharts.Chart.Zoom where
 
-import Apexcharts
 
-import Apexcharts.Chart (class AutoScale, Chart)
+
+import Apexcharts.Chart (Chart)
 import Apexcharts.Chart.Fill (Fill)
-import Apexcharts.Commons (class FillClass)
+import Apexcharts.Commons (OrientationType, orientationTypeToString)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -19,14 +19,23 @@ zoomStroke = cmap Opt.options (opt "stroke")
 zooming :: Option Chart (Options Zoom) 
 zooming = cmap Opt.options (opt "zoom")
 
-instance enableZoom :: Enabled Zoom where
-  enabled = opt "enabled"      
+enabled :: Option Zoom Boolean
+enabled = opt "enabled"      
 
-instance typeZoom :: Type Zoom OrientationType where
-    type' = cmap orientationTypeToString (opt "type")
+type' :: Option Zoom OrientationType
+type' = cmap orientationTypeToString (opt "type")
 
-instance zoomAutoscale :: AutoScale Zoom Boolean where
-    autoScaleYaxis = opt "autoScaleYaxis"
+autoScaleYaxis :: Option Zoom Boolean
+autoScaleYaxis = opt "autoScaleYaxis"
 
-instance zoomFill :: FillClass Zoom Fill where
-    fill = cmap Opt.options (opt "fill")
+fill :: Option Zoom (Options Fill)
+fill = cmap Opt.options (opt "fill")
+
+color :: Option Stroke String
+color = opt "color"
+
+opacity :: Option Stroke Number
+opacity = opt "opacity"
+
+width :: Option Stroke Number
+width = opt "width"

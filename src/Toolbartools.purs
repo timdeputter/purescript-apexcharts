@@ -1,4 +1,4 @@
-module Apexcharts.Chart.Toolbar.Zoom where
+module Apexcharts.Chart.Toolbar.Tools where
 
 
 

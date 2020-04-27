@@ -2,8 +2,8 @@ module Apexcharts.Mainstroke where
   
 import Prelude
 
-import Apexcharts (class DashArray, class ShowClass, Apexoptions)
-import Apexcharts.Commons (class Colors, class Width)
+import Apexcharts (class DashArray, Apexoptions)
+
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -32,11 +32,11 @@ curveToString = case _ of
 stroke :: Option Apexoptions (Options MainStroke)
 stroke = cmap Opt.options (opt "stroke")  
 
-instance widthMainstroke :: Width MainStroke Number where
-  width = opt "width"
+width :: Option MainStroke Number
+width = opt "width"
 
-instance showMainStroke :: ShowClass MainStroke where
-  show = opt "show"
+show :: Option MainStroke Boolean
+show = opt "show"
 
 instance dashArrayMainstroke :: DashArray MainStroke Number where
   dashArray = opt "dashArray"  
@@ -53,8 +53,8 @@ instance simpleCurve :: CurveClass Curve where
 instance arrayCurve :: CurveClass (Array Curve) where
   curve = cmap (map curveToString) (opt "curve")
 
-instance strokeColors :: Colors MainStroke where
-  colors = opt "colors"  
+colors :: Option MainStroke (Array String)
+colors = opt "colors"  
 
 lineCap :: Option MainStroke LineCap
 lineCap = cmap lineCapToString (opt "lineCap")  

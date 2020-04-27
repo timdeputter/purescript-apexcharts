@@ -3,6 +3,7 @@ module Apexcharts.Chart where
 import Apexcharts
 
 import Apexcharts.Commons (class Height, class Width)
+import Apexcharts.DropShadow (Dropshadow)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -62,15 +63,11 @@ instance heightChartString :: Height Chart String where
 type' :: Option Chart ChartType
 type' = cmap chartTypeToString (opt "type")
 
+offsetX:: Option Chart Number
+offsetX = opt "offsetX"
 
-
-
-instance chartOffsetX :: OffsetX Chart Number where
-    offsetX = opt "offsetX"
-
-instance chartOffsetY :: OffsetY Chart Number where
-    offsetY = opt "offsetY"
-
+offsetY :: Option Chart Number
+offsetY = opt "offsetY"
 
 instance widthChartNum :: Width Chart Number where
   width = opt "width"
@@ -78,14 +75,14 @@ instance widthChartNum :: Width Chart Number where
 instance widthChartStr :: Width Chart String where
   width = opt "width"
 
-instance chartFontFamily :: FontFamily Chart where
-  fontFamily = opt "fontFamily"
+fontFamily :: Option Chart String
+fontFamily = opt "fontFamily"
 
-instance chartBackground :: BackgroundClass Chart String where
-  background = opt "background"
+background :: Option Chart String
+background = opt "background"
 
-instance chartForecolor :: ForeColor Chart where
-  foreColor = opt "foreColor"
+foreColor :: Option Chart String
+foreColor = opt "foreColor"
 
 
 defaultLocale :: Option Chart String
@@ -114,13 +111,15 @@ stackType :: Option Chart StackType
 stackType = cmap stackTypeToString (opt "stackType")
 
 
+dropShadow :: Option Chart (Options Dropshadow)
+dropShadow = cmap Opt.options (opt "dropShadow")
 
 
 
 
 
-instance enableSparkline :: Enabled Sparkline where
-  enabled = opt "enabled"      
+enabled :: Option Sparkline Boolean
+enabled = opt "enabled"      
 
 
 

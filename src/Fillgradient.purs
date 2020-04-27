@@ -1,7 +1,7 @@
 module Apexcharts.Fill.Gradient where
   
 
-import Apexcharts.Commons (class Width)
+
 import Apexcharts.Fill (GeneralFill)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
@@ -9,8 +9,6 @@ import Data.Options as Opt
 
 
 data Gradient
-data Image
-data Pattern
 
 
 data Shade = Light | Dark
@@ -21,19 +19,6 @@ shadeToString = case _ of
   Dark -> "dark"
 
 
-data PatternStyle = VerticalLines
-    | HorizontalLines
-    | SlantedLines
-    | Squares
-    | Circles
-
-patternStyleToString :: PatternStyle -> String
-patternStyleToString = case _ of
-  VerticalLines -> "verticalLines"
-  HorizontalLines -> "horizontalLines"
-  SlantedLines -> "slantedLines"
-  Squares -> "squares"
-  Circles -> "circles"
 
 
 
@@ -53,34 +38,15 @@ gradientTypeToString = case _ of
 gradient :: Option GeneralFill (Options Gradient)
 gradient = cmap Opt.options (opt "gradient")
 
-image :: Option GeneralFill (Options Image)
-image = cmap Opt.options (opt "image")
-
-pattern :: Option GeneralFill (Options Pattern)
-pattern = cmap Opt.options (opt "pattern")
 
 class Height a b where
   height :: Option a b
 
-instance heightImage :: Height Image Int where
-  height = opt "height"      
 
-instance heightPattern :: Height Pattern Int where
-  height = opt "height"      
 
 type' :: Option Gradient GradientType
 type' = cmap gradientTypeToString (opt "type")
 
-
-instance widthImage :: Width Image Int where
-  width = opt "width"
-
-instance widthPattern :: Width Pattern Int where
-  width = opt "width"
-
-
-style :: Option Pattern PatternStyle
-style =  cmap patternStyleToString (opt "style")
 
 shadeIntensity :: Option Gradient Number
 shadeIntensity = opt "shadeIntensity"
@@ -103,8 +69,4 @@ stops = opt "stops"
 shade :: Option Gradient Shade
 shade = cmap shadeToString (opt "shade")
 
-strokeWidth :: Option Pattern Int
-strokeWidth = opt "strokeWidth"
 
-src :: Option Image (Array String)
-src = opt "src"  

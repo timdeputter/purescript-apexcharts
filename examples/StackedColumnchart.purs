@@ -1,29 +1,37 @@
 module Examples.StackedColumnchart where
 
-import Apexcharts (StackType(..), categories, createChart, data', fill, name, render, series, type', xaxis)
-import Prelude (Unit, ($), (<>))
+import Apexcharts (createChart, render)
+import Apexcharts.Axis as A
+import Apexcharts.Chart (ChartType(..), StackType(..))
+import Apexcharts.Chart as C
 
-import Apexcharts.Chart (ChartType(..), chart, stackType, stacked)
+
 
 import Apexcharts.Fill as F
+
+
+import Apexcharts.Series as SE
+
+
 import Data.Options ((:=))
 import Effect (Effect)
+import Prelude (Unit, ($), (<>))
   
 main :: Effect Unit
 main = render $ createChart "#chart" (
-        chart := (type' := Bar <> stacked := true <> stackType := HundredPercent)
-        <> series := [
-          name := "PRODUCT A"
-          <> data' := [44, 55, 41, 67, 22, 43, 21, 49],
-          name := "PRODUCT B"
-          <> data' := [13, 23, 20, 8, 13, 27, 33, 12],
-          name := "PRODUCT C"
-          <> data' := [11, 17, 15, 15, 21, 14, 15, 13]
+        C.chart := (C.type' := Bar <> C.stacked := true <> C.stackType := HundredPercent)
+        <> SE.series := [
+          SE.name := "PRODUCT A"
+          <> SE.data' := [44, 55, 41, 67, 22, 43, 21, 49],
+          SE.name := "PRODUCT B"
+          <> SE.data' := [13, 23, 20, 8, 13, 27, 33, 12],
+          SE.name := "PRODUCT C"
+          <> SE.data' := [11, 17, 15, 15, 21, 14, 15, 13]
         ]
-        <> xaxis := (
-          categories := ["2011 Q1", "2011 Q2", "2011 Q3", "2011 Q4", 
+        <> A.xaxis := (
+          A.categories := ["2011 Q1", "2011 Q2", "2011 Q3", "2011 Q4", 
             "2012 Q1", "2012 Q2", "2012 Q3", "2012 Q4"
           ]
         )
-        <> fill := F.opacity := 1.0
+        <> F.fill := F.opacity := 1.0
     )

@@ -6,6 +6,7 @@ module Apexcharts.DataLabels.Background where
 
 
 import Apexcharts.DataLabels (DataLabels)
+import Apexcharts.DropShadow (Dropshadow)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -37,3 +38,7 @@ borderRadius = opt "borderRadius"
 
 borderWidth :: Option Background Int
 borderWidth = opt "borderWidth"
+
+dropShadow :: Option Background (Options Dropshadow)
+dropShadow = cmap Opt.options (opt "dropShadow")
+

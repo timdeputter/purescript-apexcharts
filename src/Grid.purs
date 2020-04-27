@@ -41,7 +41,7 @@ position :: Option Grid Gridposition
 position = cmap gridpositionToString (opt "position")  
 
 lines :: Option Gridaxis (Options Lines)
-lines = cmap Opt.options (opt "position")  
+lines = cmap Opt.options (opt "lines")  
 
 row :: Option Grid (Options RowOrColumn)
 row = cmap Opt.options (opt "row")  

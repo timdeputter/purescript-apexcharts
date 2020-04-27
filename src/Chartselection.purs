@@ -1,10 +1,10 @@
 module Apexcharts.Chart.Selection where
 
-import Apexcharts
+
 
 import Apexcharts.Chart (Chart)
 import Apexcharts.Chart.Fill (Fill)
-import Apexcharts.Commons (class Color, class Width)
+import Apexcharts.Commons (OrientationType, orientationTypeToString)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -13,6 +13,7 @@ import Data.Options as Opt
 data Selection
 data SelectionAxis
 data Stroke
+
 
 
 selection :: Option Chart (Options Selection) 
@@ -39,19 +40,22 @@ selectionStroke = cmap Opt.options (opt "stroke")
 
 
 
-instance strokeColor :: Color Stroke String where
-    color = opt "color"
+color :: Option Stroke String
+color = opt "color"
 
-instance opacityStroke :: Opacity Stroke Number where
-    opacity = opt "opacity"
+opacity :: Option Stroke Number
+opacity = opt "opacity"
 
-instance widthStroke :: Width Stroke Number where
-  width = opt "width"
+width :: Option Stroke Number
+width = opt "width"
 
-instance dashArrayStroke :: DashArray Stroke Number where
+class DashArray a where
+  dashArray :: Option Stroke a
+
+instance dashArrayNum :: DashArray Number where
   dashArray = opt "dashArray"  
 
-instance dashArrayStrokeArray :: DashArray Stroke (Array Number) where
+instance dashArrayArray :: DashArray (Array Number) where
   dashArray = opt "dashArray"  
 
 

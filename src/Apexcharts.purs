@@ -14,13 +14,6 @@ foreign import data Apexchart :: Type
 
 
 
-data OrientationType = X | Y | XY
-
-orientationTypeToString :: OrientationType -> String
-orientationTypeToString = case _ of
-    X -> "x"
-    Y -> "y"
-    XY -> "xy"
 
 
 
@@ -69,8 +62,6 @@ class Speed a where
 
 
 
-class Opacity a b where
-  opacity :: Option a b
 
 
 
@@ -134,6 +125,9 @@ class DashArray a b where
 colors :: Option Apexoptions (Array String)
 colors = opt "colors"  
 
+labels :: Option Apexchart (Array String)
+labels = opt "labels"
+
 
 
 class FontFamily a where
@@ -180,10 +174,6 @@ class Top a where
 class Leftclass a where
   left :: Option a Int  
 
-
-
-labels :: Option Apexchart (Array String)
-labels = opt "labels"
 
 
 createChart :: String -> Options Apexoptions -> Apexchart

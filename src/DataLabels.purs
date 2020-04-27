@@ -4,7 +4,7 @@ module Apexcharts.DataLabels where
 
 
 import Apexcharts (Apexoptions)
-
+import Apexcharts.DropShadow (Dropshadow)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -48,4 +48,5 @@ textAnchor = cmap textAnchorToString (opt "textAnchor")
 distributed :: Option DataLabels Boolean
 distributed = opt "distributed"
 
-
+dropShadow :: Option DataLabels (Options Dropshadow)
+dropShadow = cmap Opt.options (opt "dropShadow")
