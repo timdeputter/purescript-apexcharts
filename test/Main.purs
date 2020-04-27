@@ -2,7 +2,7 @@ module Test.Main where
 
 
 
-import Apexcharts (colors, dashArray, labels)
+import Apexcharts (colors, labels)
 import Apexcharts.Axis (AxisType(..), categories, xaxis)
 import Apexcharts.Axis as Ax
 import Apexcharts.Chart (ChartType(..), StackType(..))
@@ -18,7 +18,7 @@ import Apexcharts.Chart.Toolbar as CT
 import Apexcharts.Chart.Toolbar.Tools as CTT
 import Apexcharts.Chart.Zoom as Z
 import Apexcharts.Chart.Fill as CF
-import Apexcharts.Commons (OrientationType(..), height, width)
+import Apexcharts.Commons (OrientationType(..))
 import Apexcharts.DataLabels (TextAnchor(..), dataLabels)
 import Apexcharts.DataLabels as DL
 import Apexcharts.DataLabels.Background as DLB
@@ -34,8 +34,8 @@ import Apexcharts.Fill.Pattern (PatternStyle(..))
 import Apexcharts.Fill.Pattern as FP
 import Apexcharts.Grid (Gridposition(..))
 import Apexcharts.Grid (borderColor, bottom, colors, column, grid, left, lines, opacity, padding, position, right, row, show, strokeDashArray, top, xaxis, yaxis) as AG
-import Apexcharts.Mainstroke (Curve(..), LineCap(..))
-import Apexcharts.Mainstroke as AS
+import Apexcharts.Stroke (Curve(..), LineCap(..))
+import Apexcharts.Stroke as AS
 import Apexcharts.Series as SE
 import Apexcharts.Title (Align(..))
 import Apexcharts.Title as AT
@@ -109,8 +109,8 @@ main = run [specReporter] do
       it "foreColor" $ (C.chart := (C.foreColor := "#373d3f")) `shouldBeOption` "{\"chart\":{\"foreColor\":\"#373d3f\"}}"
       it "group" $ (C.chart := (C.group := "g1")) `shouldBeOption` "{\"chart\":{\"group\":\"g1\"}}"
       describe "height" do
-        it "as number" $ (C.chart := (height := 33.0)) `shouldBeOption` "{\"chart\":{\"height\":33}}"
-        it "as string" $ (C.chart := (height := "44px")) `shouldBeOption` "{\"chart\":{\"height\":\"44px\"}}"
+        it "as number" $ (C.chart := (C.height := 33.0)) `shouldBeOption` "{\"chart\":{\"height\":33}}"
+        it "as string" $ (C.chart := (C.height := "44px")) `shouldBeOption` "{\"chart\":{\"height\":\"44px\"}}"
       it "id" $ (C.chart := (C.id := "c1")) `shouldBeOption` "{\"chart\":{\"id\":\"c1\"}}"
       describe "locales" do
         it "name" $ (C.chart := (L.locales := [L.name := "en"])) `shouldBeOption` "{\"chart\":{\"locales\":[{\"name\":\"en\"}]}}" 
@@ -168,7 +168,7 @@ main = run [specReporter] do
             `shouldBeOption` ("{\"chart\":{\"toolbar\":{\"tools\":{\"zoomin\":true,\"zoom\":true,\"download\":true," 
               <> "\"selection\":true,\"zoomout\":true,\"pan\":true,\"reset\":true}}}}")
       it "type" $ (C.chart := (C.type' := Line)) `shouldBeOption` "{\"chart\":{\"type\":\"line\"}}"
-      it "width" $ (C.chart := (width := "100%")) `shouldBeOption` "{\"chart\":{\"width\":\"100%\"}}"
+      it "width" $ (C.chart := (C.width := "100%")) `shouldBeOption` "{\"chart\":{\"width\":\"100%\"}}"
       describe "zoom" do
         it "enabled" $ (C.chart := (Z.zooming := (Z.enabled := true))) `shouldBeOption` "{\"chart\":{\"zoom\":{\"enabled\":true}}}"
         it "type" $ (C.chart := (Z.zooming := (Z.type' := X))) `shouldBeOption` "{\"chart\":{\"zoom\":{\"type\":\"x\"}}}"
@@ -249,7 +249,7 @@ main = run [specReporter] do
       it "lineCap" $ (AS.stroke := (AS.lineCap := Butt)) `shouldBeOption` "{\"stroke\":{\"lineCap\":\"butt\"}}"
       it "colors" $ (AS.stroke := (AS.colors := ["#fff", "#aaa"])) `shouldBeOption` "{\"stroke\":{\"colors\":[\"#fff\",\"#aaa\"]}}"
       it "width"  $ (AS.stroke := (AS.width := 2.0)) `shouldBeOption` "{\"stroke\":{\"width\":2}}"
-      it "dashArray"   $ (AS.stroke := (dashArray := 3.0)) `shouldBeOption` "{\"stroke\":{\"dashArray\":3}}"
+      it "dashArray"   $ (AS.stroke := (AS.dashArray := 3.0)) `shouldBeOption` "{\"stroke\":{\"dashArray\":3}}"
 
     describe "title" do
       it "text" $ (AT.title := (AT.text := "Der Text")) `shouldBeOption` "{\"title\":{\"text\":\"Der Text\"}}"

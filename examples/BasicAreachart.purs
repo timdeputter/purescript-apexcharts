@@ -8,17 +8,16 @@ import Apexcharts.Axis as A
 import Apexcharts.Chart (ChartType(..))
 import Apexcharts.Chart as C
 import Apexcharts.Chart.Zoom as Z
-import Apexcharts.Commons (height)
 import Apexcharts.DataLabels as DL
-import Apexcharts.Mainstroke (Curve(..))
-import Apexcharts.Mainstroke as S
+import Apexcharts.Stroke (Curve(..))
+import Apexcharts.Stroke as S
 import Apexcharts.Series as SE
 import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
 main = render $ createChart "#chart" (
-        C.chart := (C.type' := Area <> height := 350.0 <> Z.zooming := (Z.enabled := false)) 
+        C.chart := (C.type' := Area <> C.height := 350.0 <> Z.zooming := (Z.enabled := false)) 
         <> SE.series := [SE.name := "STOCK ABC" <> SE.data' := [31, 40, 28, 51, 42, 109, 100]]
         <> S.stroke := S.curve := Smooth
         <> DL.dataLabels := (DL.enabled := false) 

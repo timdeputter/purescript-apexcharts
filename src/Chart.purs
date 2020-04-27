@@ -1,8 +1,7 @@
 module Apexcharts.Chart where
 
-import Apexcharts
 
-import Apexcharts.Commons (class Height, class Width)
+import Apexcharts (Apexoptions)
 import Apexcharts.DropShadow (Dropshadow)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
@@ -49,16 +48,29 @@ chartTypeToString = case _ of
     Heatmap -> "heatmap"
     Candlestick -> "candlestick"
 
+
+class ChartWidth a where
+  width :: Option Chart a
+
+instance widthChartNum :: ChartWidth Number where
+  width = opt "width"
+
+instance widthChartStr :: ChartWidth String where
+  width = opt "width"
+
+
+class ChartHeight a where
+  height :: Option Chart a
+
+instance heightChartNumber :: ChartHeight Number where
+  height = opt "height"      
+
+instance heightChartString :: ChartHeight String where
+  height = opt "height"      
+
+
 chart :: Option Apexoptions (Options Chart)
 chart = cmap Opt.options (opt "chart")
-
-
-instance heightChartNumber :: Height Chart Number where
-  height = opt "height"      
-
-instance heightChartString :: Height Chart String where
-  height = opt "height"      
-
 
 type' :: Option Chart ChartType
 type' = cmap chartTypeToString (opt "type")
@@ -69,12 +81,6 @@ offsetX = opt "offsetX"
 offsetY :: Option Chart Number
 offsetY = opt "offsetY"
 
-instance widthChartNum :: Width Chart Number where
-  width = opt "width"
-
-instance widthChartStr :: Width Chart String where
-  width = opt "width"
-
 fontFamily :: Option Chart String
 fontFamily = opt "fontFamily"
 
@@ -84,7 +90,6 @@ background = opt "background"
 foreColor :: Option Chart String
 foreColor = opt "foreColor"
 
-
 defaultLocale :: Option Chart String
 defaultLocale = opt "defaultLocale"
 
@@ -93,7 +98,6 @@ group = opt "group"
 
 id :: Option Chart String
 id = opt "id"
-
 
 parentHeightOffset :: Option Chart Number
 parentHeightOffset = opt "parentHeightOffset"
@@ -110,25 +114,9 @@ stacked = opt "stacked"
 stackType :: Option Chart StackType
 stackType = cmap stackTypeToString (opt "stackType")
 
-
 dropShadow :: Option Chart (Options Dropshadow)
 dropShadow = cmap Opt.options (opt "dropShadow")
 
-
-
-
-
 enabled :: Option Sparkline Boolean
 enabled = opt "enabled"      
-
-
-
-
-
-
-
-
-
-class AutoScale a b where
-  autoScaleYaxis :: Option a b
 

@@ -8,10 +8,9 @@ import Apexcharts.Axis as A
 import Apexcharts.Chart (ChartType(..))
 import Apexcharts.Chart as C
 import Apexcharts.Chart.Zoom as Z
-import Apexcharts.Commons (height)
 import Apexcharts.DataLabels as DL
-import Apexcharts.Mainstroke (Curve(..))
-import Apexcharts.Mainstroke as S
+import Apexcharts.Stroke (Curve(..))
+import Apexcharts.Stroke as S
 import Apexcharts.Series as SE
 import Apexcharts.Title (Align(..))
 import Apexcharts.Title as TI
@@ -20,7 +19,7 @@ import Effect (Effect)
   
 main :: Effect Unit
 main =  render $ createChart "#chart" (
-        C.chart := (C.type' := Line <> height := 350.0 <> Z.zooming := (Z.enabled := false)) 
+        C.chart := (C.type' := Line <> C.height := 350.0 <> Z.zooming := (Z.enabled := false)) 
         <> SE.series := [
           SE.name := "Desktops"
           <> SE.data' := [10, 41, 35, 51, 49, 62, 69, 91, 148]
