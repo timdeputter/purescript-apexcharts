@@ -10,6 +10,13 @@ import Data.Options as Opt
 
 data Shapes
 
+data ShapeType = Rect | Circle
+
+shapeTypeToString :: ShapeType -> String
+shapeTypeToString = case _ of
+    Rect ->  "rect"
+    Circle ->  "circle"
+
 shapes :: Option Annotations (Array (Options Shapes))
 shapes = cmap (map Opt.options) (opt "shapes")
 
@@ -19,8 +26,8 @@ x = opt "x"
 y :: Option Shapes Number
 y = opt "y"
 
-type' :: Option Shapes String
-type' = opt "type"
+type' :: Option Shapes ShapeType
+type' = cmap shapeTypeToString (opt "type")
 
 width :: Option Shapes String
 width = opt "width"
