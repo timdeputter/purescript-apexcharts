@@ -38,3 +38,15 @@ fontWeightNumToInt = case _ of
     N700 -> 700
     N800 -> 800
     N900 -> 900
+
+
+
+data FilterType = None
+    | Lighten
+    | Darken
+
+filterTypeToString :: FilterType -> String
+filterTypeToString = case _ of    
+    None -> "none"
+    Lighten -> "lighten"
+    Darken -> "darken"
