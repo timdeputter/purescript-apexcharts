@@ -1,19 +1,19 @@
 
-module Apexcharts.Xaxis.Labels.Style where
+module Apexcharts.Yaxis.Title.Style where
 
 
-import Apexcharts.Xaxis.Labels (Labels)
+import Apexcharts.Yaxis.Title (Title)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
 
 data Style
 
-style :: Option Labels (Options Style)
+style :: Option Title (Options Style)
 style = cmap Opt.options (opt "style")
 
-colors :: Option Style (Array String)
-colors = opt "colors"
+color :: Option Style String
+color = opt "color"
 
 fontSize :: Option Style String
 fontSize = opt "fontSize"

@@ -1,8 +1,8 @@
 
-module Apexcharts.Xaxis.Labels.Style where
+module Apexcharts.Yaxis.Labels.Style where
 
 
-import Apexcharts.Xaxis.Labels (Labels)
+import Apexcharts.Yaxis.Labels (Labels)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
