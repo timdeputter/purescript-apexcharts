@@ -69,6 +69,9 @@ class ChartHeight a where
 instance heightStr :: ChartHeight String where
     height = opt "height"
 
+instance heightInt :: ChartHeight Int where
+    height = opt "height"
+
 instance heightNum :: ChartHeight Number where
     height = opt "height"
 
