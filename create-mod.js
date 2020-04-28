@@ -4,47 +4,37 @@ const fs = require('fs');
 
 var desc = {  
     
-    dataLabels: {
-        enabled: true,
-        enabledOnSeries: undefined,
-        formatter: function (val, opts) {
-            return val
+
+    fill: {
+        colors: undefined,
+        opacity: 0.9,
+        type: 'solid',
+        gradient: {
+            shade: 'dark',
+            type: "horizontal",
+            shadeIntensity: 0.5,
+            gradientToColors: undefined,
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 50, 100],
+            colorStops: [{
+                offset: 0,
+                color: '#eee',
+                opacity: 1
+              }]
         },
-        textAnchor: 'middle',
-        distributed: false,
-        offsetX: 0,
-        offsetY: 0,
-        style: {
-            fontSize: '14px',
-            fontFamily: 'Helvetica, Arial, sans-serif',
-            fontWeight: 'bold',
-            colors: undefined
+        image: {
+            src: [],
+            width: undefined,
+            height: undefined
         },
-        background: {
-          enabled: true,
-          foreColor: '#fff',
-          padding: 4,
-          borderRadius: 2,
-          borderWidth: 1,
-          borderColor: '#fff',
-          opacity: 0.9,
-          dropShadow: {
-            enabled: false,
-            top: 1,
-            left: 1,
-            blur: 1,
-            color: '#000',
-            opacity: 0.45
-          }
+        pattern: {
+            style: 'verticalLines',
+            width: 6,
+            height: 6,
+            strokeWidth: 2,
         },
-        dropShadow: {
-            enabled: false,
-            top: 1,
-            left: 1,
-            blur: 1,
-            color: '#000',
-            opacity: 0.45
-        }
       }
 
 };
