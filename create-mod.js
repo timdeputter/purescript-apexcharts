@@ -5,35 +5,46 @@ const fs = require('fs');
 var desc = {  
     
 
-    grid: {
+    legend: {
         show: true,
-        borderColor: '#90A4AE',
-        strokeDashArray: 0,
-        position: 'back',
-        xaxis: {
-            lines: {
-                show: false
-            }
-        },   
-        yaxis: {
-            lines: {
-                show: false
-            }
-        },  
-        row: {
-            colors: undefined,
-            opacity: 0.5
-        },  
-        column: {
-            colors: undefined,
-            opacity: 0.5
-        },  
-        padding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-        },  
+        showForSingleSeries: false,
+        showForNullSeries: true,
+        showForZeroSeries: true,
+        position: 'bottom',
+        horizontalAlign: 'center', 
+        floating: false,
+        fontSize: '14px',
+        fontFamily: 'Helvetica, Arial',
+        fontWeight: 400,
+        inverseOrder: false,
+        width: 3,
+        height: 4,
+        offsetX: 0,
+        offsetY: 0,
+        labels: {
+            colors: ['#fff'],
+            useSeriesColors: false
+        },
+        markers: {
+            width: 12,
+            height: 12,
+            strokeWidth: 0,
+            strokeColor: '#fff',
+            fillColors: ['#fff'],
+            radius: 12,
+            offsetX: 0,
+            offsetY: 0
+        },
+        itemMargin: {
+            horizontal: 5,
+            vertical: 0
+        },
+        onItemClick: {
+            toggleDataSeries: true
+        },
+        onItemHover: {
+            highlightDataSeries: true
+        },
     }
 
 };
