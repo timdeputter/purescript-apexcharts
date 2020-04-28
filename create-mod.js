@@ -4,32 +4,18 @@ const fs = require('fs');
 
 var desc = {  
     
-
-    markers: {
-        size: 0,
-        colors: ['#fff'],
-        strokeColors: '#fff',
-        strokeWidth: 2,
-        strokeOpacity: 0.9,
-        strokeDashArray: 0,
-        fillOpacity: 1,
-        discrete: [{
-            seriesIndex: 0,
-            dataPointIndex: 7,
-            fillColor: '#e3e3e3',
-            strokeColor: '#fff',
-            size: 5
-          }],
-        shape: "circle",
-        radius: 2,
+    noData: {
+        text: undefined,
+        align: 'center',
+        verticalAlign: 'middle',
         offsetX: 0,
         offsetY: 0,
-        showNullDataPoints: true,
-        hover: {
-          size: 3,
-          sizeOffset: 3
+        style: {
+          color: undefined,
+          fontSize: '14px',
+          fontFamily: undefined
         }
-    }
+      }
 
 };
 
