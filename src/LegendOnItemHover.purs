@@ -1,9 +1,8 @@
 
 module Apexcharts.Legend.OnItemHover where
 
-import Prelude
 
-import Apexcharts.Legend
+import Apexcharts.Legend (Legend)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
