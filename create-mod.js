@@ -4,12 +4,28 @@ const fs = require('fs');
 
 var desc = {  
     
-  series: [
-    {
-        name: "Series 1",
-        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+    states: {
+        normal: {
+            filter: {
+                type: 'none',
+                value: 0,
+            }
+        },
+        hover: {
+            filter: {
+                type: 'lighten',
+                value: 0.15,
+            }
+        },
+        active: {
+            allowMultipleDataPointsSelection: false,
+            filter: {
+                type: 'darken',
+                value: 0.35,
+            }
+        },
     }
-]
+
 };
 
 
@@ -81,7 +97,8 @@ import Data.Options as Opt
 
 var createDataType = function(currentName, parents, isArray) {
     var sourceCode = 'data ' + capitalizeFLetter(currentName) + "\n\n";
-    var fnName = currentName === 'type' ? 'type\'' : (currentName === 'class' ? 'class\'' : currentName);
+    var fnName = currentName === 'type' ? 'type\'' : (currentName === 'class' 
+        ? 'class\'' : (currentName == 'data' ? 'data\'': currentName));
     if(isArray) {
         sourceCode += fnName + ' :: Option ' + capitalizeFLetter(parents[parents.length-1]) 
             + ' (Array (Options ' + capitalizeFLetter(currentName) + '))\n';

@@ -1,9 +1,9 @@
 
 module Apexcharts.PlotOptions.RadialBar.Track.DropShadow where
 
-import Prelude
 
-import Apexcharts.PlotOptions.RadialBar.Track
+
+import Apexcharts.PlotOptions.RadialBar.Track (Track)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt

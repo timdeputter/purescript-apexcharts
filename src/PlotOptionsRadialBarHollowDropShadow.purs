@@ -1,9 +1,8 @@
 
 module Apexcharts.PlotOptions.RadialBar.Hollow.DropShadow where
 
-import Prelude
 
-import Apexcharts.PlotOptions.RadialBar.Hollow
+import Apexcharts.PlotOptions.RadialBar.Hollow (Hollow)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt

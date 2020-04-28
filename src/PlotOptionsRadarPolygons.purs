@@ -1,9 +1,8 @@
 
 module Apexcharts.PlotOptions.Radar.Polygons where
 
-import Prelude
 
-import Apexcharts.PlotOptions.Radar
+import Apexcharts.PlotOptions.Radar (Radar)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt

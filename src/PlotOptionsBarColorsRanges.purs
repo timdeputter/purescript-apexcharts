@@ -1,9 +1,9 @@
 
 module Apexcharts.PlotOptions.Bar.Colors.Ranges where
 
-import Prelude
+import Prelude (map)
 
-import Apexcharts.PlotOptions.Bar.Colors
+import Apexcharts.PlotOptions.Bar.Colors (Colors)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -19,6 +19,6 @@ from = opt "from"
 to :: Option Ranges Number
 to = opt "to"
 
-color :: Option Ranges Undefined
+color :: Option Ranges String
 color = opt "color"
 
