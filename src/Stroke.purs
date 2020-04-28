@@ -21,7 +21,7 @@ curve = opt "curve"
 lineCap :: Option Stroke String
 lineCap = opt "lineCap"
 
-colors :: Option Stroke Undefined
+colors :: Option Stroke (Array String)
 colors = opt "colors"
 
 width :: Option Stroke Number
