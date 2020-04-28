@@ -1,9 +1,8 @@
 
 module Apexcharts.Annotations.Points.Label.Style where
 
-import Prelude
 
-import Apexcharts.Annotations.Points.Label
+import Apexcharts.Annotations.Points.Label (Label)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -25,7 +24,7 @@ fontSize = opt "fontSize"
 fontWeight :: Option Style Number
 fontWeight = opt "fontWeight"
 
-fontFamily :: Option Style Undefined
+fontFamily :: Option Style String
 fontFamily = opt "fontFamily"
 
 cssClass :: Option Style String

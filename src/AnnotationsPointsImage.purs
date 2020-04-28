@@ -1,9 +1,8 @@
 
 module Apexcharts.Annotations.Points.Image where
 
-import Prelude
 
-import Apexcharts.Annotations.Points
+import Apexcharts.Annotations.Points (Points)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -13,7 +12,7 @@ data Image
 image :: Option Points (Options Image)
 image = cmap Opt.options (opt "image")
 
-path :: Option Image Undefined
+path :: Option Image String
 path = opt "path"
 
 width :: Option Image Number

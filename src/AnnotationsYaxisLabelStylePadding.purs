@@ -1,9 +1,8 @@
 
 module Apexcharts.Annotations.Yaxis.Label.Style.Padding where
 
-import Prelude
 
-import Apexcharts.Annotations.Yaxis.Label.Style
+import Apexcharts.Annotations.Yaxis.Label.Style (Style)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt

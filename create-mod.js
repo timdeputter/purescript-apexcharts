@@ -3,161 +3,130 @@ const fs = require('fs');
 
 
 var desc = {  
-
-    annotations: {
-        position: 'front' ,
-        yaxis: [{
-            y: 0,
-            y2: null,
-            strokeDashArray: 1,
-            borderColor: '#c2c2c2',
-            fillColor: '#c2c2c2',
-            opacity: 0.3,
-            offsetX: 0,
-            offsetY: -3,
-            yAxisIndex: 0,
-            label: {
-                borderColor: '#c2c2c2',
-                borderWidth: 1,
-                text: undefined,
-                textAnchor: 'end',
-                position: 'right',
-                offsetX: 0,
-                offsetY: 0,
-                style: {
-                    background: '#fff',
-                    color: '#777',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    fontFamily: undefined,
-                    cssClass: 'apexcharts-yaxis-annotation-label',
-                    padding: {
-                      left: 5,
-                      right: 5,
-                      top: 0,
-                      bottom: 2,
-                    }
-                },
+    chart: {
+        animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 800,
+            animateGradually: {
+                enabled: true,
+                delay: 150
             },
+            dynamicAnimation: {
+                enabled: true,
+                speed: 350
+            }
+        },
+        background: '#fff',
+        brush: {
+            enabled: false,
+            target: undefined,
+            autoScaleYaxis: false
+        },
+        defaultLocale: 'en',
+        dropShadow: {
+            enabled: false,
+            enabledOnSeries: undefined,
+            top: 0,
+            left: 0,
+            blur: 3,
+            color: '#000',
+            opacity: 0.35
+        },
+        fontFamily: 'Helvetica, Arial, sans-serif',
+        foreColor: '#373d3f',
+        group: undefined,
+        height: 'auto',
+        id: undefined,
+        locales: [{
+            name: 'en',
+            options: {
+              months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+              days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+              shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+              toolbar: {
+                download: 'Download SVG',
+                selection: 'Selection',
+                selectionZoom: 'Selection Zoom',
+                zoomIn: 'Zoom In',
+                zoomOut: 'Zoom Out',
+                pan: 'Panning',
+                reset: 'Reset Zoom',
+              }
+            }
         }],
-        xaxis: [{
-          x: 0,
-          x2: null,
-          strokeDashArray: 1,
-          borderColor: '#c2c2c2',
-          fillColor: '#c2c2c2',
-          opacity: 0.3,
-          offsetX: 0,
-          offsetY: 0,
-          label: {
-              borderColor: '#c2c2c2',
-              borderWidth: 1,
-              text: undefined,
-              textAnchor: 'middle',
-              position: 'top',
-              orientation: 'vertical',
-              offsetX: 0,
-              offsetY: 0,
-              style: {
-                  background: '#fff',
-                  color: '#777',
-                  fontSize: '12px',
-                  fontWeight: 400,
-                  fontFamily: undefined,
-                  cssClass: 'apexcharts-xaxis-annotation-label',
-              },
+        offsetX: 0,
+        offsetY: 0,
+        parentHeightOffset: 15,
+        redrawOnParentResize: true,
+        selection: {
+            enabled: true,
+            type: 'x',
+            fill: {
+              color: '#24292e',
+              opacity: 0.1
+            },
+            stroke: {
+              width: 1,
+              dashArray: 3,
+              color: '#24292e',
+              opacity: 0.4
+            },
+            xaxis: {
+              min: undefined,
+              max: undefined
+            },
+            yaxis: {
+              min: undefined,
+              max: undefined
+            }
           },
-        }],
-        points: [{
-          x: 0,
-          y: null,
-          yAxisIndex: 0,
-          seriesIndex: 0,
-          marker: {
-            size: 0,
-            fillColor: "#fff",
-            strokeColor: "#333",
-            strokeWidth: 3,
-            shape: "circle",
-            radius: 2,
-            OffsetX: 0,
-            OffsetY: 0,
-            cssClass: '',
-          },
-          label: {
-              borderColor: '#c2c2c2',
-              borderWidth: 1,
-              text: undefined,
-              textAnchor: 'middle',
-              offsetX: 0,
-              offsetY: -15,
-              style: {
-                  background: '#fff',
-                  color: '#777',
-                  fontSize: '12px',
-                  fontWeight: 400,
-                  fontFamily: undefined,
-                  cssClass: 'apexcharts-point-annotation-label',
-                  padding: {
-                    left: 5,
-                    right: 5,
-                    top: 0,
-                    bottom: 2,
-                  }
-              },
-          },
-          image: {
-            path: undefined,
-            width: 20,
-            height: 20,
+          sparkline: {
+            enabled: false,
+        },
+        stacked: false,
+        stackType: 'normal',
+        toolbar: {
+            show: true,
             offsetX: 0,
             offsetY: 0,
-          }
-        }],
-        
-        texts: [{
-          x: 0,
-          y: 0,
-          text: '',
-          textAnchor: 'start',
-          foreColor: undefined,
-          fontSize: '13px',
-          fontFamily: undefined,
-          fontWeight: 400,
-          appendTo: '.apexcharts-annotations',
-          backgroundColor: 'transparent',
-          borderColor: '#c2c2c2',
-          borderRadius: 0,
-          borderWidth: 0,
-          paddingLeft: 4,
-          paddingRight: 4,
-          paddingTop: 2,
-          paddingBottom: 2,
-        }],
-      
-        shapes: [{
-          x: 0,
-          y: 0,
-          type: 'rect',
+            tools: {
+              download: true,
+              selection: true,
+              zoom: true,
+              zoomin: true,
+              zoomout: true,
+              pan: true,
+              reset: true | '<img src="/static/icons/reset.png" width="20">',
+              customIcons: [{
+                icon: '<img src="/static/icons/chart-carpet.png" width="20">',
+                index: 4,
+                title: 'tooltip of the icon',
+                class: 'custom-icon',
+                }]
+            },
+            autoSelected: 'zoom' 
+          },
+          type: 'line',
           width: '100%',
-          height: 50,
-          appendTo: '.apexcharts-annotations',
-          backgroundColor: '#fff',
-          opacity: 1,
-          borderColor: '#c2c2c2',
-          borderRadius: 4,
-          borderWidth: 0,
-        }],
-        images: [{
-          path: '',
-          x: 0,
-          y: 0,
-          width: 20,
-          height: 20,
-          appendTo: '.apexcharts-annotations'
-        }],
-      }
-
+          zoom: {
+            enabled: true,
+            type: 'x',  
+            autoScaleYaxis: false,  
+            zoomedArea: {
+              fill: {
+                color: '#90CAF9',
+                opacity: 0.4
+              },
+              stroke: {
+                color: '#0D47A1',
+                opacity: 0.4,
+                width: 1
+              }
+            }
+        }
+    }
 };
 
 
@@ -185,6 +154,7 @@ var createFunctions = function(toCheck, currentName, parents, arr, sourceCode) {
         var isArray = false;
         if(Array.isArray(val)){
             val = val[0];
+            type = typeof(val);
             isArray = true;
         }
         if(val === null){
@@ -229,7 +199,7 @@ import Data.Options as Opt
 
 var createDataType = function(currentName, parents, isArray) {
     var sourceCode = 'data ' + capitalizeFLetter(currentName) + "\n\n";
-    var fnName = currentName === 'type' ? 'type\'' : currentName;
+    var fnName = currentName === 'type' ? 'type\'' : (currentName === 'class' ? 'class\'' : currentName);
     if(isArray) {
         sourceCode += fnName + ' :: Option ' + capitalizeFLetter(parents[parents.length-1]) 
             + ' (Array (Options ' + capitalizeFLetter(currentName) + '))\n';

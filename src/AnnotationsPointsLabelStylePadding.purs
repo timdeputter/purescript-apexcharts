@@ -1,9 +1,8 @@
 
 module Apexcharts.Annotations.Points.Label.Style.Padding where
 
-import Prelude
 
-import Apexcharts.Annotations.Points.Label.Style
+import Apexcharts.Annotations.Points.Label.Style (Style)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
