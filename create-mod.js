@@ -3,130 +3,50 @@ const fs = require('fs');
 
 
 var desc = {  
-    chart: {
-        animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 800,
-            animateGradually: {
-                enabled: true,
-                delay: 150
-            },
-            dynamicAnimation: {
-                enabled: true,
-                speed: 350
-            }
+    
+    dataLabels: {
+        enabled: true,
+        enabledOnSeries: undefined,
+        formatter: function (val, opts) {
+            return val
         },
-        background: '#fff',
-        brush: {
-            enabled: false,
-            target: undefined,
-            autoScaleYaxis: false
-        },
-        defaultLocale: 'en',
-        dropShadow: {
-            enabled: false,
-            enabledOnSeries: undefined,
-            top: 0,
-            left: 0,
-            blur: 3,
-            color: '#000',
-            opacity: 0.35
-        },
-        fontFamily: 'Helvetica, Arial, sans-serif',
-        foreColor: '#373d3f',
-        group: undefined,
-        height: 'auto',
-        id: undefined,
-        locales: [{
-            name: 'en',
-            options: {
-              months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-              shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-              days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-              shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-              toolbar: {
-                download: 'Download SVG',
-                selection: 'Selection',
-                selectionZoom: 'Selection Zoom',
-                zoomIn: 'Zoom In',
-                zoomOut: 'Zoom Out',
-                pan: 'Panning',
-                reset: 'Reset Zoom',
-              }
-            }
-        }],
+        textAnchor: 'middle',
+        distributed: false,
         offsetX: 0,
         offsetY: 0,
-        parentHeightOffset: 15,
-        redrawOnParentResize: true,
-        selection: {
-            enabled: true,
-            type: 'x',
-            fill: {
-              color: '#24292e',
-              opacity: 0.1
-            },
-            stroke: {
-              width: 1,
-              dashArray: 3,
-              color: '#24292e',
-              opacity: 0.4
-            },
-            xaxis: {
-              min: undefined,
-              max: undefined
-            },
-            yaxis: {
-              min: undefined,
-              max: undefined
-            }
-          },
-          sparkline: {
-            enabled: false,
+        style: {
+            fontSize: '14px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 'bold',
+            colors: undefined
         },
-        stacked: false,
-        stackType: 'normal',
-        toolbar: {
-            show: true,
-            offsetX: 0,
-            offsetY: 0,
-            tools: {
-              download: true,
-              selection: true,
-              zoom: true,
-              zoomin: true,
-              zoomout: true,
-              pan: true,
-              reset: true | '<img src="/static/icons/reset.png" width="20">',
-              customIcons: [{
-                icon: '<img src="/static/icons/chart-carpet.png" width="20">',
-                index: 4,
-                title: 'tooltip of the icon',
-                class: 'custom-icon',
-                }]
-            },
-            autoSelected: 'zoom' 
-          },
-          type: 'line',
-          width: '100%',
-          zoom: {
-            enabled: true,
-            type: 'x',  
-            autoScaleYaxis: false,  
-            zoomedArea: {
-              fill: {
-                color: '#90CAF9',
-                opacity: 0.4
-              },
-              stroke: {
-                color: '#0D47A1',
-                opacity: 0.4,
-                width: 1
-              }
-            }
+        background: {
+          enabled: true,
+          foreColor: '#fff',
+          padding: 4,
+          borderRadius: 2,
+          borderWidth: 1,
+          borderColor: '#fff',
+          opacity: 0.9,
+          dropShadow: {
+            enabled: false,
+            top: 1,
+            left: 1,
+            blur: 1,
+            color: '#000',
+            opacity: 0.45
+          }
+        },
+        dropShadow: {
+            enabled: false,
+            top: 1,
+            left: 1,
+            blur: 1,
+            color: '#000',
+            opacity: 0.45
         }
-    }
+      }
+
 };
 
 

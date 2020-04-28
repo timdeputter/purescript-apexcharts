@@ -1,16 +1,15 @@
 
 module Apexcharts.Chart.Locales.Options.Toolbar where
 
-import Prelude
 
-import Apexcharts.Chart.Locales.Options
+import Apexcharts.Chart.Locales.Options (Options)
 import Data.Functor.Contravariant (cmap)
-import Data.Options (Option, Options, opt)
+import Data.Options (Option, opt)
 import Data.Options as Opt
 
 data Toolbar
 
-toolbar :: Option Options (Options Toolbar)
+toolbar :: Option Options (Opt.Options Toolbar)
 toolbar = cmap Opt.options (opt "toolbar")
 
 download :: Option Toolbar String
