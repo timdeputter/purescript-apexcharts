@@ -5,6 +5,7 @@ module Test.Main where
 import Apexcharts (colors, labels)
 import Apexcharts.Chart (ChartType(..))
 import Apexcharts.Chart as C
+import Apexcharts.Common as COM
 import Apexcharts.Chart.Animations (Easing(..), animations)
 import Apexcharts.Chart.Animations as A
 import Apexcharts.Chart.Animations.AnimateGradually (animateGradually, delay, enabled) as AG
@@ -217,7 +218,7 @@ main = run [specReporter] do
       it "offsetX" $ (dataLabels := (DL.offsetX := 1.0)) `shouldBeOption` "{\"dataLabels\":{\"offsetX\":1}}"
       it "offsetY" $ (dataLabels := (DL.offsetY := 3.0)) `shouldBeOption` "{\"dataLabels\":{\"offsetY\":3}}"
       it "style" $ (dataLabels := (DLS.style := (DLS.fontSize := "14px" <> DLS.fontFamily := "Helvetica, Arial" 
-        <> DLS.fontWeight := DLS.Bold <> DLS.colors := ["#aaa", "#bbb"]))) 
+        <> DLS.fontWeight := COM.Bold <> DLS.colors := ["#aaa", "#bbb"]))) 
           `shouldBeOption` ("{\"dataLabels\":{\"style\":{\"fontSize\":\"14px\",\"fontFamily\":\"Helvetica, Arial\","
             <> "\"fontWeight\":\"bold\",\"colors\":[\"#aaa\",\"#bbb\"]}}}")
       it "background" $ (dataLabels := (DLB.background := (DLB.enabled := true <> DLB.foreColor := "#fff" <> DLB.padding := 4.0 <>

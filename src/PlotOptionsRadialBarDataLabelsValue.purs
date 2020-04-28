@@ -2,6 +2,7 @@
 module Apexcharts.PlotOptions.RadialBar.DataLabels.Value where
 
 
+import Apexcharts.Common (FontWeightNum, FontWeightStr, fontWeightNumToInt, fontWeightToString)
 import Apexcharts.PlotOptions.RadialBar.DataLabels (DataLabels)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
@@ -21,8 +22,14 @@ fontSize = opt "fontSize"
 fontFamily :: Option Value String
 fontFamily = opt "fontFamily"
 
-fontWeight :: Option Value Number
-fontWeight = opt "fontWeight"
+class FontWeightClass a where
+  fontWeight :: Option Value a
+
+instance fontWeightNum :: FontWeightClass FontWeightNum where
+  fontWeight = cmap fontWeightNumToInt (opt "fontWeight")
+
+instance fontWeightStr :: FontWeightClass FontWeightStr where
+  fontWeight = cmap fontWeightToString (opt "fontWeight")
 
 color :: Option Value String
 color = opt "color"

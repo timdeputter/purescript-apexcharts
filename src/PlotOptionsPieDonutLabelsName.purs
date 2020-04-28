@@ -2,6 +2,7 @@
 module Apexcharts.PlotOptions.Pie.Donut.Labels.Name where
 
 
+import Apexcharts.Common (FontWeightNum, FontWeightStr, fontWeightNumToInt, fontWeightToString)
 import Apexcharts.PlotOptions.Pie.Donut.Labels (Labels)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
@@ -21,8 +22,15 @@ fontSize = opt "fontSize"
 fontFamily :: Option Name String
 fontFamily = opt "fontFamily"
 
-fontWeight :: Option Name Number
-fontWeight = opt "fontWeight"
+class FontWeightClass a where
+  fontWeight :: Option Name a
+
+instance fontWeightNum :: FontWeightClass FontWeightNum where
+  fontWeight = cmap fontWeightNumToInt (opt "fontWeight")
+
+instance fontWeightStr :: FontWeightClass FontWeightStr where
+  fontWeight = cmap fontWeightToString (opt "fontWeight")
+
 
 color :: Option Name String
 color = opt "color"

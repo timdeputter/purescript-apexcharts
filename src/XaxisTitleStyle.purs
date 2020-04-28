@@ -2,6 +2,7 @@
 module Apexcharts.Xaxis.Title.Style where
 
 
+import Apexcharts.Common (FontWeightNum, FontWeightStr, fontWeightNumToInt, fontWeightToString)
 import Apexcharts.Xaxis.Title (Title)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
@@ -21,8 +22,15 @@ fontSize = opt "fontSize"
 fontFamily :: Option Style String
 fontFamily = opt "fontFamily"
 
-fontWeight :: Option Style Number
-fontWeight = opt "fontWeight"
+class FontWeightClass a where
+  fontWeight :: Option Style a
+
+instance fontWeightNum :: FontWeightClass FontWeightNum where
+  fontWeight = cmap fontWeightNumToInt (opt "fontWeight")
+
+instance fontWeightStr :: FontWeightClass FontWeightStr where
+  fontWeight = cmap fontWeightToString (opt "fontWeight")
+
 
 cssClass :: Option Style String
 cssClass = opt "cssClass"

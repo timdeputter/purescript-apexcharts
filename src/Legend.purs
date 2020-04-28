@@ -1,9 +1,9 @@
 
 module Apexcharts.Legend where
 
-import Prelude
+import Apexcharts (Apexoptions)
 
-import Apexcharts
+import Apexcharts.Common (FontWeightNum, FontWeightStr, fontWeightNumToInt, fontWeightToString)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -40,8 +40,15 @@ fontSize = opt "fontSize"
 fontFamily :: Option Legend String
 fontFamily = opt "fontFamily"
 
-fontWeight :: Option Legend Number
-fontWeight = opt "fontWeight"
+class FontWeightClass a where
+  fontWeight :: Option Legend a
+
+instance fontWeightNum :: FontWeightClass FontWeightNum where
+  fontWeight = cmap fontWeightNumToInt (opt "fontWeight")
+
+instance fontWeightStr :: FontWeightClass FontWeightStr where
+  fontWeight = cmap fontWeightToString (opt "fontWeight")
+
 
 inverseOrder :: Option Legend Boolean
 inverseOrder = opt "inverseOrder"

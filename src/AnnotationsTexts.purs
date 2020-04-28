@@ -1,12 +1,12 @@
 
 module Apexcharts.Annotations.Texts where
 
-import Prelude (map)
-
 import Apexcharts.Annotations (Annotations)
+import Apexcharts.Common (FontWeightNum, FontWeightStr, fontWeightNumToInt, fontWeightToString)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
+import Prelude (map)
 
 data Texts
 
@@ -34,8 +34,15 @@ fontSize = opt "fontSize"
 fontFamily :: Option Texts String
 fontFamily = opt "fontFamily"
 
-fontWeight :: Option Texts Number
-fontWeight = opt "fontWeight"
+class FontWeightClass a where
+  fontWeight :: Option Texts a
+
+instance fontWeightNum :: FontWeightClass FontWeightNum where
+  fontWeight = cmap fontWeightNumToInt (opt "fontWeight")
+
+instance fontWeightStr :: FontWeightClass FontWeightStr where
+  fontWeight = cmap fontWeightToString (opt "fontWeight")
+
 
 appendTo :: Option Texts String
 appendTo = opt "appendTo"
