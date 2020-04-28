@@ -5,13 +5,19 @@ const fs = require('fs');
 var desc = {  
     
 
-    stroke: {
-        show: true,
-        curve: 'smooth',
-        lineCap: 'butt',
-        colors: undefined,
-        width: 2,
-        dashArray: 0,      
+    subtitle: {
+        text: 'undefined',
+        align: 'left',
+        margin: 10,
+        offsetX: 0,
+        offsetY: 0,
+        floating: false,
+        style: {
+          fontSize:  '12px',
+          fontWeight:  'normal',
+          fontFamily:  'Helvetica',
+          color:  '#9699a2'
+        },
     }
 
 };
