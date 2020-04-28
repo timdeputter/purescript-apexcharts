@@ -9,6 +9,17 @@ import Data.Options as Opt
 
 data Toolbar
 
+
+data AutoSelected = Zoom
+    | Selection
+    | Pan
+
+autoSelectedToString :: AutoSelected -> String
+autoSelectedToString = case _ of
+    Zoom -> "zoom"
+    Selection -> "selection"
+    Pan -> "pan"
+
 toolbar :: Option Chart (Options Toolbar)
 toolbar = cmap Opt.options (opt "toolbar")
 
@@ -21,6 +32,6 @@ offsetX = opt "offsetX"
 offsetY :: Option Toolbar Number
 offsetY = opt "offsetY"
 
-autoSelected :: Option Toolbar String
-autoSelected = opt "autoSelected"
+autoSelected :: Option Toolbar AutoSelected
+autoSelected = cmap autoSelectedToString (opt "autoSelected")
 
