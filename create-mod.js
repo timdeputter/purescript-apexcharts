@@ -13,7 +13,13 @@ var desc = {
         strokeOpacity: 0.9,
         strokeDashArray: 0,
         fillOpacity: 1,
-        discrete: [],
+        discrete: [{
+            seriesIndex: 0,
+            dataPointIndex: 7,
+            fillColor: '#e3e3e3',
+            strokeColor: '#fff',
+            size: 5
+          }],
         shape: "circle",
         radius: 2,
         offsetX: 0,

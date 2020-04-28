@@ -1,9 +1,8 @@
 
 module Apexcharts.Markers where
 
-import Prelude
 
-import Apexcharts
+import Apexcharts (Apexoptions)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -33,9 +32,6 @@ strokeDashArray = opt "strokeDashArray"
 
 fillOpacity :: Option Markers Number
 fillOpacity = opt "fillOpacity"
-
-discrete :: Option Markers (Array Undefined)
-discrete = opt "discrete"
 
 shape :: Option Markers String
 shape = opt "shape"
