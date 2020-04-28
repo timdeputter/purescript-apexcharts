@@ -5,18 +5,42 @@ const fs = require('fs');
 var desc = {  
     
 
-    title: {
-        text: "undefined",
-        align: 'left',
-        margin: 10,
-        offsetX: 0,
-        offsetY: 0,
-        floating: false,
+
+    tooltip: {
+        enabled: true,
+        enabledOnSeries: [1,3],
+        shared: true,
+        followCursor: false,
+        intersect: false,
+        inverseOrder: false,
+        custom: undefined,
+        fillSeriesColor: false,
+        theme: false,
         style: {
-          fontSize:  '14px',
-          fontWeight:  'bold',
-          fontFamily:  'undefined',
-          color:  '#263238'
+          fontSize: '12px',
+          fontFamily: "undefined"
+        },
+        onDatasetHover: {
+            highlightDataSeries: false,
+        },
+        x: {
+            show: true,
+            format: 'dd MMM',
+        },
+        z: {
+            title: 'Size: '
+        },
+        marker: {
+            show: true,
+        },
+        items: {
+           display: "flex",
+        },
+        fixed: {
+            enabled: false,
+            position: 'topRight',
+            offsetX: 0,
+            offsetY: 0,
         },
     }
 
