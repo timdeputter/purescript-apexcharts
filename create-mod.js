@@ -4,207 +4,12 @@ const fs = require('fs');
 
 var desc = {  
     
-    plotOptions: {
-        bar: {
-            horizontal: false,
-            startingShape: 'flat',
-            endingShape: 'flat',
-            columnWidth: '70%',
-            barHeight: '70%',
-            distributed: false,
-            rangeBarOverlap: true,
-            colors: {
-                ranges: [{
-                    from: 0,
-                    to: 0,
-                    color: undefined
-                }],
-                backgroundBarColors: [],
-                backgroundBarOpacity: 1,
-                backgroundBarRadius: 0,
-            },
-            dataLabels: {
-                position: 'top',
-                maxItems: 100,
-                hideOverflowingLabels: true,
-                orientation: 'horizontal'
-            }
-        },
-        bubble: {
-            minBubbleRadius: undefined,
-            maxBubbleRadius: undefined,
-          },
-          candlestick: {
-            colors: {
-              upward: '#00B746',
-              downward: '#EF403C'
-            },
-            wick: {
-              useFillColor: true
-            }
-          },
-          heatmap: {
-            radius: 2,
-            enableShades: true,
-            shadeIntensity: 0.5,
-            reverseNegativeShade: true,
-            distributed: false,
-            useFillColorAsStroke: false,
-            colorScale: {
-              ranges: [{
-                  from: 0,
-                  to: 0,
-                  color: undefined,
-                  foreColor: undefined,
-                  name: undefined,
-              }],
-              inverse: false,
-              min: undefined,
-              max: undefined
-            },        
-        },
-        pie: {
-            customScale: 1,
-            offsetX: 0,
-            offsetY: 0,
-            expandOnClick: true,
-            dataLabels: {
-                offset: 0,
-                minAngleToShowLabel: 10
-            }, 
-            donut: {
-              size: '65%',
-              background: 'transparent',
-              labels: {
-                show: false,
-                name: {
-                  show: true,
-                  fontSize: '22px',
-                  fontFamily: 'Helvetica, Arial, sans-serif',
-                  fontWeight: 600,
-                  color: undefined,
-                  offsetY: -10
-                },
-                value: {
-                  show: true,
-                  fontSize: '16px',
-                  fontFamily: 'Helvetica, Arial, sans-serif',
-                  fontWeight: 400,
-                  color: undefined,
-                  offsetY: 16,
-                  formatter: function (val) {
-                    return val
-                  }
-                },
-                total: {
-                  show: false,
-                  showAlways: false,
-                  label: 'Total',
-                  fontSize: '22px',
-                  fontFamily: 'Helvetica, Arial, sans-serif',
-                  fontWeight: 600,
-                  color: '#373d3f',
-                  formatter: function (w) {
-                    return w.globals.seriesTotals.reduce((a, b) => {
-                      return a + b
-                    }, 0)
-                  }
-                }
-              }
-            },      
-          },
-          radar: {
-            size: undefined,
-            offsetX: 0,
-            offsetY: 0,
-            polygons: {
-              strokeColors: '#e8e8e8',
-              strokeWidth: 1,
-              connectorColors: '#e8e8e8',
-              fill: {
-                colors: undefined
-              }
-            }
-          },
-          radialBar: {
-            inverseOrder: false,
-            startAngle: 0,
-            endAngle: 360,
-            offsetX: 0,
-            offsetY: 0,
-            hollow: {
-                margin: 5,
-                size: '50%',
-                background: 'transparent',
-                image: undefined,
-                imageWidth: 150,
-                imageHeight: 150,
-                imageOffsetX: 0,
-                imageOffsetY: 0,
-                imageClipped: true,
-                position: 'front',
-                dropShadow: {
-                  enabled: false,
-                  top: 0,
-                  left: 0,
-                  blur: 3,
-                  opacity: 0.5
-                }
-            },
-            track: {
-                show: true,
-                startAngle: undefined,
-                endAngle: undefined,
-                background: '#f2f2f2',
-                strokeWidth: '97%',
-                opacity: 1,
-                margin: 5, 
-                dropShadow: {
-                    enabled: false,
-                    top: 0,
-                    left: 0,
-                    blur: 3,
-                    opacity: 0.5
-                }
-            },
-            dataLabels: {
-                show: true,
-                name: {
-                    show: true,
-                    fontSize: '16px',
-                    fontFamily: undefined,
-                    fontWeight: 600,
-                    color: undefined,
-                    offsetY: -10
-                  },
-                  value: {
-                    show: true,
-                    fontSize: '14px',
-                    fontFamily: undefined,
-                    fontWeight: 400,
-                    color: undefined,
-                    offsetY: 16,
-                    formatter: function (val) {
-                      return val + '%'
-                    }
-                  },
-                  total: {
-                    show: false,
-                    label: 'Total',
-                    color: '#373d3f',
-                    fontSize: '16px',
-                    fontFamily: undefined,
-                    fontWeight: 600,
-                    formatter: function (w) {
-                      return w.globals.seriesTotals.reduce((a, b) => {
-                        return a + b
-                      }, 0) / w.globals.series.length + '%'
-                    }
-                  }
-            }
-        }
+  series: [
+    {
+        name: "Series 1",
+        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
     }
-
+]
 };
 
 
@@ -253,7 +58,7 @@ var createFunctions = function(toCheck, currentName, parents, arr, sourceCode) {
 
 var createModuleAndDataDef = function(currentName, parents, isArray) {
     var modparents = parents.filter(p => p !== "Apexoptions")
-    var parentModuleImport = modparents[0] == "Apexoptions" || modparents.length == 0 ? "import Apexcharts" : "import Apexcharts." + joinStrs(modparents);
+    var parentModuleImport = modparents[0] == "Apexoptions" || modparents.length == 0 ? "import Apexcharts" : "import Apexcharts." + joinStrs(modparents) + " (" + modparents[modparents.length-1] + ")";
     var moduleName = modparents.length == 0 
         ? "Apexcharts." + capitalizeFLetter(currentName)
         : "Apexcharts." + joinStrs(modparents) + "." + capitalizeFLetter(currentName); 
@@ -261,7 +66,6 @@ var createModuleAndDataDef = function(currentName, parents, isArray) {
     var sourceCode = `
 module ${moduleName} where
 
-import Prelude
 
 ${parentModuleImport}
 import Data.Functor.Contravariant (cmap)
