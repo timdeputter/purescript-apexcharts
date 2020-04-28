@@ -4,26 +4,14 @@ const fs = require('fs');
 
 var desc = {  
     
-    states: {
-        normal: {
-            filter: {
-                type: 'none',
-                value: 0,
-            }
-        },
-        hover: {
-            filter: {
-                type: 'lighten',
-                value: 0.15,
-            }
-        },
-        active: {
-            allowMultipleDataPointsSelection: false,
-            filter: {
-                type: 'darken',
-                value: 0.35,
-            }
-        },
+
+    stroke: {
+        show: true,
+        curve: 'smooth',
+        lineCap: 'butt',
+        colors: undefined,
+        width: 2,
+        dashArray: 0,      
     }
 
 };
