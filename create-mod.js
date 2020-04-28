@@ -5,37 +5,36 @@ const fs = require('fs');
 var desc = {  
     
 
-    fill: {
-        colors: undefined,
-        opacity: 0.9,
-        type: 'solid',
-        gradient: {
-            shade: 'dark',
-            type: "horizontal",
-            shadeIntensity: 0.5,
-            gradientToColors: undefined,
-            inverseColors: true,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 50, 100],
-            colorStops: [{
-                offset: 0,
-                color: '#eee',
-                opacity: 1
-              }]
-        },
-        image: {
-            src: [],
-            width: undefined,
-            height: undefined
-        },
-        pattern: {
-            style: 'verticalLines',
-            width: 6,
-            height: 6,
-            strokeWidth: 2,
-        },
-      }
+    grid: {
+        show: true,
+        borderColor: '#90A4AE',
+        strokeDashArray: 0,
+        position: 'back',
+        xaxis: {
+            lines: {
+                show: false
+            }
+        },   
+        yaxis: {
+            lines: {
+                show: false
+            }
+        },  
+        row: {
+            colors: undefined,
+            opacity: 0.5
+        },  
+        column: {
+            colors: undefined,
+            opacity: 0.5
+        },  
+        padding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+        },  
+    }
 
 };
 
