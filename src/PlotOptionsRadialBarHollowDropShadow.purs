@@ -1,0 +1,30 @@
+
+module Apexcharts.PlotOptions.RadialBar.Hollow.DropShadow where
+
+import Prelude
+
+import Apexcharts.PlotOptions.RadialBar.Hollow
+import Data.Functor.Contravariant (cmap)
+import Data.Options (Option, Options, opt)
+import Data.Options as Opt
+
+data DropShadow
+
+dropShadow :: Option Hollow (Options DropShadow)
+dropShadow = cmap Opt.options (opt "dropShadow")
+
+enabled :: Option DropShadow Boolean
+enabled = opt "enabled"
+
+top :: Option DropShadow Number
+top = opt "top"
+
+left :: Option DropShadow Number
+left = opt "left"
+
+blur :: Option DropShadow Number
+blur = opt "blur"
+
+opacity :: Option DropShadow Number
+opacity = opt "opacity"
+
