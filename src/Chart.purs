@@ -9,6 +9,42 @@ import Data.Options as Opt
 
 data Chart
 
+
+data StackType = NormalStack | HundertPercent
+
+stackTypeToString :: StackType -> String
+stackTypeToString = case _ of
+  NormalStack -> "normal"
+  HundertPercent -> "100%"
+
+data ChartType = Line
+    | Area
+    | Bar
+    | Radar
+    | Histogram
+    | Pie
+    | Donut
+    | RadialBar
+    | Scatter
+    | Bubble
+    | Heatmap
+    | Candlestick
+
+chartTypeToString :: ChartType -> String
+chartTypeToString = case _ of
+    Line ->    "line"
+    Area ->    "area"
+    Bar ->    "bar"
+    Radar ->    "radar"
+    Histogram ->    "histogram"
+    Pie ->    "pie"
+    Donut ->    "donut"
+    RadialBar ->    "radialBar"
+    Scatter ->    "scatter"
+    Bubble ->    "bubble"
+    Heatmap ->    "heatmap"
+    Candlestick ->    "candlestick"
+
 chart :: Option Apexoptions (Options Chart)
 chart = cmap Opt.options (opt "chart")
 
@@ -27,8 +63,15 @@ foreColor = opt "foreColor"
 group :: Option Chart String
 group = opt "group"
 
-height :: Option Chart String
-height = opt "height"
+class ChartHeight a where
+    height :: Option Chart a  
+
+instance heightStr :: ChartHeight String where
+    height = opt "height"
+
+instance heightNum :: ChartHeight Number where
+    height = opt "height"
+
 
 id :: Option Chart String
 id = opt "id"
@@ -48,11 +91,11 @@ redrawOnParentResize = opt "redrawOnParentResize"
 stacked :: Option Chart Boolean
 stacked = opt "stacked"
 
-stackType :: Option Chart String
-stackType = opt "stackType"
+stackType :: Option Chart StackType
+stackType = cmap stackTypeToString (opt "stackType")
 
-type' :: Option Chart String
-type' = opt "type"
+type' :: Option Chart ChartType
+type' = cmap chartTypeToString (opt "type")
 
 width :: Option Chart String
 width = opt "width"

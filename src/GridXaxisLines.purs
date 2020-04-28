@@ -1,9 +1,8 @@
 
 module Apexcharts.Grid.Xaxis.Lines where
 
-import Prelude
 
-import Apexcharts.Grid.Xaxis
+import Apexcharts.Grid.Xaxis (Xaxis)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt

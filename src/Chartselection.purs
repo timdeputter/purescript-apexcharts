@@ -9,12 +9,21 @@ import Data.Options as Opt
 
 data Selection
 
+
+data SelectionType = X | Y | XY
+
+selectionTypeToString :: SelectionType -> String
+selectionTypeToString = case _ of
+    X -> "x"
+    Y -> "Y"
+    XY -> "xy"
+
 selection :: Option Chart (Options Selection)
 selection = cmap Opt.options (opt "selection")
 
 enabled :: Option Selection Boolean
 enabled = opt "enabled"
 
-type' :: Option Selection String
-type' = opt "type"
+type' :: Option Selection SelectionType
+type' = cmap selectionTypeToString (opt "type")
 

@@ -9,11 +9,26 @@ import Data.Options as Opt
 
 data Pattern
 
+data Style =     
+    VerticalLines
+    | HorizontalLines
+    | SlantedLines
+    | Squares
+    | Circles
+
+styleToString :: Style -> String
+styleToString = case _ of
+    VerticalLines -> "verticalLines"
+    HorizontalLines -> "horizontalLines"
+    SlantedLines -> "slantedLines"
+    Squares -> "squares"
+    Circles -> "circles"
+
 pattern :: Option Fill (Options Pattern)
 pattern = cmap Opt.options (opt "pattern")
 
-style :: Option Pattern String
-style = opt "style"
+style :: Option Pattern Style
+style = cmap styleToString (opt "style")
 
 width :: Option Pattern Number
 width = opt "width"

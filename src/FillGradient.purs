@@ -9,14 +9,34 @@ import Data.Options as Opt
 
 data Gradient
 
+data GradientType =
+    GradientHorizontal
+    | GradientVertical
+    | Diagonal1
+    | Diagonal2
+
+data Shade = Light | Dark
+
+shadeToString :: Shade -> String
+shadeToString = case _ of
+    Light ->  "light"
+    Dark ->  "dark"
+
+gradientTypeToString :: GradientType -> String
+gradientTypeToString = case _ of
+    GradientHorizontal -> "horizontal"
+    GradientVertical -> "vertical"
+    Diagonal1 -> "diagonal1"
+    Diagonal2 -> "diagonal2"  
+
 gradient :: Option Fill (Options Gradient)
 gradient = cmap Opt.options (opt "gradient")
 
-shade :: Option Gradient String
-shade = opt "shade"
+shade :: Option Gradient Shade
+shade = cmap shadeToString (opt "shade")
 
-type' :: Option Gradient String
-type' = opt "type"
+type' :: Option Gradient GradientType
+type' = cmap gradientTypeToString (opt "type")
 
 shadeIntensity :: Option Gradient Number
 shadeIntensity = opt "shadeIntensity"

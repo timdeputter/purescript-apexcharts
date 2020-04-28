@@ -1,9 +1,8 @@
 
 module Apexcharts.Grid.Yaxis.Lines where
 
-import Prelude
 
-import Apexcharts.Grid.Yaxis
+import Apexcharts.Grid.Yaxis (Yaxis)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt

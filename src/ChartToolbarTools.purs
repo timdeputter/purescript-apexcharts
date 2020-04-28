@@ -30,6 +30,6 @@ zoomout = opt "zoomout"
 pan :: Option Tools Boolean
 pan = opt "pan"
 
-reset :: Option Tools Number
+reset :: Option Tools Boolean
 reset = opt "reset"
 

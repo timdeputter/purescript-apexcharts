@@ -1,9 +1,9 @@
 
 module Apexcharts.Fill.Gradient.ColorStops where
 
-import Prelude
+import Prelude (map)
 
-import Apexcharts.Fill.Gradient
+import Apexcharts.Fill.Gradient (Gradient)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt

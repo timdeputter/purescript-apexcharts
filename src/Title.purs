@@ -9,14 +9,24 @@ import Data.Options as Opt
 
 data Title
 
+data Align = Left
+    | Center
+    |Right 
+
+alignToString :: Align -> String
+alignToString = case _ of
+        Left -> "left"
+        Center -> "center"
+        Right -> "right"
+
 title :: Option Apexoptions (Options Title)
 title = cmap Opt.options (opt "title")
 
 text :: Option Title String
 text = opt "text"
 
-align :: Option Title String
-align = opt "align"
+align :: Option Title Align
+align = cmap alignToString (opt "align")
 
 margin :: Option Title Number
 margin = opt "margin"

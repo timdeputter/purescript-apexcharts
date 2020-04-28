@@ -9,6 +9,18 @@ import Data.Options as Opt
 
 data Fill
 
+data FillType = Solid
+    | Gradient
+    | Pattern
+    | Image
+
+fillTypeToString :: FillType -> String
+fillTypeToString = case _ of
+    Solid ->    "solid"
+    Gradient ->    "gradient"
+    Pattern ->    "pattern"
+    Image ->    "image"
+
 fill :: Option Apexoptions (Options Fill)
 fill = cmap Opt.options (opt "fill")
 
@@ -18,6 +30,6 @@ colors = opt "colors"
 opacity :: Option Fill Number
 opacity = opt "opacity"
 
-type' :: Option Fill String
-type' = opt "type"
+type' :: Option Fill FillType
+type' = cmap fillTypeToString (opt "type")
 

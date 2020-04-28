@@ -3,20 +3,38 @@ module Apexcharts.Xaxis where
 
 
 import Apexcharts
+
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
 
 data Xaxis
 
+data AxisType = Category
+    | Datetime
+    | Numeric
+
+axisTypeToString :: AxisType -> String
+axisTypeToString = case _ of
+        Category -> "category"
+        Datetime -> "datetime"
+        Numeric -> "numeric"
+
 xaxis :: Option Apexoptions (Options Xaxis)
 xaxis = cmap Opt.options (opt "xaxis")
 
-type' :: Option Xaxis String
-type' = opt "type"
+type' :: Option Xaxis AxisType
+type' = cmap axisTypeToString (opt "type")
 
-categories :: Option Xaxis (Array String)
-categories = opt "categories"
+class XaxisCategories a where
+    categories :: Option Xaxis (Array a)
+
+
+instance strCats :: XaxisCategories String where
+    categories = opt "categories"
+
+instance intCats :: XaxisCategories Int where
+    categories = opt "categories"
 
 tickAmount :: Option Xaxis Number
 tickAmount = opt "tickAmount"

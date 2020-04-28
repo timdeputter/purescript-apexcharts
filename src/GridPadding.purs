@@ -1,9 +1,8 @@
 
 module Apexcharts.Grid.Padding where
 
-import Prelude
 
-import Apexcharts.Grid
+import Apexcharts.Grid (Grid)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
