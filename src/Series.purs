@@ -13,14 +13,15 @@ data Series
 data Paired
 
 
-class SeriesData a where
-  data' :: Option Series (Array a)
 
 series :: Option Apexoptions (Array (Options Series))
 series = cmap (map Opt.options) (opt "series")
 
 name :: Option Series String
 name = opt "name"
+
+class SeriesData a where
+  data' :: Option Series (Array a)
 
 instance numData :: SeriesData Number where
     data' = opt "data"
