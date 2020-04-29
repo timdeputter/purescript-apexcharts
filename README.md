@@ -4,12 +4,13 @@ Purescript bindings for apexcharts.js - "A modern JavaScript charting library to
 
 ## State
 
-Not all options have been wrapped til now (there are plenty of them). Basic charts do work.
+Basically all options should work. 
+Only options that take functions (events, formatters) are missing. PRS welcome!
 </br></br>
 
 ## Download and Installation
 
-Install apexcharts via npm first.
+Install apexcharts first (https://apexcharts.com/docs/installation/).
 
 ```bash
 npm install apexcharts --save
