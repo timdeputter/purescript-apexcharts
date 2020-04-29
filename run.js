@@ -31,7 +31,7 @@ async function buildExamples() {
     console.log("Building example " + el + ":"); 
     doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
   });
-  console.log("build finised");
+  console.log("build finished");
 }
 
 function doLog(res) {

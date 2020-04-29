@@ -13,9 +13,19 @@ data Series
 data Paired
 
 
+class SeriesClass a where
+    series :: Option Apexoptions (Array a)
 
-series :: Option Apexoptions (Array (Options Series))
-series = cmap (map Opt.options) (opt "series")
+
+instance seriesSeries :: SeriesClass (Options Series) where
+    series = cmap (map Opt.options) (opt "series")
+
+instance seriesInt :: SeriesClass Int where
+    series = opt "series"
+
+instance seriesNum :: SeriesClass Number where
+    series = opt "series"
+
 
 name :: Option Series String
 name = opt "name"

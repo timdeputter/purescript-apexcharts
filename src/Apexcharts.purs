@@ -16,7 +16,7 @@ foreign import data Apexchart :: Type
 colors :: Option Apexoptions (Array String)
 colors = opt "colors"  
 
-labels :: Option Apexchart (Array String)
+labels :: Option Apexoptions (Array String)
 labels = opt "labels"
 
 
