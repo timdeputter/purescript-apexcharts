@@ -25,6 +25,7 @@ data ChartType = Line
     | Pie
     | Donut
     | RadialBar
+    | RangeBar
     | Scatter
     | Bubble
     | Heatmap
@@ -40,6 +41,7 @@ chartTypeToString = case _ of
     Pie ->    "pie"
     Donut ->    "donut"
     RadialBar ->    "radialBar"
+    RangeBar -> "rangeBar"
     Scatter ->    "scatter"
     Bubble ->    "bubble"
     Heatmap ->    "heatmap"

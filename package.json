@@ -4,7 +4,7 @@
   "description": "Purescript bindings to apexcharts.js",
   "main": "index.js",
   "scripts": {
-    "test": "pulp test && node run-test.js"
+    "test": "pulp test && node run.js test"
   },
   "repository": {
     "type": "git",

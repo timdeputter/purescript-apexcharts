@@ -17,13 +17,21 @@ async function sh(cmd) {
   });
 }
 
-async function main() {
-    asyncForEach(await getExamples(), async el => {
+async function runTaikoExamples() {
+    await asyncForEach(await getExamples(), async el => {
         console.log("Running example " + el + ":"); 
         doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
         doLog(await sh(`taiko ./taiko/test-${el}.js --observe`));    
     });
     console.log("examples finished");
+}
+
+async function buildExamples() {
+  await asyncForEach(await getExamples(), async el => {
+    console.log("Building example " + el + ":"); 
+    doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
+  });
+  console.log("build finised");
 }
 
 function doLog(res) {
@@ -49,5 +57,8 @@ async function asyncForEach(array, callback) {
       await callback(array[index], index, array);
     }
 }
-  
-main();
+
+var cmd = process.argv.slice(2)[0];
+
+if(cmd === "test") runTaikoExamples();
+if(cmd === "build") buildExamples();
