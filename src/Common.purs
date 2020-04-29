@@ -1,5 +1,38 @@
 module Apexcharts.Common where
-  
+
+
+data ChartType = Line
+    | Area
+    | Bar
+    | Radar
+    | Histogram
+    | Pie
+    | Donut
+    | RadialBar
+    | RangeBar
+    | Scatter
+    | Bubble
+    | Heatmap
+    | Candlestick
+    | Column
+
+chartTypeToString :: ChartType -> String
+chartTypeToString = case _ of
+    Line ->    "line"
+    Area ->    "area"
+    Bar ->    "bar"
+    Radar ->    "radar"
+    Histogram ->    "histogram"
+    Pie ->    "pie"
+    Donut ->    "donut"
+    RadialBar ->    "radialBar"
+    RangeBar -> "rangeBar"
+    Scatter ->    "scatter"
+    Bubble ->    "bubble"
+    Heatmap ->    "heatmap"
+    Candlestick ->    "candlestick"
+    Column -> "column"
+
 
 data FontWeightStr = 
     Normal 

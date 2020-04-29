@@ -3,11 +3,11 @@ module Apexcharts.Series where
 
 
 import Apexcharts (Apexoptions)
-import Prelude (map)
-
+import Apexcharts.Common (ChartType, chartTypeToString)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
+import Prelude (map)
 
 data Series
 data Paired
@@ -79,3 +79,6 @@ instance arrNumY :: PairedY (Array Number) where
 
 fillColor :: Option Paired String
 fillColor = opt "fillColor"
+
+type' :: Option Series ChartType
+type' = cmap chartTypeToString (opt "type")

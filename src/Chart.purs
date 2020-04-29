@@ -3,6 +3,7 @@ module Apexcharts.Chart where
 
 
 import Apexcharts (Apexoptions)
+import Apexcharts.Common (ChartType, chartTypeToString)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
 import Data.Options as Opt
@@ -17,35 +18,7 @@ stackTypeToString = case _ of
   NormalStack -> "normal"
   HundertPercent -> "100%"
 
-data ChartType = Line
-    | Area
-    | Bar
-    | Radar
-    | Histogram
-    | Pie
-    | Donut
-    | RadialBar
-    | RangeBar
-    | Scatter
-    | Bubble
-    | Heatmap
-    | Candlestick
 
-chartTypeToString :: ChartType -> String
-chartTypeToString = case _ of
-    Line ->    "line"
-    Area ->    "area"
-    Bar ->    "bar"
-    Radar ->    "radar"
-    Histogram ->    "histogram"
-    Pie ->    "pie"
-    Donut ->    "donut"
-    RadialBar ->    "radialBar"
-    RangeBar -> "rangeBar"
-    Scatter ->    "scatter"
-    Bubble ->    "bubble"
-    Heatmap ->    "heatmap"
-    Candlestick ->    "candlestick"
 
 chart :: Option Apexoptions (Options Chart)
 chart = cmap Opt.options (opt "chart")

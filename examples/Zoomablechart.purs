@@ -4,6 +4,7 @@ import Prelude
 
 import Apexcharts (createChart, render)
 import Apexcharts.Chart as C
+import Apexcharts.Common as CC
 import Apexcharts.Chart.Toolbar as T
 import Apexcharts.Chart.Zoom as Z
 import Apexcharts.DataLabels as DL
@@ -23,7 +24,7 @@ main :: Effect Unit
 main = render $ createChart "#charty" (
        SE.series := [(SE.name := "XYZ MOTORS" <> SE.data' := [203, 33, 21, 435, 77, 64, 33, 22, 22, 45] )]
        <> C.chart := (
-         C.type' := C.Area 
+         C.type' := CC.Area 
          <> C.stacked := false 
          <> C.height := 350
          <> Z.zoom := (

@@ -4,6 +4,7 @@ import Prelude
 
 import Apexcharts (createChart, labels, render)
 import Apexcharts.Chart as C
+import Apexcharts.Common as CC
 import Apexcharts.PlotOptions as P
 import Apexcharts.PlotOptions.RadialBar as PR
 import Apexcharts.PlotOptions.RadialBar.DataLabels as PRD
@@ -17,7 +18,7 @@ import Effect (Effect)
 
 main :: Effect Unit
 main = render $ createChart "#radialbarchart" (
-      C.chart := (C.type' := C.RadialBar)
+      C.chart := (C.type' := CC.RadialBar)
       <> SE.series := [44, 55, 67, 83]
       <> P.plotOptions := (
           PR.radialBar := (

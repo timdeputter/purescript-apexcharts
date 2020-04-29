@@ -48,8 +48,22 @@ lineCap = cmap lineCapToString (opt "lineCap")
 colors :: Option Stroke (Array String)
 colors = opt "colors"
 
-width :: Option Stroke Number
-width = opt "width"
+
+class StrokeWidth a where
+    width :: Option Stroke a
+  
+instance numwidth :: StrokeWidth Number where
+    width = opt "width"
+
+instance intwidth :: StrokeWidth Int where
+    width = opt "width"
+
+instance arrayNumwidth :: StrokeWidth (Array Number) where
+    width = opt "width"
+
+instance arrayIntwidth :: StrokeWidth (Array Int) where
+    width = opt "width"
+
 
 dashArray :: Option Stroke Number
 dashArray = opt "dashArray"

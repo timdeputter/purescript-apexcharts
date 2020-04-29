@@ -6,6 +6,7 @@ import Apexcharts (createChart, render)
 
 
 import Apexcharts.Chart as C
+import Apexcharts.Common as CC
 import Apexcharts.Chart.Zoom as Z
 import Apexcharts.DataLabels as DL
 import Apexcharts.Stroke (Curve(..))
@@ -19,7 +20,7 @@ import Effect (Effect)
   
 main :: Effect Unit
 main =  render $ createChart "#chart" (
-        C.chart := (C.type' := C.Line <> C.height := 350.0 <> Z.zoom := (Z.enabled := false)) 
+        C.chart := (C.type' := CC.Line <> C.height := 350.0 <> Z.zoom := (Z.enabled := false)) 
         <> SE.series := [
           SE.name := "Desktops"
           <> SE.data' := [10, 41, 35, 51, 49, 62, 69, 91, 148]

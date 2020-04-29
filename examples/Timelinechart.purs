@@ -4,6 +4,7 @@ import Prelude
 
 import Apexcharts (createChart, render)
 import Apexcharts.Chart as C
+import Apexcharts.Common as CC
 import Apexcharts.Grid as G
 import Apexcharts.Grid.Row as GR
 import Apexcharts.PlotOptions as P
@@ -23,7 +24,7 @@ main = render $ createChart "#timelinechart" (
             (SE.x := "Deployment" <> SE.y := [1552348800000.0, 1552780800000.0] <> SE.fillColor := "#FF4560")
           ]
         ]
-        <> C.chart := (C.height := 350 <> C.type' := C.RangeBar)
+        <> C.chart := (C.height := 350 <> C.type' := CC.RangeBar)
         <> P.plotOptions := (
           PB.bar := (
             PB.horizontal := true 
