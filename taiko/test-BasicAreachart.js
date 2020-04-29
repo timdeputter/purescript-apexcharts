@@ -1,3 +1,4 @@
+const assert = require("assert");
 const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
 (async () => {
     try {
@@ -9,7 +10,7 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
             await text(el.toString(), below($('text.apexcharts-text > tspan'))).exists()
         });
 
-        await $(".apexcharts-area").exists();
+        assert.ok(await $(".apexcharts-area").exists());
 
     } catch (error) {
         console.error(error);

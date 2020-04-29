@@ -1,3 +1,4 @@
+const assert = require("assert");
 const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
 (async () => {
     try {
@@ -6,12 +7,12 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
         await goto("file:///" + process.cwd() + "/examples/BasicLinechart.html");
         
         ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"].forEach(async el => {
-            await text(el.toString(), below($('text.apexcharts-text > tspan'))).exists()
+            assert.ok(await text(el.toString(), below($('text.apexcharts-text > tspan'))).exists());
         });
-        await $('line.apexcharts-gridline').exists();
-        await $('path.apexcharts-line').exists();
-        await text("150").exists();
-        await text("Product Trends by Month").exists();
+        assert.ok(await $('line.apexcharts-gridline').exists());
+        assert.ok(await $('path.apexcharts-line').exists());
+        assert.ok(await text("150").exists());
+        assert.ok(await text("Product Trends by Month").exists());
     } catch (error) {
         console.error(error);
     } finally {

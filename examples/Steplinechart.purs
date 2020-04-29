@@ -15,7 +15,7 @@ import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
-main = render $ createChart "#chart" (
+main = render $ createChart "#steplinechart" (
        SE.series := [(SE.data' := [34, 44, 54, 21, 12, 43, 33, 23, 66, 66, 58] )]
        <> C.chart := (C.type' := CC.Line <> C.height := 350)       
        <> S.stroke := (S.curve := S.Stepline)

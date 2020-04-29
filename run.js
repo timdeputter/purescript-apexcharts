@@ -18,12 +18,26 @@ async function sh(cmd) {
 }
 
 async function runTaikoExamples() {
-    await asyncForEach(await getExamples(), async el => {
-        console.log("Running example " + el + ":"); 
-        doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
-        doLog(await sh(`taiko ./taiko/test-${el}.js --observe`));    
+  var examples = await getExamples();
+  var failed = 0;
+    await asyncForEach(examples, async el => {
+      if(await runExample(el) == "failed") failed++;
     });
-    console.log("examples finished");
+    var count = examples.length;
+    console.log(`${count} examples finished. ${failed} failed.`);
+    if(failed > 0) process.exit(-1);
+}
+
+async function runExample(el) {
+  console.log("Running example " + el + ":"); 
+  doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
+  try {
+    doLog(await sh(`taiko ./taiko/test-${el}.js --observe`));  
+  } catch (error) {
+    console.error(`Example ${el} failed!`)
+    return "failed";
+  }
+  return "success";
 }
 
 async function buildExamples() {
@@ -36,7 +50,7 @@ async function buildExamples() {
 
 function doLog(res) {
     console.log(res.stdout);
-    console.log(res.stderr);
+    console.error(res.stderr);
 }
 
 
@@ -58,7 +72,13 @@ async function asyncForEach(array, callback) {
     }
 }
 
-var cmd = process.argv.slice(2)[0];
+var args = process.argv.slice(2);
 
-if(cmd === "test") runTaikoExamples();
-if(cmd === "build") buildExamples();
+if(args.length > 0) {
+  var cmd = args[0];
+  if(cmd === "test") runTaikoExamples();
+  if(cmd === "build") buildExamples();
+} else {
+  runExample("Radialbarchart");
+}
+

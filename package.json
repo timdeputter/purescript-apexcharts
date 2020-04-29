@@ -23,5 +23,8 @@
   "homepage": "https://github.com/timdeputter/purescript-apexcharts#readme",
   "dependencies": {
     "apexcharts": "^3.18.1"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.2"
   }
 }
