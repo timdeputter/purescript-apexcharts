@@ -36,6 +36,10 @@ instance strCats :: XaxisCategories String where
 instance intCats :: XaxisCategories Int where
     categories = opt "categories"
 
+instance numCats :: XaxisCategories Number where
+    categories = opt "categories"
+
+
 tickAmount :: Option Xaxis Number
 tickAmount = opt "tickAmount"
 
