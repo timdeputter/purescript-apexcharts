@@ -3,7 +3,6 @@ module Test.Main where
 
 
 import Apexcharts (colors, labels)
-import Apexcharts.Chart (ChartType(..))
 import Apexcharts.Chart as C
 import Apexcharts.Common as COM
 import Apexcharts.Chart.Animations (Easing(..), animations)
@@ -74,7 +73,7 @@ main = run [specReporter] do
         <> "\"series\":[{\"name\":\"sales\",\"data\":[30,40,35,50,49,60,70,91,125]}],"
         <> "\"xaxis\":{\"categories\":[1991,1992,1993,1994,1995,1996,1997,1998,1999]}}"
       basicChart =  (
-        C.chart := (C.type' := Line) 
+        C.chart := (C.type' := COM.Line) 
         <> SE.series := [
           SE.name := "sales"
           <> SE.data' := [30,40,35,50,49,60,70,91,125]
@@ -183,7 +182,7 @@ main = run [specReporter] do
           <> CTT.zoomout := true <> CTT.pan := true <> CTT.reset := true)))) 
             `shouldBeOption` ("{\"chart\":{\"toolbar\":{\"tools\":{\"zoomin\":true,\"zoom\":true,\"download\":true," 
               <> "\"selection\":true,\"zoomout\":true,\"pan\":true,\"reset\":true}}}}")
-      it "type" $ (C.chart := (C.type' := Line)) `shouldBeOption` "{\"chart\":{\"type\":\"line\"}}"
+      it "type" $ (C.chart := (C.type' := COM.Line)) `shouldBeOption` "{\"chart\":{\"type\":\"line\"}}"
       it "width" $ (C.chart := (C.width := "100%")) `shouldBeOption` "{\"chart\":{\"width\":\"100%\"}}"
       describe "zoom" do
         it "enabled" $ (C.chart := (Z.zoom := (Z.enabled := true))) `shouldBeOption` "{\"chart\":{\"zoom\":{\"enabled\":true}}}"
