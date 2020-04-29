@@ -3,7 +3,7 @@
 Build the examples first:
 
 ```bash
-pulp browserify --include examples --main Examples.${examplename} --to examples/build/${examplename}.js
+node run.js build
 ```
 
-then open the corresponding html file in your browser.
+then point your browser to the examples html file.
