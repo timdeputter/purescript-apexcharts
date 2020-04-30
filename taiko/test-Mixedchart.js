@@ -7,8 +7,6 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
         await goto("file:///" + process.cwd() + "/examples/Mixedchart.html");
         assert.ok(await $(".apexcharts-area-series").exists());
         assert.ok(await $(".apexcharts-bar-series").exists());
-    } catch (error) {
-        console.error(error);
     } finally {
         await closeBrowser();
     }

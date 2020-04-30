@@ -9,8 +9,6 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
         assert.ok(await $("g[seriesName=\"PRODUCTxA\"]").exists());
         assert.ok(await $("g[seriesName=\"PRODUCTxB\"]").exists());
         assert.ok(await $("g[seriesName=\"PRODUCTxC\"]").exists());
-    } catch (error) {
-        console.error(error);
     } finally {
         await closeBrowser();
     }

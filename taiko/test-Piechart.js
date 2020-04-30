@@ -6,9 +6,6 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
         await openBrowser({args: [" --window-position=2000,3000"]});
         await goto("file:///" + process.cwd() + "/examples/Piechart.html");
         assert.ok(await $(".apexcharts-pie-series").exists());
-
-    } catch (error) {
-        console.error(error);
     } finally {
         await closeBrowser();
     }

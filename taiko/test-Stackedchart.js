@@ -8,8 +8,6 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
         
         assert.ok(await $('path.apexcharts-area').exists());
 
-    } catch (error) {
-        console.error(error);
     } finally {
         await closeBrowser();
     }

@@ -7,8 +7,6 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
         await goto("file:///" + process.cwd() + "/examples/Steplinechart.html");
         assert.ok(await $(".apexcharts-line").exists());
 
-    } catch (error) {
-        console.error(error);
     } finally {
         await closeBrowser();
     }

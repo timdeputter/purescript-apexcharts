@@ -6,8 +6,6 @@ const { openBrowser, goto, text, $, closeBrowser, below } = require('taiko');
         await openBrowser({args: [" --window-position=2000,3000"]});
         await goto("file:///" + process.cwd() + "/examples/Scatteredchart.html");
         assert.ok(await $(".apexcharts-series-scatter").exists());
-    } catch (error) {
-        console.error(error);
     } finally {
         await closeBrowser();
     }
