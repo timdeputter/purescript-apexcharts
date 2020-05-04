@@ -33,3 +33,5 @@ offsetY = opt "offsetY"
 rotate :: Option Labels Number
 rotate = opt "rotate"
 
+formatter :: Option Labels (String -> String)
+formatter = opt "formatter"

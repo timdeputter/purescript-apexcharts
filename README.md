@@ -5,7 +5,7 @@ Purescript bindings for apexcharts.js - "A modern JavaScript charting library to
 ## State
 
 Basically all options should work. 
-Only options that take functions (events, formatters) are missing. PRS welcome!
+Only some options that take functions (events, formatters) are missing. PRS welcome!
 </br></br>
 
 ## Download and Installation

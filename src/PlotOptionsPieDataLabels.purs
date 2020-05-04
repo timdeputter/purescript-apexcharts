@@ -18,3 +18,5 @@ offset = opt "offset"
 minAngleToShowLabel :: Option DataLabels Number
 minAngleToShowLabel = opt "minAngleToShowLabel"
 
+formatter :: Option DataLabels (Number -> String)
+formatter = opt "formatter"

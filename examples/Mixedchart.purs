@@ -11,8 +11,13 @@ import Apexcharts.PlotOptions.Bar as PB
 import Apexcharts.Series as SE
 import Apexcharts.Stroke as S
 import Apexcharts.Xaxis as X
+import Apexcharts.Xaxis.Labels as XL
 import Apexcharts.Yaxis as Y
+import Apexcharts.Yaxis.Labels as YL
 import Apexcharts.Yaxis.Title as YT
+import Data.Int (round)
+import Data.Maybe (fromMaybe)
+import Data.Number as N
 import Data.Options ((:=))
 import Effect (Effect)
 
@@ -35,7 +40,15 @@ main = render $ createChart "#mixedchart" (
       <> labels := ["01/01/2003", "02/01/2003", "03/01/2003", "04/01/2003", "05/01/2003", "06/01/2003", "07/01/2003",
         "08/01/2003", "09/01/2003", "10/01/2003", "11/01/2003"]
       <> M.markers := (M.size := 0.0)
-      <> X.xaxis := (X.type' := X.Datetime)
-      <> Y.yaxis := (YT.title := (YT.text := "Points") <> Y.min := 0.0)
+      <> X.xaxis := (
+        X.type' := X.Datetime <> XL.labels := (
+          XL.formatter := (\val -> "T:" <> val)
+        )
+      )
+      <> Y.yaxis := (
+        YT.title := (YT.text := "Points") <> Y.min := 0.0 <> YL.labels := (
+          YL.formatter := (\val -> (fromMaybe "" ((N.fromString val) <#> round <#> show)) <> " SP")
+        )
+      )
       <> P.plotOptions := (PB.bar := (PB.columnWidth := "50%"))
   )

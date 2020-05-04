@@ -37,4 +37,5 @@ color = opt "color"
 offsetY :: Option Value Number
 offsetY = opt "offsetY"
 
-
+formatter :: Option DataLabels (Number -> String)
+formatter = opt "formatter"

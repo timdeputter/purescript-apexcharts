@@ -42,3 +42,5 @@ offsetX = opt "offsetX"
 offsetY :: Option DataLabels Number
 offsetY = opt "offsetY"
 
+formatter :: Option DataLabels (Number -> String)
+formatter = opt "formatter"

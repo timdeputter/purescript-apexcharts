@@ -48,3 +48,5 @@ format = opt "format"
 datetimeUTC :: Option Labels Boolean
 datetimeUTC = opt "datetimeUTC"
 
+formatter :: Option Labels (String -> String)
+formatter = opt "formatter"
