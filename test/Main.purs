@@ -4,7 +4,6 @@ module Test.Main where
 
 import Apexcharts (colors, labels)
 import Apexcharts.Chart as C
-import Apexcharts.Common as COM
 import Apexcharts.Chart.Animations (Easing(..), animations)
 import Apexcharts.Chart.Animations as A
 import Apexcharts.Chart.Animations.AnimateGradually (animateGradually, delay, enabled) as AG
@@ -26,6 +25,7 @@ import Apexcharts.Chart.Zoom as Z
 import Apexcharts.Chart.Zoom.ZoomedArea as ZA
 import Apexcharts.Chart.Zoom.ZoomedArea.Fill as ZAF
 import Apexcharts.Chart.Zoom.ZoomedArea.Stroke as ZAS
+import Apexcharts.Common as COM
 import Apexcharts.DataLabels (TextAnchor(..), dataLabels)
 import Apexcharts.DataLabels as DL
 import Apexcharts.DataLabels.Background as DLB
@@ -57,16 +57,16 @@ import Apexcharts.Xaxis as X
 import Data.Options (Options, (:=))
 import Data.Options as Opt
 import Effect (Effect)
-import Effect.Aff (Aff)
+import Effect.Aff (Aff, launchAff_)
 import Foreign (Foreign)
 import Prelude (Unit, discard, ($), (<>))
 import Test.Spec (describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter (specReporter)
-import Test.Spec.Runner (run)
+import Test.Spec.Runner (runSpec)
 
 main :: Effect Unit
-main = run [specReporter] do
+main = launchAff_ $ runSpec [specReporter] do
   describe "basic chart" do
     let 
       expected = "{\"chart\":{\"type\":\"line\"}," 
