@@ -19,7 +19,6 @@
     "purescript-maybe": "^4.0.0",
     "purescript-foldable-traversable": "^4.0.0",
     "purescript-formatters": "^4.0.0",
-    "purescript-hedwig": "^0.1.1",
     "purescript-stringutils": "^0.0.10",
     "purescript-uuid": "^5.0.0",
     "purescript-foreign": "^5.0.0",
