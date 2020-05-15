@@ -22,6 +22,12 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       
+    - name: Install npm
+      run: npm install
+
+    - name: Install npm
+      run: bower install
+      
     - name: Run mocha integrationtests
       run: pulp test
 
