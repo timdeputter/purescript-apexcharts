@@ -32,6 +32,6 @@ jobs:
     - name: bower install
       run: ./node_modules/bower/bin/bower install
       
-    - name: Run mocha integrationtests
-      run: ./node_modules/pulp/pulp test
+    - name: Run tests
+      run: ./node_modules/pulp/pulp.js test
 
