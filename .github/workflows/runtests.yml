@@ -23,7 +23,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install bower
-      run: npm install bower
+      run: npm install bower pulp
 
 
     - name: npm install
