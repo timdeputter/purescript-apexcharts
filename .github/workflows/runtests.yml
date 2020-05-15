@@ -30,7 +30,7 @@ jobs:
       run: npm install
 
     - name: Install npm
-      run: bower install
+      run: ./node_modules/bower/bin/bower install
       
     - name: Run mocha integrationtests
       run: pulp test
