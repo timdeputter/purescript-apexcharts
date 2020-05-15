@@ -26,10 +26,10 @@ jobs:
       run: npm install bower
 
 
-    - name: Install npm
+    - name: npm install
       run: npm install
 
-    - name: Install npm
+    - name: bower install
       run: ./node_modules/bower/bin/bower install
       
     - name: Run mocha integrationtests
