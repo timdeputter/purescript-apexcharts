@@ -33,5 +33,5 @@ jobs:
       run: ./node_modules/bower/bin/bower install
       
     - name: Run tests
-      run: ./node_modules/pulp/pulp.js test
+      run: node ./node_modules/pulp/pulp.js test
 
