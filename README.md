@@ -1,8 +1,5 @@
-# purescript-apexcharts [![GitHub](https://img.shields.io/github/license/timdeputter/purescript-apexcharts)](https://github.com/timdeputter/purescript-apexcharts/blob/master/LICENSE)
-  <img src="https://pursuit.purescript.org/packages/purescript-apexcharts/badge"
-       alt="purescript-apexcharts on Pursuit">
-  </img>
-  
+# purescript-apexcharts [![GitHub](https://img.shields.io/github/license/timdeputter/purescript-apexcharts)](https://github.com/timdeputter/purescript-apexcharts/blob/master/LICENSE) <img src="https://pursuit.purescript.org/packages/purescript-apexcharts/badge" alt="purescript-apexcharts on Pursuit"> </img>
+
 Purescript bindings for apexcharts.js - "A modern JavaScript charting library to build interactive charts and visualizations with simple API" (https://apexcharts.com)
 
 
