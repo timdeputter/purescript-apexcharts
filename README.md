@@ -1,6 +1,6 @@
-# purescript-apexcharts
+# purescript-apexcharts ![GitHub](https://img.shields.io/github/license/timdeputter/purescript-apexcharts)
 Purescript bindings for apexcharts.js - "A modern JavaScript charting library to build interactive charts and visualizations with simple API" (https://apexcharts.com)
-![GitHub](https://img.shields.io/github/license/timdeputter/purescript-apexcharts)
+
 
 ## State
 
