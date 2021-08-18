@@ -12,3 +12,4 @@
 firebase-debug.log
 /build/
 /examples/build/
+/.spago/
