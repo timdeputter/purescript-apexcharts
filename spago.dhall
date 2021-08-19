@@ -8,6 +8,7 @@
   , "prelude"
   , "psci-support"
   , "spec"
+  , "web-dom"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
