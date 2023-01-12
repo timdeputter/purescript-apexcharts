@@ -1,36 +1,17 @@
-"use strict";
+export const _createChart = selector => apexoptions => ({selector, apexoptions});
 
-// module Apexcharts
+export const _createChartEl = el => apexoptions = ({el, apexoptions});
 
-
-exports._createChart = function(selector){
-    return function(apexoptions){
-        return {selector, apexoptions};
+export const render = chartDef => () => {
+    let chart;
+    if (chartDef.el) {
+        chart = new ApexCharts(chartDef.el, chartDef.apexoptions);
+    } else {
+        chart = new ApexCharts(document.querySelector(chartDef.selector), chartDef.apexoptions);
     }
+    chart.render();
+}
+
+export const _updateOptions = chart => newOptions => {
+    chart.updateOptions(newOptions);
 };
-
-exports._createChartEl = function(el){
-    return function(apexoptions){
-        return {el, apexoptions};
-    }
-};
-
-
-exports.render = function(chartDef){
-    return function() {
-        var chart;
-        if (chartDef.el) {
-            chart = new ApexCharts(chartDef.el, chartDef.apexoptions);
-        } else {
-            chart = new ApexCharts(document.querySelector(chartDef.selector), chartDef.apexoptions);
-        }
-        chart.render();
-    };
-};
-
-exports._updateOptions = function(chart) {
-    return function(newOptions) {
-        return function() {chart.updateOptions(newOptions);};
-    };
-};
-
