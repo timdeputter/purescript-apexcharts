@@ -1,29 +1,24 @@
 {
-  "name": "purescript-apexcharts",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/timdeputter/purescript-apexcharts.git"
-  },
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "output"
-  ],
-  "dependencies": {
-    "purescript-prelude": "^4.1.0",
-    "purescript-console": "^4.1.0",
-    "purescript-effect": "^2.0.0",
-    "purescript-maybe": "^4.0.0",
-    "purescript-foreign": "^5.0.0",
-    "purescript-foreign-object": "^2.0.3",
-    "purescript-numbers": "^7.0.0",
-    "purescript-options": "^5.0.0"
-  },
-  "devDependencies": {
-    "purescript-aff": "^5.0.1",
-    "purescript-psci-support": "^4.0.0",
-    "purescript-spec": "^3.0.0"
-  }
+    "name": "purescript-apexcharts",
+    "license": [
+        "MIT"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/timdeputter/purescript-apexcharts.git"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "output"
+    ],
+    "dependencies": {
+        "purescript-contravariant": "^v6.0.0",
+        "purescript-effect": "^v4.0.0",
+        "purescript-foreign": "^v7.0.0",
+        "purescript-options": "^v7.0.0",
+        "purescript-prelude": "^v6.0.1",
+        "purescript-web-dom": "^v6.0.0"
+    }
 }
