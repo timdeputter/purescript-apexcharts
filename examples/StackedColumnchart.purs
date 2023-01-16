@@ -1,7 +1,8 @@
 module Examples.StackedColumnchart where
 
-import Apexcharts (createChart, render)
+import Prelude
 
+import Apexcharts (createChart, render)
 import Apexcharts.Chart as C
 import Apexcharts.Common as CC
 import Apexcharts.Fill as F
@@ -9,10 +10,10 @@ import Apexcharts.Series as SE
 import Apexcharts.Xaxis as X
 import Data.Options ((:=))
 import Effect (Effect)
-import Prelude (Unit, ($), (<>))
+
   
 main :: Effect Unit
-main = render $ createChart "#chart" (
+main = render =<< createChart "#chart" (
         C.chart := (C.type' := CC.Bar <> C.stacked := true <> C.stackType := C.HundertPercent)
         <> SE.series := [
           SE.name := "PRODUCT A"

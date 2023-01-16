@@ -27,7 +27,7 @@ main =
     dataLabels' = DL.enabled := false  
     stroke' = S.curve := Smooth
     
-  in render $ createChart "#chart" (
+  in render =<< createChart "#chart" (
         C.chart := chart' <> SE.series := series' <> S.stroke := stroke' 
         <> DL.dataLabels := dataLabels' 
         <> X.xaxis := xaxis' 

@@ -17,7 +17,7 @@ import Effect (Effect)
 
 
 main :: Effect Unit
-main = render $ createChart "#radialbarchart" (
+main = render =<< createChart "#radialbarchart" (
       C.chart := (C.type' := CC.RadialBar)
       <> SE.series := [44, 55, 67, 83]
       <> P.plotOptions := (

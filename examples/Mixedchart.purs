@@ -23,7 +23,7 @@ import Effect (Effect)
 
 
 main :: Effect Unit
-main = render $ createChart "#mixedchart" (
+main = render =<< createChart "#mixedchart" (
       C.chart := (C.type' := CC.Line <> C.height := 350 <> C.stacked := false)
       <> SE.series := [
           (SE.name := "TEAM A"

@@ -13,7 +13,7 @@ import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
-main = render $ createChart "#scatteredchart" (
+main = render =<< createChart "#scatteredchart" (
       SE.series := [
          (SE.name := "SAMPLE A" <> SE.data' := [
             [16.4, 5.4], [21.7, 2.0], [25.4, 3.0], [19.0, 2.0], [10.9, 1.0], [13.6, 3.2], 
