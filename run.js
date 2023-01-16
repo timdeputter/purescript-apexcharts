@@ -30,11 +30,11 @@ async function runTaikoExamples() {
 
 async function runExample(el) {
   console.log("Running example " + el + ":"); 
-  doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
+  doLog(await sh(`spago -x examples.dhall bundle-app  -m Examples.${el} --to examples/build/${el}.js`));
   try {
     doLog(await sh(`taiko ./taiko/test-${el}.js --observe`));  
   } catch (error) {
-    console.error(`Example ${el} failed!`)
+    console.error(`Example ${el} failed!: ${error}`)
     return "failed";
   }
   return "success";
@@ -43,7 +43,7 @@ async function runExample(el) {
 async function buildExamples() {
   await asyncForEach(await getExamples(), async el => {
     console.log("Building example " + el + ":"); 
-    doLog(await sh(`pulp browserify --include examples --main Examples.${el} --to examples/build/${el}.js`));
+    doLog(await sh(`spago bundle-app -x examples.dhall -m Examples.${el} --to examples/build/${el}.js`));
   });
   console.log("build finished");
 }

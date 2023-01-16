@@ -1,15 +1,14 @@
 { name = "apexcharts"
+, license = "MIT"
+, repository = "https://github.com/timdeputter/purescript-apexcharts.git"
 , dependencies =
-  [ "aff"
-  , "contravariant"
+  [ "contravariant"
   , "effect"
   , "foreign"
   , "options"
   , "prelude"
-  , "psci-support"
-  , "spec"
   , "web-dom"
   ]
 , packages = ./packages.dhall
-, sources = [ "src/**/*.purs", "test/**/*.purs" ]
+, sources = [ "src/**/*.purs" ]
 }

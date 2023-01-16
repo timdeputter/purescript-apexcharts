@@ -4,7 +4,7 @@
   "description": "Purescript bindings to apexcharts.js",
   "main": "index.js",
   "scripts": {
-    "test": "pulp test && node run.js test"
+    "test": "spago -x test.dhall test && node run.js test"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,13 @@
   },
   "homepage": "https://github.com/timdeputter/purescript-apexcharts#readme",
   "dependencies": {
-    "apexcharts": "^3.24.0"
+    "apexcharts": "^3.36.3"
   },
   "devDependencies": {
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "esbuild": "^0.16.17",
+    "purescript": "^0.15.7",
+    "spago": "^0.20.9",
+    "taiko": "^1.3.5"
   }
 }

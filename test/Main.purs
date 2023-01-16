@@ -1,7 +1,5 @@
 module Test.Main where
 
-
-
 import Apexcharts (colors, labels)
 import Apexcharts.Chart as C
 import Apexcharts.Common as COM

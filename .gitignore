@@ -13,3 +13,4 @@ firebase-debug.log
 /build/
 /examples/build/
 /.spago/
+package-lock.json

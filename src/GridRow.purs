@@ -1,7 +1,6 @@
-
 module Apexcharts.Grid.Row where
 
-
+import Prim hiding (Row)
 import Apexcharts.Grid (Grid)
 import Data.Functor.Contravariant (cmap)
 import Data.Options (Option, Options, opt)
