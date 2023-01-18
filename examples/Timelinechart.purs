@@ -15,7 +15,7 @@ import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
-main = render $ createChart "#timelinechart" (
+main = render =<< createChart "#timelinechart" (
         SE.series := [SE.data' := [
             (SE.x := "Analysis" <> SE.y := [1551225600000.0, 1551657600000.0] <> SE.fillColor := "#008FFB"),
             (SE.x := "Design" <> SE.y := [1551657600000.0, 1552003200000.0] <> SE.fillColor := "#00E396"),

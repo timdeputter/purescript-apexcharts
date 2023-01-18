@@ -13,7 +13,7 @@ import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
-main =  render $ createChart "#chart" (
+main = render =<< createChart "#chart" (
         C.chart := (C.type' := CC.Bar) 
         <> SE.series := [
           SE.name := "sales"

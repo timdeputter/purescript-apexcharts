@@ -21,7 +21,7 @@ import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
-main = render $ createChart "#charty" (
+main = render =<< createChart "#charty" (
        SE.series := [(SE.name := "XYZ MOTORS" <> SE.data' := [203, 33, 21, 435, 77, 64, 33, 22, 22, 45] )]
        <> C.chart := (
          C.type' := CC.Area 

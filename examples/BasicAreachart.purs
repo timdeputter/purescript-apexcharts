@@ -15,7 +15,7 @@ import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
-main = render $ createChart "#chart" (
+main = render =<< createChart "#chart" (
         C.chart := (C.type' := CC.Area <> C.height := 350.0 <> Z.zoom := (Z.enabled := false)) 
         <> SE.series := [SE.name := "STOCK ABC" <> SE.data' := [31, 40, 28, 51, 42, 109, 100]]
         <> S.stroke := S.curve := Smooth

@@ -11,7 +11,7 @@ import Data.Options ((:=))
 import Effect (Effect)
   
 main :: Effect Unit
-main = render $ createChart "#donutchart" (
+main = render =<< createChart "#donutchart" (
         C.chart := (C.type' := CC.Donut)
         <> SE.series := [44, 55, 41, 17, 15]
   )
